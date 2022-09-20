@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>1741-1597025404253</coId><text>通过style属性修改元素样式，每修改一个样式，浏览器需要重新渲染一次页面</text><inline-styles/><styles/></para><para><coId>3552-1597027460593</coId><text>可以通过替换盒子来提高性能，表现和行为分离</text><inline-styles/><styles/></para><para><coId>7420-1597028258333</coId><text>向一个class添加多个class的练习：</text><inline-styles/><styles/></para><attach><coId>7810-1597028418396</coId><source>https://note.youdao.com/yws/res/8852/30111712A67A4BD8A1E2250113151170</source><resource>https://note.youdao.com/yws/res/8853/2F22B662EF7F4C39BFAC10C222C0BB32</resource><filename>02.类的操作.html</filename><filelength>3248</filelength><styles/></attach><para><coId>9870-1597028418395</coId><text/><inline-styles/><styles/></para><para><coId>9751-1597034011164</coId><text/><inline-styles/><styles/></para><para><coId>8393-1597034011285</coId><text>JSON</text><inline-styles/><styles/></para><code><coId>5161-1597034020259</coId><text>JSON在开发中主要用来数据的交互
+JavaScript Object Notation JS对象表示法
+- JSON和JS对象的格式一样，只不过JSON字符串中的属性名必须加双引号
+    JSON分类：
+        1.对象 {}
+        2.数组 []
+    JSON中允许的值：
+    1.字符串2.数值3.布尔值4.null 5.对象6.数组
+    
+    
+
+将JSON字符串转换为JS中的对象
+在JS中，为我们提供了一个工具类，就叫JSON
+这个对象可以帮助我们将一个JSON转换为JS对象，也可以将一个JS对象转换为JSON
+var obj=JSON.parse(json);
+var str=JSON.stringify(obj);
+
+eval()
+- 这个函数可以用来执行一段字符串形式的JS代码，并将执行结果返回
+- 如果使用eval()执行的字符串中含有{},它会将{}当成是代码块
+如果不希望将其当成代码块解析，则需要在字符串前后各加一个()
+
+- eval()这个函数的功能很强大，可以直接执行一个字符串中的js代码，
+但是在开发中尽量不要使用，首先它的执行性能比较差，然后它还具有安全隐患
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>5842-1597034020259</coId><text/><inline-styles/><styles/></para></body></note>

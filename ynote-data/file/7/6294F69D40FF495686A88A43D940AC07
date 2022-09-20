@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><heading compat="true" level="a"><coId>5324-1606383949640</coId><text>上传</text><inline-styles><bold><from>0</from><to>2</to><value>true</value></bold><font-size><from>0</from><to>2</to><value>32</value></font-size></inline-styles><styles/></heading><para><coId>1454-1606385699020</coId><text>apache:  commons-fileupload.jar组件</text><inline-styles/><styles/></para><para><coId>1044-1606385663902</coId><text>commons-fileupload.jar依赖commons-io.jar</text><inline-styles/><styles/></para><para><coId>8472-1606387962711</coId><text> </text><inline-styles/><styles/></para><para><coId>9046-1606387935485</coId><text>上传文件提交操作必须是post，上传问价表单必须加上enctype="multipart/form-data"作为依赖</text><inline-styles/><styles/></para><para><coId>3760-1606723647805</coId><text/><inline-styles/><styles/></para><para><coId>5115-1606723647958</coId><text>前台：</text><inline-styles/><styles/></para><code><coId>4554-1606723657045</coId><text>&lt;%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;form action="upLoadServlet" method="post" enctype="multipart/form-data"&gt;
+		学号：&lt;input name="sno" /&gt;&lt;br/&gt;
+		姓名：&lt;input name="sname"/&gt;&lt;br&gt;
+		上传照片：&lt;input type="file" name="picture"/&gt;
+		&lt;input type="submit" value="注册"/&gt;
+	&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>7790-1606723672074</coId><text>后台：</text><inline-styles/><styles/></para><code><coId>9037-1606723672074</coId><text>@WebServlet("/upLoadServlet")
+public class upLoadServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    public upLoadServlet() {
+        super();
+    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		//判断前台enctype="multipart/form-data"，是否有multipart
+		boolean isMultipartContent=ServletFileUpload.isMultipartContent(request);
+		if(isMultipartContent) {
+			List&lt;FileItem&gt; items=null;
+			FileItemFactory factory=new DiskFileItemFactory();
+			ServletFileUpload upload=new ServletFileUpload(factory);//创建ServletFileUpload对象操作form表单内容
+			//通过parseRequest解析form中的所有请求字段，并保存到items集合中（即前台中的sno等就保存在了item中）
+			try {
+				items=upload.parseRequest(request);
+				//迭代器遍历items
+				Iterator&lt;FileItem&gt; iter=items.iterator();
+				while(iter.hasNext()) {
+					FileItem item=iter.next();
+					String itemname=item.getFieldName();//
+					int sno=-1;
+					String sname=null; 
+					if(item.isFormField()) {
+						if(itemname.equals("sno")) {//根据name属性判断item的字段
+							sno=Integer.parseInt(  item.getString("utf-8"));
+						}else if(itemname.equals("sname")) {
+							sname=item.getString();
+						}else {
+							System.out.println("其他字段");
+						}
+					}else {//picture
+						//文件上传,先拿文件名
+						//getFieldName是获取普通表单字段的Name值，getName()是获取文件名
+						String filename=item.getName();
+						
+						//定义文件路径，指定文件上传位置（服务器路径D:\\program files\\apache-tomcat-9.0.36\\wtpwebapps\\upload）
+						String path = "D:\\.temp\\upload";
+						File file=new File(path,filename);
+						//获取文件内容并上传
+						item.write(file);
+						System.out.println("上传成功："+filename);
+						return;
+					}
+					
+				}
+			} catch (FileUploadException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><attach><coId>5837-1606724765162</coId><source>https://note.youdao.com/yws/res/9784/07137219797646A29A3040F063A416D4</source><resource>https://note.youdao.com/yws/res/9785/7F22316BAF9741A3A536DF0243F1E6BB</resource><filename>upLoadServlet.java</filename><filelength>2917</filelength><styles/></attach><image><coId>8315-1606723735140</coId><source>https://note.youdao.com/yws/res/9779/CB242F28A33349B2B6A433FCDFAD2A1F</source><text/><styles><width>620</width><height>122</height></styles></image><para><coId>3925-1606724752457</coId><text/><inline-styles/><styles/></para><para><coId>3563-1606724752457</coId><text>对获取的文件进行类型过滤：</text><inline-styles/><styles/></para><para><coId>1814-1606725333728</coId><text/><inline-styles/><styles/></para><code><coId>3187-1606725833428</coId><text>String filename=item.getName();//获取到用户上传的文件名
+//对文件名进行过滤
+String ext=filename.substring(filename.indexOf(".")+1);
+if(!(ext.equals("png")||ext.equals("gif")||ext.equals("jpg"))) {
+System.out.println("上传的图片格式有误");
+return;
+}
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>6143-1606723737522</coId><text/><inline-styles/><styles/></para><para><coId>2848-1606723737653</coId><text>对获取的文件设置限制大小：</text><inline-styles/><styles/></para><code><coId>3060-1606726405507</coId><text>这段代码应放在upload后，parse解析之前
+
+//设置上传文件时缓冲区大小,DiskFileItemFactory,需要将FileItemFactory接口换为实现类
+factory.setSizeThreshold(1024);
+//控制上传的单个文件大小,ServletFileUpload
+upload.setSizeMax(10240);//10kb
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>6033-1606723732453</coId><text/><inline-styles/><styles/></para><para><coId>8518-1606727394293</coId><text/><inline-styles/><styles/></para><para><coId>1544-1606727394821</coId><text/><inline-styles/><styles/></para><para><coId>1693-1606727394885</coId><text/><inline-styles/><styles/></para><para><coId>6540-1606727394900</coId><text/><inline-styles/><styles/></para><para><coId>7864-1606727394937</coId><text/><inline-styles/><styles/></para><para><coId>9194-1606727394941</coId><text/><inline-styles/><styles/></para><horizontal-line><coId>5583-1606727399902</coId><styles/></horizontal-line><heading compat="true" level="a"><coId>7660-1606727399902</coId><text>下载</text><inline-styles><bold><from>0</from><to>2</to><value>true</value></bold><font-size><from>0</from><to>2</to><value>32</value></font-size></inline-styles><styles/></heading><para><coId>2279-1606727456840</coId><text>不需要任何jar包</text><inline-styles/><styles/></para><para><coId>7699-1606727636917</coId><text>①：请求（a，form），请求Servlet</text><inline-styles/><styles/></para><para><coId>9620-1606727667815</coId><text>②Servlet通过文件地址，将文件转为输入流，读到Servlet中</text><inline-styles/><styles/></para><para><coId>2036-1606727720822</coId><text>③通过输出流将刚才已经转为输入流的文件，输出给用户</text><inline-styles/><styles/></para><para><coId>3350-1606809873243</coId><text/><inline-styles/><styles/></para><para><coId>4686-1606809591043</coId><text>消息头kv对，</text><inline-styles/><styles/></para><para><coId>2593-1606809647610</coId><text>值MIME类型：</text><inline-styles/><styles/></para><image><coId>4356-1606809578256</coId><source>https://note.youdao.com/yws/res/9820/405EFA7190094A50B06415B4BD07372D</source><text/><styles><width>620</width><height>195</height></styles></image><para><coId>4341-1606727413342</coId><text>下载文件需要设置两个响应头：</text><inline-styles/><styles/></para><para><coId>4088-1606809901789</coId><text>response.addHeader("ContentType", "application/octet-stream");//MIME类型是二进制</text><inline-styles/><styles/></para><para><coId>4075-1606809901789</coId><text>response.addHeader("content-Disposition","attachement;filename="+filename);//filename包含文件后缀名</text><inline-styles/><styles/></para><code><coId>7564-1606811434420</coId><text>protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		//需要获取下载的文件名（123.png）
+		String filename=request.getParameter("filename");
+		
+		//下载文件：学要设置消息头
+		response.addHeader("ContentType", "application/octet-stream");//MIME类型是二进制
+		response.addHeader("content-Disposition","attachment;filename="+URLEncoder.encode(filename,"utf-8"));//filename包含文件后缀名
+
+		InputStream in=getServletContext().getResourceAsStream("/图片.png");
+		//通过输出流将刚才的流输出给用户
+		ServletOutputStream out=response.getOutputStream();
+		byte[] bs=new byte[10];
+		int len=-1;
+		while((len=in.read(bs))!=-1) {
+			out.write(bs,0,len);
+		}
+		out.close();
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>9054-1606811434420</coId><text/><inline-styles/><styles/></para><para><coId>1292-1606811552731</coId><text/><inline-styles/><styles/></para><para><coId>1279-1606811552763</coId><text/><inline-styles/><styles/></para><para><coId>3186-1606811552779</coId><text/><inline-styles/><styles/></para><para><coId>3676-1606811552826</coId><text/><inline-styles/><styles/></para><para><coId>2185-1606811552836</coId><text/><inline-styles/><styles/></para><heading compat="true" level="a"><coId>3111-1606811552858</coId><text>Servlet3.0实现文件上传下载</text><inline-styles><bold><from>0</from><to>18</to><value>true</value></bold><font-size><from>0</from><to>18</to><value>32</value></font-size></inline-styles><styles/></heading><heading compat="true" level="1"><coId>7544-1606811682355</coId><text>上传</text><inline-styles><bold><from>0</from><to>2</to><value>true</value></bold><font-size><from>0</from><to>2</to><value>28</value></font-size></inline-styles><styles/></heading><para><coId>9130-1606811851901</coId><text>https://www.cnblogs.com/xdp-gacl/p/4224960.html</text><inline-styles><underline><from>0</from><to>47</to><value>true</value></underline><color><from>0</from><to>47</to><value>#003884</value></color><href><from>0</from><to>47</to><value>https://www.cnblogs.com/xdp-gacl/p/4224960.html</value></href></inline-styles><styles/></para><code><coId>6580-1606814438291</coId><text>@MultipartConfig
+@WebServlet("/up")
+public class up extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		System.out.println( request.getServletContext().getRealPath("/"));
+		String savepath="D:\\";
+		Part part =request.getPart("file1");
+		//Servlet3没有提供直接获取文件名的方法,需要从请求头中解析出来
+		//获取请求头，请求头的格式：form-data; name="file"; filename="snmp4j--api.zip"
+		//String header = part.getHeader("content-disposition");
+		String filename=part.getSubmittedFileName();
+		
+		System.out.println(filename);
+		part.write(savepath+File.separator+filename);
+		
+		PrintWriter out = response.getWriter();
+		out.println("上傳成功");
+		out.flush();
+		out.close();
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+}
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>9455-1606815430498</coId><text/><inline-styles/><styles/></para><code><coId>5039-1606815430498</coId><text>
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>7037-1606811552990</coId><text/><inline-styles/><styles/></para><para><coId>5319-1611040664163</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>6290-1611040664312</coId><text/><inline-styles/><styles/></heading><heading compat="true" level="2"><coId>8740-1611040664446</coId><text>解决下载时不同浏览器的兼容性问题：</text><inline-styles><bold><from>0</from><to>17</to><value>true</value></bold><font-size><from>0</from><to>17</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>4613-1611040697123</coId><text>String ua = request.getHeader("User-Agent");
+// 判断是否是火狐浏览器
+if (ua.contains("Firefox")) {
+// 使用下面的格式进行 BASE64 编码后
+String str = "attachment; fileName=" + "=?utf-8?B?"
++ new BASE64Encoder().encode("中文.jpg".getBytes("utf-8")) + "?=";
+// 设置到响应头中
+response.setHeader("Content-Disposition", str);
+} else {
+// 把中文名进行 UTF-8 编码操作。
+String str = "attachment; fileName=" + URLEncoder.encode("中文.jpg", "UTF-8");
+// 然后把编码后的字符串设置到响应头中
+response.setHeader("Content-Disposition", str);
+}
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>9551-1611040697123</coId><text/><inline-styles/><styles/></para></body></note>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>3880-1584243687566</coId><text/><inline-styles/><styles/></para><code><coId>4739-1584243687566</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容
+        c.setLayout(null);
+        
+        String items={"元素1","8455","4566"};
+//        JList&lt;String&gt; j1=new JList&lt;&gt;(items);
+        //其他添加元素的模式
+        DefaultListModel&lt;String&gt; model=new DefaultListModel&lt;&gt;();
+        for(String tmp:items){
+            model.addElement(tmp);//向数据模型中添加元素
+        }
+        JList&lt;String&gt; j1=new JList&lt;&gt;();
+        model.addELement("添加新元素");
+        j1.setModel(model);//列表框载入数据模型，优点：修改方便
+        
+        /*列表框可以有许多的选择模式*/
+        /*
+        SINGLE_SELECTION单选模式
+        SINGLE_INTERVAL_SELECTION只能选择相邻的元素
+        MULTIPLE_INTERVAL_SELECTION不限定
+        */
+        j1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        
+        JScrollPane js=new JScrollPane(j1);
+        js.setBounds(10,10,100,100);//设置坐标和大小
+        c.add(js);
+        //btn监听...............
+        btn.setBounds();
+        java.util.List&lt;String&gt; values=j1.getSelectedValueList();
+        for(String tmp:values){
+            tmp
+        }
+        
+        
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>4698-1584243687566</coId><text/><inline-styles/><styles/></para></body></note>

@@ -1,0 +1,17 @@
+package com.idea.boot;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import sun.applet.Main;
+
+/*
+@author lts
+@create 2021-04-06-11:46
+usage 
+*/
+@SpringBootApplication
+public class MainApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MainApplication.class,args);
+    }
+}

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head><list id="3011-1611221141668" type="unordered"/><list id="5194-1611221605245" type="unordered"/><list id="8329-1611575593194" type="ordered"/></head><body><heading compat="true" level="1"><coId>9976-1611581794190</coId><text>Bean管理指的是两个操作：spring创建对象，spring注入属性</text><inline-styles/><styles/></heading><para><coId>9036-1611581794190</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>8050-1611581794190</coId><text>（1）基于xml方式创建对象：</text><inline-styles><bold><from>0</from><to>15</to><value>true</value></bold><font-size><from>0</from><to>15</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>8570-1611581794190</coId><text>在spring配置文件中使用bean标签配置，创建对象默认使用无参构造函数</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><code><coId>9465-1611581794190</coId><text>&lt;bean id="user" class="com.idea.spring.User"&gt;&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>8910-1611581794190</coId><text>id属性：唯一标识</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>3229-1611581794190</coId><text>class属性：类全路径（包类路径）</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>1750-1611581794190</coId><text>name属性：早期属性，类似id，可以用特殊符号</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>4630-1611581794190</coId><text/><inline-styles/><styles><text-indent>1</text-indent></styles></para><heading compat="true" level="2"><coId>8239-1611581794190</coId><text>（2）基于XML方式注入属性DI（Dependency Injection）：依赖注入，就是注入属性</text><inline-styles><bold><from>0</from><to>14</to><value>true</value></bold><font-size><from>0</from><to>14</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>4462-1611581794190</coId><text>①使用set方法进行注入</text><inline-styles/><styles><text-indent>2</text-indent></styles></para><list-item level="1" list-id="3011-1611221141668"><coId>4641-1611581794190</coId><text>创建类，定义属性和相应的set方法</text><inline-styles/><styles><indent>2</indent><text-indent>3</text-indent></styles></list-item><list-item level="1" list-id="3011-1611221141668"><coId>5279-1611581794190</coId><text>在spring文件中创建和注入：</text><inline-styles/><styles><indent>2</indent><text-indent>3</text-indent></styles></list-item><code><coId>2327-1611581794190</coId><text>&lt;bean id="user" class="com.idea.spring.User"&gt;
+    &lt;property name="uname" value="zhangsan"&gt;&lt;/property&gt;
+    &lt;property name="uid" value="123123"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>9542-1611581794190</coId><text/><inline-styles/><styles><indent>2</indent><text-indent>1</text-indent></styles></para><para><coId>9121-1611581794190</coId><text>②使用有参构造函数进行注入</text><inline-styles/><styles><text-indent>2</text-indent></styles></para><list-item level="1" list-id="5194-1611221605245"><coId>8645-1611581794190</coId><text>创建类，定义属性和有参构造方法</text><inline-styles/><styles><indent>2</indent><text-indent>3</text-indent></styles></list-item><list-item level="1" list-id="5194-1611221605245"><coId>6094-1611581794190</coId><text>在spring文件中配置：</text><inline-styles/><styles><indent>2</indent><text-indent>3</text-indent></styles></list-item><code><coId>9530-1611581794190</coId><text>&lt;bean id="orders" class="com.atguigu.spring5.Orders"&gt;
+    &lt;constructor-arg name="oname" value="电脑"&gt;&lt;/constructor-arg&gt;
+    &lt;constructor-arg name="address" value="China"&gt;&lt;/constructor-arg&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>9690-1611581794190</coId><text/><inline-styles/><styles/></para><para><coId>1070-1611581794190</coId><text>③p名称空间注入（了解）</text><inline-styles/><styles><text-indent>2</text-indent></styles></para><para><coId>8271-1611581794190</coId><text>在beans中加入如下字段</text><inline-styles/><styles><text-indent>3</text-indent></styles></para><image><coId>3056-1611581794190</coId><source>https://note.youdao.com/yws/res/10938/EC17056059DC47688EE7E3895D6972F3</source><text/><styles><width>486</width><height>25</height></styles></image><code><coId>1390-1611581794190</coId><text>&lt;bean id="book" class="com.atguigu.spring5.Book" p:bname="九阳神功"
+p:bauthor="无名氏"&gt;&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>2844-1611581794190</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>5044-1611581794190</coId><text>（3）注入空值和特殊符号</text><inline-styles><bold><from>0</from><to>12</to><value>true</value></bold><font-size><from>0</from><to>12</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>7776-1611581794190</coId><text>&lt;bean id="book" class="com.atguigu.spring5.Book"&gt;
+    &lt;property name="address"&gt;
+        &lt;null/&gt;&lt;!--属性里边添加一个null标签--&gt;
+    &lt;/property&gt;
+    &lt;property name="name"&gt;
+        &lt;value&gt;&lt;![CDATA[&lt;&lt;南京&gt;&gt;]]&gt;&lt;/value&gt;
+         &lt;!--属性值包含特殊符号
+           a 把&lt;&gt;进行转义 &amp;l t;   &amp;g t;
+           b 把带特殊符号内容写到CDATA
+         --&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><heading compat="true" level="2"><coId>6982-1611581794190</coId><text>（4）注入属性-外部bean</text><inline-styles><bold><from>0</from><to>14</to><value>true</value></bold><font-size><from>0</from><to>14</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>4758-1611581794190</coId><text>例子：service需要调用dao中的方法，需要先创建一个dao对象，这个过程通过xml完成：</text><inline-styles/><styles/></para><code><coId>1575-1611581794190</coId><text>public class UserService {
+    private UserDao userDao;
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>6119-1611581794190</coId><text/><inline-styles/><styles/></para><code><coId>5511-1611581794190</coId><text>&lt;bean id="userService" class="com.idea.spring.UserService"&gt;
+    &lt;property name="userDao" ref="UserDaoImpl"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+&lt;bean id="UserDaoImpl" class="com.idea.spring.UserDaoImpl"&gt;&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><heading compat="true" level="2"><coId>3754-1611581794190</coId><text>（5）注入内部bean和级联赋值</text><inline-styles><bold><from>0</from><to>16</to><value>true</value></bold><font-size><from>0</from><to>16</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>3232-1611581794190</coId><text>（1）一对多关系：部门和员工</text><inline-styles/><styles/></para><para><coId>2019-1611581794190</coId><text>一个部门有多个员工，一个员工属于一个部门（部门是一，员工是多）</text><inline-styles/><styles/></para><para><coId>3696-1611581794190</coId><text>（2）在实体类之间表示一对多关系，员工表示所属部门，使用对象类型属性进行表示</text><inline-styles/><styles/></para><code><coId>6993-1611581794190</coId><text>&lt;bean id="emp" class="com.atguigu.spring5.bean.Emp"&gt;
+        &lt;!--设置两个普通属性--&gt;
+        &lt;property name="ename" value="Andy"&gt;&lt;/property&gt;
+        &lt;property name="gender" value="女"&gt;&lt;/property&gt;
+        &lt;!--设置对象类型属性--&gt;
+        &lt;property name="dept"&gt;
+            &lt;bean id="dept" class="com.atguigu.spring5.bean.Dept"&gt;
+                &lt;!--内部bean赋值--&gt;
+                &lt;property name="dname" value="宣传部门"&gt;&lt;/property&gt;
+            &lt;/bean&gt;
+        &lt;/property&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>1623-1611581794190</coId><text>级联赋值：</text><inline-styles/><styles/></para><code><coId>3854-1611581794190</coId><text>&lt;bean id="emp" class="com.atguigu.spring5.bean.Emp"&gt;
+        &lt;property name="ename" value="Andy"&gt;&lt;/property&gt;
+        &lt;property name="gender" value="女"&gt;&lt;/property&gt;
+        &lt;!--级联赋值--&gt;
+        &lt;property name="dept" ref="dept"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+    &lt;bean id="dept" class="com.atguigu.spring5.bean.Dept"&gt;
+        &lt;property name="dname" value="公关部门"&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>6420-1611581794190</coId><text/><inline-styles/><styles/></para><code><coId>7713-1611581794190</coId><text>&lt;bean id="emp" class="com.atguigu.spring5.bean.Emp"&gt;
+        &lt;property name="ename" value="Andy"&gt;&lt;/property&gt;
+        &lt;property name="gender" value="女"&gt;&lt;/property&gt;
+        &lt;property name="dept" ref="dept"&gt;&lt;/property&gt;
+        &lt;!--改方式需要emp中有dept属性的get方法--&gt;
+        &lt;property name="dept.dname" value="财务部"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>2189-1611581794190</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>1184-1611581794190</coId><text>（6）注入集合属性</text><inline-styles><bold><from>0</from><to>9</to><value>true</value></bold><font-size><from>0</from><to>9</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>2932-1611581794190</coId><text>    &lt;bean id="stu" class="com.atguigu.spring5.collectiontype.Stu"&gt;
+        &lt;property name="courses"&gt;&lt;!--数组类型属性注入--&gt;
+            &lt;array&gt;
+                &lt;value&gt;java课程&lt;/value&gt;
+                &lt;value&gt;数据库课程&lt;/value&gt;
+            &lt;/array&gt;
+        &lt;/property&gt;
+        &lt;property name="list"&gt;&lt;!--list类型属性注入--&gt;
+            &lt;list&gt;
+                &lt;value&gt;张三&lt;/value&gt;
+                &lt;value&gt;小三&lt;/value&gt;
+            &lt;/list&gt;
+        &lt;/property&gt;
+        &lt;property name="maps"&gt;&lt;!--map类型属性注入--&gt;
+            &lt;map&gt;
+                &lt;entry key="JAVA" value="java"&gt;&lt;/entry&gt;
+                &lt;entry key="PHP" value="php"&gt;&lt;/entry&gt;
+            &lt;/map&gt;
+        &lt;/property&gt;
+        &lt;property name="sets"&gt;&lt;!--set类型属性注入--&gt;
+            &lt;set&gt;
+                &lt;value&gt;MySQL&lt;/value&gt;
+                &lt;value&gt;Redis&lt;/value&gt;
+            &lt;/set&gt;
+        &lt;/property&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>9669-1611581794190</coId><text>在集合里面设置对象类型值：</text><inline-styles/><styles/></para><code><coId>7768-1611581794190</coId><text>&lt;!--创建多个course对象--&gt;
+&lt;bean id="course1" class="com.atguigu.spring5.collectiontype.Course"&gt;
+    &lt;property name="cname" value="Spring5框架"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+&lt;bean id="course2" class="com.atguigu.spring5.collectiontype.Course"&gt;
+    &lt;property name="cname" value="MyBatis框架"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+    
+&lt;!--注入list集合类型，值是对象--&gt;
+&lt;property name="courseList"&gt;
+    &lt;list&gt;
+       &lt;ref bean="course1"&gt;&lt;/ref&gt;
+       &lt;ref bean="course2"&gt;&lt;/ref&gt;
+     &lt;/list&gt;
+&lt;/property&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>5553-1611581794190</coId><text>定义公共集合，让bean可以使用且可以多次使用</text><inline-styles/><styles/></para><code><coId>3475-1611581794190</coId><text>&lt;!--第一步：在 spring 配置文件中引入名称空间 util--&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util" &lt;!--添加util名称空间--&gt;
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"&gt;  &lt;!--添加util名称空间--&gt;
+    
+&lt;!--第二步：使用 util 标签完成 list 集合注入提取--&gt;
+&lt;!--把集合注入部分提取出来--&gt; &lt;!--1 提取list集合类型属性注入--&gt;
+    &lt;util:list id="bookList"&gt;
+        &lt;value&gt;易筋经&lt;/value&gt;
+        &lt;value&gt;九阴真经&lt;/value&gt;
+        &lt;value&gt;九阳神功&lt;/value&gt;
+    &lt;/util:list&gt;
+
+ &lt;!--2 提取list集合类型属性注入使用--&gt;
+    &lt;bean id="book" class="com.atguigu.spring5.collectiontype.Book" scope="prototype"&gt;
+        &lt;property name="list" ref="bookList"&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>0057-1611581794190</coId><text>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</text><inline-styles><bold><from>0</from><to>266</to><value>true</value></bold></inline-styles><styles/></para><para><coId>9080-1611581794190</coId><text>​ 1、Spring 有两种类型 bean，一种普通 bean，另外一种工厂 bean（FactoryBean）</text><inline-styles/><styles/></para><para><coId>2654-1611581794190</coId><text>​ 2、普通 bean：在配置文件中定义 bean 类型就是返回类型</text><inline-styles/><styles/></para><para><coId>6031-1611581794190</coId><text>​ 3、工厂 bean：在配置文件定义 bean 类型可以和返回类型不一样 第一步 创建类，让这个类作为工厂 bean，实现接口 FactoryBean 第二步 实现接口里面的方法，在实现的方法中定义返回的 bean 类型</text><inline-styles/><styles/></para><heading compat="true" level="2"><coId>5098-1611581794190</coId><text>（1）工厂bean的实现：</text><inline-styles><bold><from>0</from><to>13</to><value>true</value></bold><font-size><from>0</from><to>13</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>9399-1611581794190</coId><text>1.创建一个继承FactoryBean的类，作为工厂Bean</text><inline-styles/><styles/></para><para><coId>2491-1611581794190</coId><text>2.实现接口中的方法，在实现的方法中定义返回的bean类型</text><inline-styles/><styles/></para><code><coId>9358-1611581794190</coId><text>public class MyBean implements FactoryBean&lt;Course&gt; {
+    //定义返回bean
+    @Override
+    public Course getObject() throws Exception {
+        Course course = new Course();
+        course.setCname("abc");
+        return course;
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>3070-1611581794190</coId><text/><inline-styles/><styles/></para><code><coId>2923-1611581794190</coId><text>&lt;bean id="myBean" class="com.atguigu.spring5.factorybean.MyBean"&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><heading compat="true" level="2"><coId>3050-1611581794190</coId><text>（2）Bean的作用域：</text><inline-styles><bold><from>0</from><to>12</to><value>true</value></bold><font-size><from>0</from><to>12</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>5067-1611581794190</coId><text>在 Spring 里面，默认情况下，bean 是单实例对象，下面进行作用域设置：</text><inline-styles/><styles/></para><para><coId>3915-1611581794190</coId><text>（1）在 spring 配置文件 bean 标签里面有属性（scope）用于设置单实例还是多实例</text><inline-styles/><styles/></para><para><coId>6680-1611581794190</coId><text>（2）scope 属性值： 默认值，singleton，表示是单实例对象；prototype，表示是多实例对象</text><inline-styles/><styles/></para><para><coId>3548-1611581794190</coId><text>（3）singleton 和 prototype 区别</text><inline-styles/><styles/></para><para><coId>8174-1611581794190</coId><text>​ a）singleton 单实例，prototype 多实例</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>9434-1611581794190</coId><text>​ b）设置 scope 值是 singleton 时候，加载 spring 配置文件时候就会创建单实例对象 ；设置 scope 值是 prototype 时候，不是在加载 spring 配置文件时候创建对象，在调用 getBean 方法时候创建多实例对象</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><code><coId>5550-1611581794190</coId><text>&lt;bean id="book" class="com.atguigu.spring5.collectiontype.Book" scope="prototype"&gt;
+        &lt;!--设置为多实例--&gt;
+        &lt;property name="list" ref="bookList"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>2266-1611581794190</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>5858-1611581794190</coId><text>（3）Bean的生命周期</text><inline-styles><bold><from>0</from><to>12</to><value>true</value></bold><font-size><from>0</from><to>12</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>9413-1611581794190</coId><text>————正常生命周期为五步，而配置后置处理器后为七步</text><inline-styles/><styles><text-indent>8</text-indent></styles></para><list-item level="1" list-id="8329-1611575593194"><coId>5526-1611581794190</coId><text>通过构造器创建Bean实例（无参数构造）</text><inline-styles/><styles><text-indent>1</text-indent></styles></list-item><list-item level="1" list-id="8329-1611575593194"><coId>9354-1611581794190</coId><text>为Bean的属性设置值和对其他Bean引用</text><inline-styles/><styles><text-indent>1</text-indent></styles></list-item><list-item level="1" list-id="8329-1611575593194"><coId>4348-1611581794190</coId><text>把 bean 实例传递 bean 后置处理器的方法 postProcessBeforeInitialization</text><inline-styles><back-color><from>0</from><to>57</to><value>#FAE220</value></back-color></inline-styles><styles><text-indent>1</text-indent></styles></list-item><list-item level="1" list-id="8329-1611575593194"><coId>2680-1611581794190</coId><text>调用Bean的初始化的方法（需要进行配置初始化的方法）</text><inline-styles/><styles><text-indent>1</text-indent></styles></list-item><list-item level="1" list-id="8329-1611575593194"><coId>1367-1611581794190</coId><text>把 bean 实例传递 bean 后置处理器的方法 postProcessAfterInitialization</text><inline-styles><back-color><from>0</from><to>56</to><value>#FAE220</value></back-color></inline-styles><styles><text-indent>1</text-indent></styles></list-item><list-item level="1" list-id="8329-1611575593194"><coId>1132-1611581794190</coId><text>Bean可以使用</text><inline-styles/><styles><text-indent>1</text-indent></styles></list-item><list-item level="1" list-id="8329-1611575593194"><coId>3363-1611581794190</coId><text>当容器关闭的时候、调用Bean的销毁的方法（需要进行配置销毁的方法）</text><inline-styles/><styles><text-indent>1</text-indent></styles></list-item><heading compat="true" level="2"><coId>7028-1611581794190</coId><text>（4）自动装配：</text><inline-styles><bold><from>0</from><to>8</to><value>true</value></bold><font-size><from>0</from><to>8</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>0035-1611581794190</coId><text>即自动的将外部对象注入类中</text><inline-styles/><styles/></para><para><coId>1064-1611581794190</coId><text>通过Bean的标签属性autowire，配置自动装配：</text><inline-styles/><styles/></para><para><coId>3823-1611581794190</coId><text>autowire属性常用两个值：</text><inline-styles/><styles/></para><para><coId>9093-1611581794190</coId><text>byName根据属性名称注入，注入值bean的id值和类属性名称要一样</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>1736-1611581794190</coId><text>byType根据属性类型注入</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><code><coId>8183-1611581794190</coId><text>&lt;bean id="emp" class="com.idea.spring.Emp" autowire="byName"&gt;
+&lt;!--&lt;property name="userDao" ref="dept"&gt;&lt;/property&gt;--&gt;
+&lt;/bean&gt;
+&lt;bean id="dept" class="com.idea.spring.Dept"&gt;&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>9996-1611581794190</coId><text/><inline-styles/><styles/></para><code><coId>4065-1611581794190</coId><text>&lt;bean id="emp" class="com.idea.spring.Emp" autowire="byType"&gt;
+&lt;/bean&gt;
+&lt;bean id="dept" class="com.idea.spring.Dept"&gt;&lt;/bean&gt;
+不能定义多个dept，否则无法识别
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><heading compat="true" level="2"><coId>3115-1611581794190</coId><text>（5）外部属性文件</text><inline-styles><bold><from>0</from><to>9</to><value>true</value></bold><font-size><from>0</from><to>9</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>1919-1611581794190</coId><text>以德鲁伊链接池为例</text><inline-styles/><styles/></para><para><coId>9958-1611581794190</coId><text>1.直接配置链接池：</text><inline-styles/><styles/></para><code><coId>3099-1611581794190</coId><text> &lt;bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"&gt;
+    &lt;property name="driverClassName" value="com.mysql.jdbc.Driver"&gt;&lt;/property&gt;
+    &lt;property name="url" value="jdbc:mysql://localhost:3306/userDb"&gt;&lt;/property&gt;
+    &lt;property name="username" value="root"&gt;&lt;/property&gt;
+    &lt;property name="password" value="root"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>8297-1611581794190</coId><text>2.引入外部属性文件配置数据库链接池</text><inline-styles/><styles/></para><code><coId>1316-1611581794190</coId><text> prop.driverClass=com.mysql.jdbc.Driver
+ prop.url=jdbc:mysql://localhost:3306/userD
+ prop.userName=root
+ prop.password=root
+ 
+ &lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"&gt;&lt;!--引入context名称空间--&gt;
+    
+        &lt;!--引入外部属性文件--&gt;
+    &lt;context:property-placeholder location="classpath:jdbc.properties"/&gt;
+
+    &lt;!--配置连接池--&gt;
+    &lt;bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"&gt;
+        &lt;property name="driverClassName" value="${prop.driverClass}"&gt;&lt;/property&gt;
+        &lt;property name="url" value="${prop.url}"&gt;&lt;/property&gt;
+        &lt;property name="username" value="${prop.userName}"&gt;&lt;/property&gt;
+        &lt;property name="password" value="${prop.password}"&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+    
+&lt;/beans&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>5454-1611581794190</coId><text/><inline-styles/><styles/></para></body></note>

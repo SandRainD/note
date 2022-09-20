@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head><list id="6600-1623564722550" type="unordered"/></head><body><para><coId>6180-1623564093812</coId><text>乐观锁实现方式：</text><inline-styles><font-size><from>0</from><to>8</to><value>13</value></font-size><color><from>0</from><to>8</to><value>#333333</value></color></inline-styles><styles/></para><list-item level="1" list-id="6600-1623564722550"><coId>4766-1623564719834</coId><text>取出记录时，获取当前 version</text><inline-styles><font-size><from>0</from><to>18</to><value>13</value></font-size><color><from>0</from><to>18</to><value>#333333</value></color></inline-styles><styles/></list-item><list-item level="1" list-id="6600-1623564722550"><coId>8329-1623564719834</coId><text>更新时，带上这个version</text><inline-styles><font-size><from>0</from><to>15</to><value>13</value></font-size><color><from>0</from><to>15</to><value>#333333</value></color></inline-styles><styles/></list-item><list-item level="1" list-id="6600-1623564722550"><coId>1686-1623564719834</coId><text>执行更新时， set version = newVersion where version = oldVersion</text><inline-styles><font-size><from>0</from><to>58</to><value>13</value></font-size><color><from>0</from><to>58</to><value>#333333</value></color></inline-styles><styles/></list-item><list-item level="1" list-id="6600-1623564722550"><coId>5586-1623564719834</coId><text>如果version不对，就更新失败</text><inline-styles><font-size><from>0</from><to>17</to><value>13</value></font-size><color><from>0</from><to>17</to><value>#333333</value></color></inline-styles><styles/></list-item><code><coId>7316-1623564731142</coId><text>乐观锁：1、先查询，获得版本号 version = 1
+-- A
+update user set name = "kuangshen", version = version + 1
+where id = 2 and version = 1
+-- B 线程抢先完成，这个时候 version = 2，会导致 A 修改失败！
+update user set name = "kuangshen", version = version + 1
+where id = 2 and version = 1
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><heading compat="true" level="2"><coId>9098-1623564731142</coId><text>乐观锁实现方式</text><inline-styles><bold><from>0</from><to>7</to><value>true</value></bold><font-size><from>0</from><to>7</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>3940-1623564858062</coId><text>1、给数据库中增加version字段！</text><inline-styles><font-size><from>0</from><to>19</to><value>13</value></font-size><color><from>0</from><to>19</to><value>#333333</value></color></inline-styles><styles/></para><para><coId>9720-1623564855613</coId><text>2、我们实体类加对应的字段</text><inline-styles><font-size><from>0</from><to>13</to><value>13</value></font-size><color><from>0</from><to>13</to><value>#333333</value></color></inline-styles><styles/></para><code><coId>2019-1623564885352</coId><text>@Version //乐观锁Version注解
+private Integer version;
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>5345-1623564873544</coId><text>3、注册组件，springboot中加入乐观锁的插件，？新版本用拦截器？</text><inline-styles><font-size><from>0</from><to>36</to><value>13</value></font-size><color><from>0</from><to>36</to><value>#333333</value></color></inline-styles><styles/></para><code><coId>5222-1623564894224</coId><text>// 扫描我们的 mapper 文件夹
+@MapperScan("com.kuang.mapper")
+@EnableTransactionManagement
+@Configuration // 配置类
+public class MyBatisPlusConfig {
+// 注册乐观锁插件
+@Bean
+public OptimisticLockerInterceptor optimisticLockerInterceptor() {
+return new OptimisticLockerInterceptor();
+}
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>2392-1623564887754</coId><text>4、测试</text><inline-styles><font-size><from>0</from><to>4</to><value>13</value></font-size><color><from>0</from><to>4</to><value>#333333</value></color></inline-styles><styles/></para><code><coId>6960-1623564903215</coId><text>// 测试乐观锁成功！
+@Test
+public void testOptimisticLocker(){
+// 1、查询用户信息
+User user = userMapper.selectById(1L);
+// 2、修改用户信息
+user.setName("kuangshen");
+user.setEmail("24736743@qq.com");
+// 3、执行更新操作
+userMapper.updateById(user);
+}
+
+// 测试乐观锁失败！多线程下
+@Test
+public void testOptimisticLocker2(){
+// 线程 1
+User user = userMapper.selectById(1L);
+user.setName("kuangshen111");
+user.setEmail("24736743@qq.com");
+// 模拟另外一个线程执行了插队操作
+User user2 = userMapper.selectById(1L);
+user2.setName("kuangshen222");
+user2.setEmail("24736743@qq.com");
+userMapper.updateById(user2);
+// 自旋锁来多次尝试提交！
+userMapper.updateById(user); // 如果没有乐观锁就会覆盖插队线程的值！
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>4015-1633576003709</coId><text/><inline-styles/><styles/></para><image><coId>7620-1633576003709</coId><source>https://note.youdao.com/yws/res/14007/AA04643CCBA4417FB43F57DE05CFDE8C</source><text/><styles><width>620</width><height>182</height></styles></image><para><coId>4045-1633576003709</coId><text/><inline-styles/><styles/></para></body></note>

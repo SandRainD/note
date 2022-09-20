@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>3847-1616757329570</coId><text/><inline-styles/><styles/></para><image><coId>7248-1616757329570</coId><source>https://note.youdao.com/yws/res/12505/502512419E314B1684BE75D4E0654492</source><text/><styles><width>620</width><height>243</height></styles></image><para><coId>2096-1616757328304</coId><text>①创建maven工程，添加web依赖，导入依赖jar包，建立目录结构，创建基本java类结构</text><inline-styles><font-size><from>0</from><to>46</to><value>16</value></font-size><color><from>1</from><to>46</to><value>#df402a</value></color></inline-styles><styles/></para><image><coId>8513-1616670098896</coId><source>https://note.youdao.com/yws/res/12473/9A70E2F314734FDEA62B24A93CE8B788</source><text/><styles><width>308</width><height>295</height></styles></image><para><coId>9653-1616669929089</coId><text>②创建spring的xml配置文件，Service层进行bean管理，完成业务逻辑层配置</text><inline-styles><font-size><from>0</from><to>44</to><value>16</value></font-size><color><from>0</from><to>44</to><value>#df402a</value></color></inline-styles><styles/></para><attach><coId>7648-1616677965742</coId><source>https://note.youdao.com/yws/res/12485/449C389C9B834B18A651B73368CD4FB2</source><resource>https://note.youdao.com/yws/res/12484/92058D538E394899A598178368D5ED12</resource><filename>account.xml</filename><filelength>1138</filelength><styles/></attach><code><coId>9182-1616677893717</coId><text>@Service("accountService")
+public class AccountServiceImpl implements AccountService {
+    @Autowired
+    private AccountDao accountDao;
+    @Override
+    public List&lt;Account&gt; findAll() {
+        return null;
+    }
+    @Override
+    public void saveAccount(Account account) {
+    }
+}
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>5780-1616670122397</coId><text>③引入log2j，jdbc properties文件</text><inline-styles><font-size><from>0</from><to>26</to><value>16</value></font-size><color><from>0</from><to>26</to><value>#df402a</value></color></inline-styles><styles/></para><attach><coId>5472-1616677961502</coId><source>https://note.youdao.com/yws/res/12493/4715DF1887BA45E4A33B9751A998D8B0</source><resource>https://note.youdao.com/yws/res/12495/91D0BC13FEE9489B8BE6B54DA6EF6DA0</resource><filename>log4j.properties</filename><filelength>957</filelength><styles/></attach><attach><coId>2068-1616677963065</coId><source>https://note.youdao.com/yws/res/12494/A6B582BD847D4F56AD3CA70A89D9D6AC</source><resource>https://note.youdao.com/yws/res/12496/E785815D7A0B4D13857650DEB3B85913</resource><filename>jdbc.properties</filename><filelength>105</filelength><styles/></attach><para><coId>7995-1616677961510</coId><text/><inline-styles/><styles/></para><para><coId>7735-1616677961510</coId><text>④表现层配置，创建springmvc.xml配置文件，同时web.xml中配置前端控制器</text><inline-styles><font-size><from>0</from><to>44</to><value>16</value></font-size><color><from>0</from><to>44</to><value>#df402a</value></color></inline-styles><styles/></para><attach><coId>5237-1616763678218</coId><source>https://note.youdao.com/yws/res/12544/0FB60BC436A04E14860B3B3ADEB55A15</source><resource>https://note.youdao.com/yws/res/12543/91FED47600E246DFAD3C9282E3E67DB6</resource><filename>springmvc.xml</filename><filelength>1524</filelength><styles/></attach><attach><coId>6525-1616820556679</coId><source>https://note.youdao.com/yws/res/12581/8337AA1A3BD84B41AC62A45CDB348604</source><resource>https://note.youdao.com/yws/res/12580/CA8A8DF01877421597EC69076A3A9E71</resource><filename>web.xml</filename><filelength>1977</filelength><styles/></attach><para><coId>3414-1616820554134</coId><text/><inline-styles/><styles/></para><code><coId>2286-1616760439832</coId><text>@Controller
+@RequestMapping("/account")
+public class AccountController {
+    @RequestMapping("/findAll")
+    public String finAll(){
+        System.out.println("表现层，查询所有的账户");
+        return "list";
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>5867-1616760467792</coId><text/><inline-styles/><styles/></para><image><coId>8322-1616760467793</coId><source>https://note.youdao.com/yws/res/12530/11748E777B4743959F4243121DCC0F12</source><text/><styles><width>493</width><height>379</height></styles></image><para><coId>9172-1616760467793</coId><text/><inline-styles/><styles/></para><para><coId>9042-1616763756282</coId><text>⑤整合mybatis，在springxml文件中配置</text><inline-styles><font-size><from>0</from><to>26</to><value>16</value></font-size><color><from>0</from><to>26</to><value>#df402a</value></color></inline-styles><styles/></para><code><coId>5452-1616821849759</coId><text>&lt;!-- spring整合mybatis框架     --&gt;
+&lt;!--配置连接池--&gt;
+&lt;bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"&gt;
+    &lt;property name="driverClassName" value="com.mysql.cj.jdbc.Driver"&gt;&lt;/property&gt;
+    &lt;property name="url" value="jdbc:mysql://localhost:3306/ssm"&gt;&lt;/property&gt;
+    &lt;property name="username" value="root"&gt;&lt;/property&gt;
+    &lt;property name="password" value="biubiu123"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+&lt;!--配置sqlsessionfactory工厂--&gt;
+&lt;bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"&gt;
+    &lt;property name="dataSource" ref="dataSource"/&gt;
+&lt;/bean&gt;
+&lt;!--配置accountDao接口所在jar包--&gt;
+&lt;bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer"&gt;
+    &lt;property name="basePackage" value="com.idea.dao"/&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>4040-1616822818634</coId><text/><inline-styles/><styles/></para><code><coId>5423-1616822818634</coId><text>@Controller
+@RequestMapping("/account")
+public class AccountController {
+    @Autowired
+    private AccountService accountService;
+
+    @RequestMapping("/findAll")
+    public String finAll(Model model){
+        System.out.println("表现层，查询所有的账户");
+        List&lt;Account&gt; list = accountService.findAll();
+        model.addAttribute("list",list);
+        return "list";
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>2791-1616822892818</coId><text/><inline-styles/><styles/></para><code><coId>6591-1616822772959</coId><text>@Repository
+public interface AccountDao {
+    @Select("select * from account")
+    public List&lt;Account&gt; findAll();
+    @Insert("insert into account (name,money) values (#{name},#{money})")
+    public void saveAccount(Account account);
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code></body></note>

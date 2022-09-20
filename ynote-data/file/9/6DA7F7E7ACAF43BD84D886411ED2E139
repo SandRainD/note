@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>2669-1584167216336</coId><text/><inline-styles/><styles/></para><code><coId>1810-1584167216337</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+            Container c=getContentPane();//获取窗体的容
+        c.setLayout(new GridLayout(2,2,10,10));
+        
+         JPanel p1=new JPanel();
+         p1.setLayout(new GridLayout(1,3,10,10));
+        JPanel p1=new JPanel(new BorderLayout());
+        JPanel p1=new JPanel(new GridLayout(1,2,10,10));
+        JPanel p1=new JPanel(new GridLayout(2,1,10,10));
+        
+        
+        p1.setBorder(BorderFactory.createTitledBorder("面板1"));//添加标题边框
+        p2.setBorder(BorderFactory.createTitledBorder("面板2"));//添加标题边框
+        p3.setBorder(BorderFactory.createTitledBorder("面板3"));//添加标题边框
+        p4.setBorder(BorderFactory.createTitledBorder("面板4"));//添加标题边框
+        
+        p1.add(new JButton(""));
+        p1.setBackground(Color.YELLOW);//设置背景颜色
+        
+        c.add(p1);c.add(p2);c.add(p3);c.add(p4);
+        
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>9540-1584167216337</coId><text>setPreferredSize(Image object);//设置上部的样式</text><inline-styles/><styles/></para><para><coId>4140-1585645677625</coId><text>setImage(Image object);//设置中间的图片</text><inline-styles/><styles/></para><para><coId>3754-1590906853731</coId><text>backgroundPanel.setImage(getToolkit().getImage(getClass().getResource("Penguins.jpg")));// 设置背景面板的图片</text><inline-styles/><styles/></para><para><coId>4999-1590906870008</coId><text/><inline-styles/><styles/></para><para><coId>9234-1590906870489</coId><text>Image centerImage = new ImageIcon(getClass().getResource("frameTop.png")).getImage();//获取图片</text><inline-styles/><styles/></para></body></note>

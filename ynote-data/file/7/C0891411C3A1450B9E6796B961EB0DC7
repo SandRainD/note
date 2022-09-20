@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>5875-1584186943156</coId><text/><inline-styles/><styles/></para><code><coId>8680-1584186943156</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容
+        c.setLayout(new FlowLayout());
+        
+        JRadioButton left=new JRadioButton("向左走");
+       JRadioButton right=new JRadioButton("向you走");
+       c.add(left);
+       c.add(right);
+       ButtonGroup group=new ButtonGroup();
+       group.add(left);
+       group.add(right);
+       
+       left.setSelected(true);//设置默认选中
+       
+       JButton btn =new JButton("打印");
+       btn.addActionListener(new ActionListener(){
+           public void actionPerformed(ActionEvent e){
+               left.getText();//获取组件文本
+               left.isSelected();//获取按钮是否选中
+               group.clearSelection();//清空按钮选中状态
+           }
+       });
+       c.add(btn);
+           
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>8975-1584186943156</coId><text/><inline-styles/><styles/></para></body></note>

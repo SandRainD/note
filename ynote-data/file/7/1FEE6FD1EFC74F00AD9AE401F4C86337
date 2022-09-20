@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>4091-1584187606670</coId><text/><inline-styles/><styles/></para><code><coId>5165-1584187606670</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容
+        c.setLayout(new FlowLayout());
+        
+        JCheckBox c1=new JCheckBox("1");
+        JCheckBox c2=new JCheckBox();
+        JCheckBox c3=new JCheckBox();
+        
+        c1.setSelected(true);//设置默认选中
+        
+        c.add(c1);
+        c.add(c2);
+        c.add(c3);
+        
+        //btn............
+        c1.getText();//获得文本值
+        c1.isSelected();//获取c1的选中状态
+           
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>4416-1584187606670</coId><text/><inline-styles/><styles/></para></body></note>

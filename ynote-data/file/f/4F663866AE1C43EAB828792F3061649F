@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>6870-1616826384866</coId><text/><inline-styles/><styles/></para><code><coId>2720-1616826384866</coId><text>&lt;!--声明式事务管理--&gt;
+&lt;bean id="transactionManager"
+      class="org.springframework.jdbc.datasource.DataSourceTransactionManager"&gt;
+    &lt;!--注入数据源--&gt;
+    &lt;property name="dataSource" ref="dataSource"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+&lt;!--配置事务通知--&gt;
+&lt;tx:advice id="txAdvice" transaction-manager="transactionManager"&gt;
+    &lt;tx:attributes&gt;
+        &lt;tx:method name="find*" /&gt;
+    &lt;/tx:attributes&gt;
+&lt;/tx:advice&gt;
+&lt;!--配置切入点，切面(AOP)增强--&gt;
+&lt;aop:config&gt;
+    &lt;!--配置切入点,*(..)表示任意个数类型的参数--&gt;
+    &lt;aop:pointcut id="pt" expression="execution(* com.idea.service.impl.AccountServiceImpl.*(..))"/&gt;
+    &lt;!--配置切面--&gt;
+    &lt;aop:advisor advice-ref="txAdvice" pointcut-ref="pt"/&gt;
+&lt;/aop:config&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>5675-1616826384866</coId><text/><inline-styles/><styles/></para></body></note>

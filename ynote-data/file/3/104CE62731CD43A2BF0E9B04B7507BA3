@@ -1,0 +1,31 @@
+
+```
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+  final String title;
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+ ...
+}
+```
+
+```
+MyHomePage 是Flutter应用的首页，
+它继承自StatefulWidget类，
+表示它是一个有状态的组件
+（Stateful widget）。
+
+
+有状态的组件（Stateful widget） 和无状态的组件（Stateless widget）有两点不同：
+
+Stateful widget可以拥有状态，
+这些状态在widget生命周期中是可以变的，而Stateless widget是不可变的。
+
+Stateful widget至少由两个类组成：
+
+一个StatefulWidget类。
+一个 State类； StatefulWidget类本身是不变的，但是State类中持有的状态在widget生命周期中可能会发生变化。
+```

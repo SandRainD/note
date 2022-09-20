@@ -1,0 +1,11 @@
+名称 | 功能
+---|---
+ decoration | 文字装饰线(none没有线，lineThrough删除线，overline上划线，underline下划线)
+decorationColor | 文字装饰线颜色
+decorationStyle | 文字装饰线风格([dashed,dotted]虚线，double两根线，solid一根实现，wavy波浪线)
+wordSpacing | 单词间隙(如果是负值，会让单词变得更紧凑)
+letterSpacing | 字母间隙(如果是负值，会让字母变得更紧凑)
+fontStyle | 文字样式(iitalic斜体，normal正常体)
+color | 文字颜色
+fontWeight | 字体粗细(bold粗体，normal正常体)
+

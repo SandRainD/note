@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>3864-1589877016675</coId><text>增删改：</text><inline-styles><font-family><from>0</from><to>4</to><value>SimSun</value></font-family><font-size><from>0</from><to>4</to><value>22</value></font-size></inline-styles><styles/></para><code><coId>4320-1589877016675</coId><text>//用当前类获取类加载器
+InputStream in = Test1.class.getClassLoader().getResourceAsStream("jdbc.properties");
+Properties pros=new Properties();
+pros.load(in);
+
+String user=pros.getProperty("user");
+String password=pros.getProperty("password");
+String url=pros.getProperty("url");
+String driverClass=pros.getProperty("driverClass");
+//加载驱动
+Class.forName(driverClass);
+//...
+//获取连接
+Connection com=DriverManager.getConnection(url,user,password);
+//		System.out.println(com);
+
+//预编译SQL语句
+String sql="insert into customers(name,email,birth)values(?,?,?)";
+PreparedStatement ps=com.prepareStatement(sql);
+//填充占位符，返回PreparedStatement实例
+ps.setString(1, "nezha");
+ps.setString(2, "nezha@gmail.com");
+SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+java.util.Date date=sdf.parse("1000-1-1");
+ps.setDate(3, (java.sql.Date) new Date(date.getTime())); 
+
+//执行操作, 或者executeUpdate()
+ps.execute();
+//资源关闭
+ps.close();
+com.close()
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>7896-1589877016675</coId><text>查询：</text><inline-styles><font-family><from>0</from><to>3</to><value>SimSun</value></font-family><font-size><from>0</from><to>3</to><value>22</value></font-size></inline-styles><styles/></para><code><coId>2342-1590128411414</coId><text>//.....省略代码
+Connection conn=JDBCUtils.getConnection();
+String sql="select id,name,email,birth from customers where id=?";
+PreparedStatement ps=conn.prepareStatement(sql);
+ps.setString(1,1);
+//执行，并返回结果集
+ResultSet resultSet = ps.executeQurey();
+//处理结果集
+if(resultSet.next()){//ResultSet特殊：判断下一条是否有数据，
+                    //是返回true且指针下移，否返回false且不下移
+    int id=resultSet.getInt(1);
+    String name=resultSet.getString(2);
+    String email=resultSet.getString(3);
+    Date birth = resultSet.getDate(4);
+    
+    NewClass customer=new NweClass(id,name,Date);
+    //运用ORM的编程思想，一个表对应Java一个类
+    system.out.println(customer);
+}
+关闭资源：resultSet conn ps
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>2190-1590128411414</coId><text/><inline-styles/><styles/></para><para><coId>8423-1590130991650</coId><text/><inline-styles/><styles/></para><para><coId>4836-1590130991801</coId><text>--------------------------------------------------------</text><inline-styles><font-family><from>0</from><to>56</to><value>SimSun</value></font-family><font-size><from>0</from><to>56</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>7399-1590131004887</coId><text>通用增删改操作就是写一个可变形参的方法：</text><inline-styles><font-family><from>0</from><to>20</to><value>SimSun</value></font-family><font-size><from>0</from><to>20</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>5764-1590131404701</coId><text>public void method(String sql,Object...args){</text><inline-styles><font-family><from>0</from><to>45</to><value>SimSun</value></font-family><font-size><from>0</from><to>45</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>3062-1590131457008</coId><text>}</text><inline-styles><font-family><from>0</from><to>1</to><value>SimSun</value></font-family><font-size><from>0</from><to>1</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>8030-1590741444709</coId><text/><inline-styles/><styles/></para><para><coId>7640-1590741444886</coId><text>针对于一张表的查询：</text><inline-styles><font-family><from>0</from><to>10</to><value>SimSun</value></font-family><font-size><from>0</from><to>10</to><value>22</value></font-size></inline-styles><styles/></para><image><coId>4556-1590741141767</coId><source>https://note.youdao.com/yws/res/6205/2147FCF274BB4D32BCCA9FA9DF477335</source><text/><styles><width>620</width><height>294</height></styles></image><image><coId>6272-1590741499015</coId><source>https://note.youdao.com/yws/res/6212/31EE587ED0CE4E008D2B6C78A08A4EA4</source><text/><styles><width>620</width><height>171</height></styles></image><para><coId>8441-1590741495782</coId><text/><inline-styles/><styles/></para><image><coId>4866-1590743112368</coId><source>https://note.youdao.com/yws/res/6215/71D0CDA07E254E79A4976DD20F3FAF15</source><text/><styles><width>620</width><height>143</height></styles></image><para><coId>4546-1590741492718</coId><text/><inline-styles/><styles/></para><para><coId>3436-1590741492718</coId><text/><inline-styles/><styles/></para></body></note>

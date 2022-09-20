@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>2089-1607258122152</coId><text>将某一个资源(对象),以配置文件（tomcat/conf/context.xml）的形式写入</text><inline-styles/><styles/></para><code><coId>3240-1607259195310</coId><text>&lt;Environment name="jndiname" value="jndiValue" type="java.lang.String /&gt;
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>2351-1607259195310</coId><text> 在jsp中引用</text><inline-styles/><styles/></para><code><coId>4150-1607343233380</coId><text>&lt;%
+  Context ctx;
+  ctx = new InitialContext();
+  String testJndi=(String)ctx.lookup("java:comp/env/jndiname");
+  System.out.println(testJndi);
+%&gt;
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>4570-1607343233380</coId><text/><inline-styles/><styles/></para></body></note>

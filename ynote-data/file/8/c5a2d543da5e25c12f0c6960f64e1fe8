@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>93zzdo1595394124809</coId><text/><inline-styles/><styles/></para><code><coId>24htew1595394124806</coId><text>var fun=new function("console.log('hello')");
+</text><inline-styles/><styles/><language>javascript</language><theme>default</theme></code><para><coId>61wupv1595394177319</coId><text>封装到函数的代码不会立即执行</text><inline-styles/><styles/></para><para><coId>98wapb1595393581628</coId><text>函数中的代码会在函数调用的时候执行</text><inline-styles/><styles/></para><para><coId>2632-1610525981324</coId><text>函数不允许重载</text><inline-styles><bold><from>0</from><to>7</to><value>true</value></bold></inline-styles><styles/></para><para><coId>6723-1610526396988</coId><text>函数可以有隐形参数arguments</text><inline-styles><bold><from>0</from><to>18</to><value>true</value></bold></inline-styles><styles/></para><para><coId>63radq1595393594546</coId><text>调用函数：</text><inline-styles/><styles/></para><code><coId>85wjub1595394122363</coId><text>fun();
+</text><inline-styles/><styles/><language>javascript</language><theme>default</theme></code><para><coId>34msqu1595394298874</coId><text/><inline-styles/><styles/></para><para><coId>72iukf1595394311796</coId><text>常用使用函数声明来创建一个函数</text><inline-styles/><styles/></para><code><coId>83haui1595394317373</coId><text>function 函数名(【形参1,形参2，形参3】){
+    语句1
+    return a;
+}
+</text><inline-styles/><styles><indent>4</indent><align>left</align></styles><language>javascript</language><theme>tomorrow</theme></code><para><coId>38bzmj1595394732613</coId><text/><inline-styles/><styles/></para><code><coId>48dmif1595394732611</coId><text>var fun=function(){
+    语句
+}
+</text><inline-styles/><styles/><language>javascript</language><theme>default</theme></code><para><coId>16gxpb1595394732613</coId><text/><inline-styles/><styles/></para><para><coId>2079-1595371729100</coId><text>声明一个函数是一个整体：</text><inline-styles/><styles/></para><code><coId>2734-1595371752613</coId><text>(function(){
+    语句
+})
+</text><inline-styles/><styles/><language>javascript</language><theme>default</theme></code><para><coId>9051-1595371752613</coId><text>立即执行函数：</text><inline-styles/><styles/></para><code><coId>8445-1595371838793</coId><text>(function(参数列表){
+    语句
+})(参数列表);
+</text><inline-styles/><styles/><language>javascript</language><theme>default</theme></code><para><coId>3424-1595378278343</coId><text/><inline-styles/><styles/></para><para><coId>9854-1595442025233</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>9315-1595442025383</coId><text/><inline-styles/><styles/></heading><heading compat="true" level="2"><coId>6562-1595442025495</coId><text>使用工厂方法创建对象</text><inline-styles><bold><from>0</from><to>10</to><value>true</value></bold><font-size><from>0</from><to>10</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>7149-1595442572845</coId><text>function createPerson(name,age,gender) {
+    var obj = new Object();
+    obj.name=name;
+    obj.age=age;
+    obj.gender=gender;
+    obj.sayname=function(){
+        alert("我的名字叫："+this.name);
+    }
+    return obj;
+}
+var per=createPerson("123",12,"男");
+per.sayname();
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><heading compat="true" level="2"><coId>4925-1595442568445</coId><text>构造函数</text><inline-styles><bold><from>0</from><to>4</to><value>true</value></bold><font-size><from>0</from><to>4</to><value>20</value></font-size></inline-styles><styles/></heading><image><coId>3161-1595449454695</coId><source>https://note.youdao.com/yws/res/7967/CF2BE283B5DA40BDBB4EC6F896C6665E</source><text/><styles><width>620</width><height>115</height></styles></image><code><coId>1057-1595449394470</coId><text>function Person(name,age) {
+    this.name=name;
+    this.age=age;
+    this.sayName=fun;
+}
+//将函数定义在全局作用域，污染了全局作用域的命名空间，解决方法见下方代码
+function fun(){
+        alert("hello大家好,我是："+this.name)
+}
+var per1=new Person();
+console.log(per1 instanceof Person);//判断per1是否是Person的实例
+consolr.log(per1 instanceof Object);//所有的对象都是Object的后代
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>3100-1595449394470</coId><text>//使用同一个构造函数创建的对象，称为一类对象，也将构造函数称为一个类</text><inline-styles/><styles/></para><para><coId>9823-1595449743993</coId><text>//通过构造函数创建的对象，称为类的实例p我们所谓的原型对象</text><inline-styles/><styles/></para><para><coId>2019-1595985098656</coId><text>//原型对象也是对象，所以也有原型</text><inline-styles/><styles/></para><code><coId>8564-1595555641130</coId><text>/*每创建一个函数，解析气都会向函数中添加一个属性prototype*/
+//这个属性对应着一个对象，这个对象就是原型对象
+//如果函数作为普通函数调用，prototype没有任何作用
+
+//通过构造函数创建的对象，有一个隐含的属性指向构造函数的原型对象，可通过__proto__来访问
+function Person() {
+
+}
+console.log(Person.prototype);
+
+var mc=new Person();
+console.log(mc.__proto__);
+Person.prototype.a=123;
+coonsole.log(mc.a);
+//我们在访问一个属性或方法时，它会在对象中去找，找不到则会去原型对象中去找
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>7318-1595982525659</coId><text>使用in检查对象中是都含有某个属性时，如果对象中没有但是原型中有，会返回true</text><inline-styles><font-family><from>0</from><to>40</to><value>微软雅黑</value></font-family></inline-styles><styles/></para><para><coId>3588-1595982699794</coId><text>console.log("name" in 对象);</text><inline-styles><font-family><from>0</from><to>26</to><value>微软雅黑</value></font-family></inline-styles><styles/></para><para><coId>3595-1595982721910</coId><text/><inline-styles/><styles/></para><para><coId>6335-1595982723189</coId><text>可以使用对象的hasOwnProperty()来检查对象自身是否有该属性</text><inline-styles><font-family><from>0</from><to>36</to><value>微软雅黑</value></font-family></inline-styles><styles/></para><para><coId>1030-1595982776918</coId><text>对象.hasOwnProperty("name");</text><inline-styles><font-family><from>0</from><to>26</to><value>微软雅黑</value></font-family></inline-styles><styles/></para><para><coId>9176-1595982525659</coId><text/><inline-styles/><styles/></para><para><coId>5135-1595986756482</coId><text>console.log(对象);相当于console.log(对象.toString());</text><inline-styles><font-family><from>0</from><to>46</to><value>微软雅黑</value></font-family></inline-styles><styles/></para><image><coId>3186-1596009888939</coId><source>https://note.youdao.com/yws/res/8164/F386D6ED0FA44313AFBCD7AC43A8CBFD</source><text/><styles><width>620</width><height>305</height></styles></image><image><coId>6767-1596010015048</coId><source>https://note.youdao.com/yws/res/8167/6B22BB14E666467B930CA61DC2816F0D</source><text/><styles><width>620</width><height>81</height></styles></image><para><coId>8733-1596155018704</coId><text/><inline-styles/><styles/></para><image><coId>9541-1596155018704</coId><source>https://note.youdao.com/yws/res/8187/B7A30E783DDD4650824716C577618D5B</source><text/><styles><width>566</width><height>65</height></styles></image><image><coId>8066-1596273189573</coId><source>https://note.youdao.com/yws/res/8190/7C98CAA892AB46FB9F14EBB5E68E0314</source><text/><styles><width>620</width><height>230</height></styles></image><para><coId>9072-1596273187921</coId><text/><inline-styles/><styles/></para><para><coId>8548-1596273187921</coId><text/><inline-styles/><styles/></para></body></note>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>5313-1615468167199</coId><text>元组是不可变序列，在多任务情况下同时操作对象时不需要加锁</text><inline-styles><font-size><from>0</from><to>28</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>6918-1615513484857</coId><text>声明：</text><inline-styles><font-size><from>0</from><to>3</to><value>16</value></font-size></inline-styles><styles/></para><code><coId>8244-1615468343404</coId><text>t=('python','hello',90)  #若元组只包含一个元素，使用时需要加上一个逗号
+t=tuple(('py','hello',90))
+</text><inline-styles/><styles/><language>python</language><theme>tomorrow</theme></code><para><coId>7298-1615468343404</coId><text>遍历：</text><inline-styles><font-size><from>0</from><to>3</to><value>16</value></font-size></inline-styles><styles/></para><code><coId>5751-1615513853773</coId><text>print(t[1])
+for item in t:
+    print(item)
+</text><inline-styles/><styles/><language>python</language><theme>tomorrow</theme></code><para><coId>8696-1615513853773</coId><text/><inline-styles/><styles/></para></body></note>

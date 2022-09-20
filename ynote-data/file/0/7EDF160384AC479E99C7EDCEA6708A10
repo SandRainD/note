@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>7920-1613206738350</coId><text/><inline-styles/><styles/></para><code><coId>0090-1613206738350</coId><text>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;
+&lt;configuration&gt;
+    &lt;!--可以通过外部配置动态替换内部定义的属性,同时properties中可以定义property配置单个元素--&gt;
+    &lt;properties resource="jdbc.properties"/&gt;
+    &lt;!--改变mybatis运行时的行为  --&gt;
+    &lt;settings&gt;
+        &lt;!--打开延迟加载--&gt;
+        &lt;setting name="lazyLoadingEnabled" value="true"/&gt;
+        &lt;!--将积极加载改为消极加载--&gt;
+        &lt;setting name="aggressiveLazyoLoading" value="false"/&gt;
+        &lt;setting name="cacheEnable" value="true"/&gt;&lt;!--开启二级缓存--&gt;
+    &lt;/settings&gt;
+    &lt;!--给java类定义别名，同时常用的java类mybatis已经定义了别名--&gt;
+    &lt;typeAliases&gt;
+        &lt;typeAlias type="com.idea.domain.User" alias="user"&gt;&lt;/typeAlias&gt;
+        &lt;!--通过自动扫描的方式自动定义别名--&gt;
+        &lt;package name="com.idea.domain"/&gt;
+    &lt;/typeAliases&gt;
+    &lt;!--类型处理器--&gt;
+    &lt;typeHandlers&gt;&lt;/typeHandlers&gt;
+&lt;!--    &lt;objectFactory type=""&gt;&lt;/objectFactory&gt;    mybatis创建新实例的对象工厂--&gt;
+    &lt;!--配置环境--&gt;
+    &lt;environments default="mysql"&gt;
+        &lt;environment id="mysql"&gt;
+            &lt;!--配置mysql环境，配置事务类型，如果项目中使用spring，就没有必要在mybatis中配置事务管理器--&gt;
+            &lt;transactionManager type="JDBC"&gt;&lt;/transactionManager&gt;
+            &lt;!--配置链接池--&gt;
+            &lt;dataSource type="POOLED"&gt;
+                &lt;property name="driver" value="${driver}"/&gt;
+                &lt;property name="url" value="jdbc:mysql://localhost:3306/mybatis?serverTimezone=UTC"/&gt;
+                &lt;property name="username" value="root"/&gt;
+                &lt;property name="password" value="biubiu123"/&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+    &lt;!--指定映射文件的位置，映射文件即每个dao独立的配置文件--&gt;
+    &lt;mappers&gt;
+        &lt;mapper resource="com/idea/Dao/UserDao.xml"/&gt;
+        &lt;mapper class="com.iea.dao.userdao.xml"/&gt;
+        &lt;package &gt;
+    &lt;/mappers&gt;
+&lt;configuration&gt;
+	&lt;!-- 配置全局属性 --&gt;
+	&lt;settings&gt;
+		&lt;!-- 使用jdbc的getGeneratedKeys获取数据库自增主键值 --&gt;
+		&lt;setting name="useGeneratedKeys" value="true" /&gt;
+
+		&lt;!-- 使用列别名替换列名 默认:true --&gt;
+		&lt;setting name="useColumnLabel" value="true" /&gt;
+
+		&lt;!-- 开启驼峰命名转换:Table{create_time} -&gt; Entity{createTime} --&gt;
+		&lt;setting name="mapUnderscoreToCamelCase" value="true" /&gt;
+	&lt;/settings&gt;
+&lt;/configuration&gt;
+
+&lt;/configuration&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><image><coId>6232-1613634639769</coId><source>https://note.youdao.com/yws/res/11431/AA6560E40CBF4438AFB1140D9E47EE24</source><text/><styles><width>620</width><height>94</height></styles></image><para><coId>7080-1613634639769</coId><text/><inline-styles/><styles/></para></body></note>

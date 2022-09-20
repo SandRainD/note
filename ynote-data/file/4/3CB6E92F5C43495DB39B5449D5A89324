@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>5385-1611821655722</coId><text>1、事务添加到 JavaEE 三层结构里面 Service 层（业务逻辑层）</text><inline-styles/><styles/></para><para><coId>3174-1611821962212</coId><text>2、在 Spring 进行事务管理操作</text><inline-styles/><styles/></para><para><coId>5249-1611821962212</coId><text>（1）有两种方式：编程式事务管理和声明式事务管理（使用）</text><inline-styles><strike><from>9</from><to>16</to><value>true</value></strike></inline-styles><styles/></para><para><coId>6610-1611821962212</coId><text>3、声明式事务管理</text><inline-styles/><styles/></para><para><coId>7985-1611821962212</coId><text>（1）基于注解方式（使用）</text><inline-styles/><styles/></para><para><coId>5835-1611821962212</coId><text>（2）基于 xml 配置文件方式</text><inline-styles/><styles/></para><para><coId>2017-1611821962212</coId><text>4、在 Spring 进行声明式事务管理，底层使用 AOP 原理</text><inline-styles/><styles/></para><para><coId>3982-1611824690819</coId><text>5、Spring 事务管理 API，提供一个接口，代表事务管理器，这个接口针对不同的框架提供不同的实现类</text><inline-styles/><styles/></para><image><coId>0090-1611824718261</coId><source>https://note.youdao.com/yws/res/11143/1940E1ECB75149D68F3A8D17DAC3DF53</source><text/><styles><width>620</width><height>255</height></styles></image><para><coId>2529-1611824718261</coId><text/><inline-styles/><styles/></para><para><coId>4236-1611824720416</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>7092-1611824720602</coId><text>注解声明式事务管理</text><inline-styles><bold><from>0</from><to>9</to><value>true</value></bold><font-size><from>0</from><to>9</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>1625-1611824761875</coId><text>1.在 spring 配置文件配置事务管理器</text><inline-styles/><styles/></para><code><coId>8482-1611824783887</coId><text>&lt;bean id="transactionManager"
+class="org.springframework.jdbc.datasource.DataSourceTransactionManager"&gt;
+&lt;!--注入数据源--&gt;
+&lt;property name="dataSource" ref="dataSource"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>9392-1611824723874</coId><text>2.在 spring 配置文件，开启事务注解</text><inline-styles/><styles/></para><para><coId>2496-1611824835306</coId><text>（1）在spring配置文件中引入名称空间tx</text><inline-styles/><styles/></para><code><coId>2748-1611824806863</coId><text>&lt;beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd"&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>2160-1611824724083</coId><text>（2）开启事务注解</text><inline-styles/><styles/></para><code><coId>1070-1611824887903</coId><text>&lt;tx:annotation-driven transaction-
+manager="transactionManager"&gt;&lt;/tx:annotation-driven&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>6199-1611824724252</coId><text>3.在 service 类上面（或者 service 类里面方法上面）添加事务注解</text><inline-styles/><styles/></para><para><coId>8571-1611824724401</coId><text>（1）@Transactional，这个注解添加到类上面，也可以添加方法上面</text><inline-styles/><styles/></para><para><coId>5397-1611825123242</coId><text>（2）如果把这个注解添加类上面，这个类里面所有的方法都添加事务</text><inline-styles/><styles/></para><para><coId>2039-1611825123242</coId><text>（3）如果把这个注解添加方法上面，为这个方法添加事务</text><inline-styles/><styles/></para><para><coId>2399-1611824724534</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>9526-1611881930646</coId><text>XML声明式事务管理</text><inline-styles><bold><from>0</from><to>10</to><value>true</value></bold><font-size><from>0</from><to>10</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>4879-1611881931159</coId><text>第一步 配置事务管理器</text><inline-styles/><styles/></para><code><coId>3925-1611884302135</coId><text>&lt;bean id="transactionManager"
+class="org.springframework.jdbc.datasource.DataSourceTransactionManager"&gt;
+&lt;!--注入数据源--&gt;
+&lt;property name="dataSource" ref="dataSource"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>7676-1611884250109</coId><text>第二步 配置通知</text><inline-styles/><styles/></para><code><coId>9856-1611884309360</coId><text>&lt;tx:advice id="txadvice"&gt;
+&lt;!--配置事务参数--&gt;
+&lt;tx:attributes&gt;
+&lt;!--指定哪种规则的方法上面添加事务--&gt;
+&lt;tx:method name="accountMoney" propagation="REQUIRED"/&gt;
+&lt;!--&lt;tx:method name="account*"/&gt;--&gt;
+&lt;/tx:attributes&gt;
+&lt;/tx:advice&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>4535-1611884255040</coId><text>第三步 配置切入点和切面</text><inline-styles/><styles/></para><code><coId>3218-1611884336334</coId><text>&lt;aop:config&gt;
+&lt;!--配置切入点--&gt;
+&lt;aop:pointcut id="pt" expression="execution(*
+com.atguigu.spring5.service.UserService.*(..))"/&gt;
+&lt;!--配置切面--&gt;
+&lt;aop:advisor advice-ref="txadvice" pointcut-ref="pt"/&gt;
+&lt;/aop:config&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>2020-1611881931223</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>5223-1611881931351</coId><text>事务配置：</text><inline-styles><bold><from>0</from><to>5</to><value>true</value></bold><font-size><from>0</from><to>5</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>4254-1611882110894</coId><text>1、在 service 类上面添加注解@Transactional，在这个注解里面可以配置事务相关参数</text><inline-styles/><styles/></para><image><coId>7424-1611882140031</coId><source>https://note.youdao.com/yws/res/11171/C7A5B3D5D793482F8C6EB703EFF52A65</source><text/><styles><width>620</width><height>237</height></styles></image><para><coId>9839-1611824720900</coId><text>propagation：事务传播行为</text><inline-styles/><styles/></para><para><coId>4547-1611882709633</coId><text>（1）多事务方法直接进行调用，这个过程中事务 是如何进行管理的</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>7589-1611883105426</coId><text>事务方法：对数据库表数据进行变化的操作</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><image><coId>2595-1611883402838</coId><source>https://note.youdao.com/yws/res/11188/22C1FD3A60A74449A6C73C263C096AFA</source><text/><styles><width>620</width><height>406</height></styles></image><para><coId>4680-1611882179394</coId><text>ioslation：事务隔离级别</text><inline-styles/><styles/></para><image><coId>1361-1611883550523</coId><source>https://note.youdao.com/yws/res/11191/A585795F5BB84580AACCCC0FC3611022</source><text/><styles><width>620</width><height>302</height></styles></image><para><coId>5877-1611882179983</coId><text>timeout：超时时间</text><inline-styles/><styles/></para><para><coId>3640-1611883966414</coId><text>（1）事务需要在一定时间内进行提交，如果不提交进行回滚</text><inline-styles/><styles/></para><para><coId>5955-1611883968617</coId><text>（2）默认值是 -1 ，设置时间以秒单位进行计算</text><inline-styles/><styles/></para><para><coId>2339-1611882180122</coId><text>readOnly：是否只读</text><inline-styles/><styles/></para><para><coId>3052-1611883985988</coId><text>（1）读：查询操作，写：添加修改删除操作</text><inline-styles/><styles/></para><para><coId>9888-1611883988122</coId><text>（2）readOnly 默认值 false，表示可以查询，可以添加修改删除操作</text><inline-styles/><styles/></para><para><coId>5019-1611883988122</coId><text>（3）设置 readOnly 值是 true，设置成 true 之后，只能查询</text><inline-styles/><styles/></para><para><coId>1314-1611882213431</coId><text>rollbackFor：回滚</text><inline-styles/><styles/></para><para><coId>3251-1611883997030</coId><text>（1）设置出现哪些异常进行事务回滚</text><inline-styles/><styles/></para><para><coId>5530-1611882224104</coId><text>noRollbackFor：不回滚</text><inline-styles/><styles/></para><para><coId>6377-1611884006228</coId><text>（1）设置出现哪些异常不进行事务回滚</text><inline-styles/><styles/></para><para><coId>9844-1611884010170</coId><text/><inline-styles/><styles/></para><para><coId>8431-1611884763555</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>7745-1611884763721</coId><text>完全注解开发</text><inline-styles><bold><from>0</from><to>6</to><value>true</value></bold><font-size><from>0</from><to>6</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>8012-1611884793108</coId><text>@Configuration //配置类
+@ComponentScan(basePackages = "com.atguigu") //组件扫描
+@EnableTransactionManagement //开启事务
+public class TxConfig {
+//创建数据库连接池
+@Bean
+public DruidDataSource getDruidDataSource() {
+DruidDataSource dataSource = new DruidDataSource();
+dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+dataSource.setUrl("jdbc:mysql:///user_db");
+dataSource.setUsername("root");
+dataSource.setPassword("root");
+return dataSource;
+}
+//创建 JdbcTemplate 对象
+@Bean
+public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
+//到 ioc 容器中根据类型找到 dataSource
+JdbcTemplate jdbcTemplate = new JdbcTemplate();
+//注入 dataSource
+jdbcTemplate.setDataSource(dataSource); return jdbcTemplate;
+}
+//创建事务管理器
+@Bean
+public DataSourceTransactionManager
+getDataSourceTransactionManager(DataSource dataSource) {
+DataSourceTransactionManager transactionManager = new
+DataSourceTransactionManager();
+transactionManager.setDataSource(dataSource);
+return transactionManager;
+}
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>1510-1611884793108</coId><text/><inline-styles/><styles/></para></body></note>

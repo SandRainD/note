@@ -1,0 +1,11 @@
+名称 | 类型 | 说明
+--- | --- | ---
+scrollDirection | Axis | 滚动方法
+padding | EdgeInsetsGeometry | 内边距
+resolve | bool | 组件反向排序
+crossAxisSpacing | double | 水平子Widget之间间距
+mainAxisSpacing | double | 垂直子Widget之间间距
+crossAxisCount | int | 一行的Widget数量
+childAspectRatio | double | 子Widget宽高比例
+children | | <Widget>[]
+gridDelegate | SliverGridDelegateWithFixedCrossAxisCount(常用),SliverGridDelegateWithMaxCrossAxisExtent | 控制布局主要用在GridView.builder里面

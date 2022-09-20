@@ -1,0 +1,172 @@
+名称 | 类型 | 说明
+---|---|---
+scrollDirection | Axis | Axis.horizontal水平列表;Axis.vertical垂直列表
+padding | EdgeInsetsGeometry | 内边距
+resolve | bool | 组反向排序
+children | List<Widget> | 列表元素
+
+
+## 垂直列表
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/serven.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: '',
+      home: Scaffold(
+        appBar: AppBar(title: Text('FlutterDemo')),
+        body: HomeContext(),
+      ),
+    );
+  }
+}
+class HomeContext extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: EdgeInsets.all(10.0),
+      children: [
+        ListTile(
+          leading: Icon(Icons.ac_unit,color: Colors.lightBlue,),
+          title: Text('hello',style: TextStyle(fontSize: 18.0),),
+          subtitle: Text('world'),
+        ),
+        ListTile(
+          leading: Icon(Icons.clear),
+          title: Text('hello'),
+          subtitle: Text('world'),
+          trailing: Image.asset('./images/木兰.png'),
+        ),
+        ListTile(
+          leading: Image.network('https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png',color: Colors.red,),
+          title: Text('hello'),
+          subtitle: Text('world'),
+          trailing: Icon(Icons.memory),
+        ),
+      ],
+    );
+  }
+}
+```
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/serven.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: '',
+      home: Scaffold(
+        appBar: AppBar(title: Text('FlutterDemo')),
+        body: HomeContext(),
+      ),
+    );
+  }
+}
+class HomeContext extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+
+      padding: EdgeInsets.all(10),
+      children: <Widget>[
+        Image.network('https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png',color: Colors.red,),
+        Container(
+          color: Colors.black,
+          height: 10.0,
+        ),
+        Image.network('https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png',color: Colors.orange,),
+        Image.network('https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png',color: Colors.yellow,),
+        Image.network('https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png',color: Colors.green,),
+        Image.network('https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png',color: Colors.greenAccent,),
+        Image.network('https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png',color: Colors.blue,),
+        Image.network('https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png',color: Colors.purple,),
+      ],
+    );
+  }
+}
+```
+==在垂直列表里面的宽度是自适应的可以不设置，在水平列表里的高度可以不设置==
+## 水平列表
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/serven.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: '',
+      home: Scaffold(
+        appBar: AppBar(title: Text('FlutterDemo')),
+        body: HomeContext(),
+      ),
+    );
+  }
+}
+class HomeContext extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 180.0,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          Container(
+            width: 180.0,
+            height: 180.0,
+            color: Colors.red,
+            child: ListView(
+              children: [
+                Image.network('https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png',color: Colors.blue,),
+                Text('文本')
+              ],
+            ),
+          ),
+          Container(
+            width: 180.0,
+            height: 180.0,
+            color: Colors.orange,
+          ),
+          Container(
+            width: 180.0,
+            height: 180.0,
+            color: Colors.yellow,
+          ),
+          Container(
+            width: 180.0,
+            height: 180.0,
+            color: Colors.green,
+          ),
+          Container(
+            width: 180.0,
+            height: 180.0,
+            color: Colors.greenAccent,
+          ),
+          Container(
+            width: 180.0,
+            height: 180.0,
+            color: Colors.blue,
+          ),
+          Container(
+            width: 180.0,
+            height: 180.0,
+            color: Colors.purple,
+          ),
+        ],
+      ),
+    );
+  }
+}
+```

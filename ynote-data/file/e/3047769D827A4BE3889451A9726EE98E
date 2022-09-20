@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>5871-1584161308862</coId><text/><inline-styles/><styles/></para><image><coId>5339-1584161308862</coId><source>https://note.youdao.com/yws/res/313/C48F56C75D3E4D2E83FCB6D806E40BDB</source><text/><styles><width>620</width><height>275</height></styles></image><para><coId>6982-1584161308862</coId><text/><inline-styles/><styles/></para><code><coId>6695-1584161319697</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容
+        
+        c.setLayout(new BorderLayout());//设置为边界布局，也是默认布局
+        JButton b1=new JButton("sdf");
+        JButton b2=new JButton("sdf");
+        JButton b3=new JButton("sdf");
+        JButton b4=new JButton("sdf");
+        JButton b5=new JButton("sdf");
+        c.add(b1,BorderLayout.CENTER);
+        c.add(b2,BorderLayout.EAST);
+        
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>1422-1584161319697</coId><text/><inline-styles/><styles/></para><para><coId>1529-1584161374753</coId><text/><inline-styles/><styles/></para><para><coId>2564-1584161374942</coId><text/><inline-styles/><styles/></para><para><coId>1034-1584161375102</coId><text/><inline-styles/><styles/></para><para><coId>6316-1584161375262</coId><text/><inline-styles/><styles/></para></body></note>

@@ -1,0 +1,184 @@
+
+程序入口
+```
+main(){
+    print('helloworld');
+}
+  //表示main方法没有返回值
+void main(){
+   print('helloworld');
+}
+```
+注释
+
+```
+/**/
+///
+//
+```
+命名规则
+1. 变量名称必须有数字，字母，下划线和美元$组成
+2. 标识符开头不能是数字
+3. 表示夫不能是保留字和关键子
+4. 变量名称区分大小写
+5. 见名知意
+
+Dart常量
+
+    final 和 const修饰符
+    const值不变，一开始就要赋值
+    final 可以开始不赋值 但只能赋值一次；而且final不仅有const的编译时常量的特性，最重要的是他运行时永远不改量的量
+    
+Dart常用数据类型
+
+    Number(数值):
+        int
+        double
+    String(字符串):
+        String
+    Booleans(布尔):
+        bool
+    List(数组):
+        在Dart中，数组是列表对象，所以大多数人只是称他们为列表
+        
+字符串
+
+    1.可以使用'',"",""" """,表示
+
+    2.字符串的拼接
+    String str1='你好';
+    String str2='dart';
+        (1)print("$str1 $str2");
+        (2)print(str1 + " "+str2);
+    
+List列表
+
+    1.
+    var li=['aa','bb','cc'];
+    print(l1);
+    print(li.length);
+    print(li[1]);//bb
+
+    2.
+    var l2=new List();
+    l2.add('张三');
+    l2.add('李四');
+    l2.add('王五');
+    print(l2[1]);//李四
+
+    3.定义List指定数据类型
+    var l3=new List<String>();
+    
+Maps字典
+    
+    1.定义方式
+    var person={
+        "name":"张三",
+        "age":20
+    };
+    引用方式
+    print(person["name"]);
+        
+    2.定义方式
+    var p=new Map();
+    p["name"]="李四";
+    p["age"]="22";
+    引用方式
+    print(p);
+
+Dart判断数据类型
+
+    is 关键词来判断数据类型
+    var str="123";
+    if(str is String){
+        print('是string类型');
+    }else if(str is int){
+        print('int');
+    }else{
+        print('其他类型')；
+    }
+
+Dart运算符
+
+算数运算符大部分没啥差别
+
+    print(a~/b);//取整
+    
+关系运算符
+
+    没区别(java)
+    
+逻辑运算符
+
+    ! 取反
+    &&并且：全为true的话值为true
+    否则为false
+    ||或者：全为false的话值为false
+    否则为true
+    
+赋值运算符
+
+    =
+    ??=
+    
+    b??=23;//表示如果b为空的话，把23赋值给b
+    
+复合赋值运算符
+
+    +=
+    -=
+    *=
+    /=
+    %= 
+    ~/=
+    
+条件表达式
+
+    if esle
+    switch case
+    
+    var sex = "男";
+    switch(sex){
+        case "男":
+          语句
+        break;
+        ...
+        default:
+        print("传入参数错误???");
+        break;
+    }
+    
+    三目运算符
+
+    bool flag=true;
+    String c= flag?'true':'false';
+    
+    ??运算符
+    如果变量值为空就把值赋给变量
+    var a;
+    var b=a??10;
+    print(b);//b=10
+    
+    var a=22;
+    var b=a??10;
+    print(b);//b=22
+    
+Dart类型转换
+    
+    Number类型转换成String类型
+        toString()
+    String类型转换成Number类型
+        parse()
+    
+    String str='123';
+    var Num=int.parse(str);
+    
+    其他类型转换称Booleans类型
+    isEmpty:判断字符串是否为空
+    isNaN:判断是否为数字
+    var str="xxx";
+    if(str.isEmpty){
+        print('str空');
+    }else{
+        print('str不为空');
+    }

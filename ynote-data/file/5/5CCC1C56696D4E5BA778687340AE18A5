@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>2255-1584168092329</coId><text/><inline-styles/><styles/></para><code><coId>7947-1584168092329</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容
+        c.setLayout(new GridLayout(3,2,5,5));
+        
+        JButton btn[]=new JButton[6];
+        for(int i=0;i&lt;btn.length;i++){
+            btn[i]=new JButton();
+            c.add(btn[i]);
+        }
+        btn[0].setText("不可用");
+        btn[0].setEnabled(false);//设置不可用
+        
+        btn[1].setText("不可用");
+        btn[1].setBorderPaninted(false);//设置无边框
+        
+        btn[2].setText("不可用");
+        btn[2].setBackground(Color.YELLOW);//设置背景颜色
+        
+        btn[3].setText("不可用");
+        btn[3].setBorder(BorderFactory.createLineBordre(Color.RED));//设置边框颜色
+        
+        Icon icon=new ImageIcon("图片路径");
+        btn[4].setICon(defaultIcon);//设置图片背景
+        btn[4].setToolTipText("图片按钮");//鼠标悬停提示
+        
+        btn[5]=setText("不可用");
+        btn[5]=addActionListener(new ActionListener(){//添加事件监听
+           public void actionPerformed(ActionEvent e){//监听触发的方法
+               JOptionPane.showMessageDialog(Demo.this,"点击按钮");//弹出小对话框
+               //第一个参数是要在父窗体中弹出的，第二个参数是显示什么
+           } 
+        });
+        
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>5064-1584168092329</coId><text>button.setFocusPainted(false);// 取消焦点绘制</text><inline-styles/><styles/></para><para><coId>6314-1585650155565</coId><text>        button.setBorderPainted(false);// 取消边框绘制</text><inline-styles/><styles/></para><para><coId>7828-1585650155565</coId><text>        button.setContentAreaFilled(false);// 取消内容绘制</text><inline-styles/><styles/></para></body></note>

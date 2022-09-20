@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>8690-1589860717275</coId><text/><inline-styles/><styles/></para><code><coId>7335-1589860717275</coId><text>Driver driver =new com.mysql.jdbc.Driver();
+		/*
+		 * url是数据库地址，test数据库
+		 */
+		String url="jdbc:mysql://127.0.0.1:3306/test1";
+		//用户名和密码存放在properties里面
+		Properties info=new Properties();
+		info.setProperty("user", "root");
+		info.setProperty("password", "biubiu123");
+		Connection conn=driver.connect(url,info);
+		System.out.println(conn);
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>6946-1589861193558</coId><text/><inline-styles/><styles/></para><code><coId>4236-1589861193558</coId><text>//使用反射获取Driver实现类
+Class&lt;?&gt; clazz = Class.forName("com.mysql.jdbc.Driver");	
+  Driver drover=(Driver) clazz.newInstance();
+  //提供连接的数据库
+  String url="jdbc:mysql://127.0.0.1:3306/test1";
+  //提供连接需要的用户名和密码
+  Properties info=new Properties();
+  info.setProperty("user", "root");
+  info.setProperty("password", "biubiu123");
+  //获取连接
+  Connection con=drover.connect(url, info);
+  System.out.println(con);
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>1617-1589866223869</coId><text/><inline-styles/><styles/></para><code><coId>4791-1589866342932</coId><text>//常用，加载驱动的方式
+String url="jdbc:mysql://127.0.0.1:3306/test1";
+		String user="root";
+		String password="biubiu123";
+		
+		Class clazz = Class.forName("com.mysql.jdbc.Driver");
+//		Driver driver=(Driver) clazz.newInstance();
+//		//注册驱动           
+/*可以省略，在mysql实现类Driver实现类中，静态代码块已经完成了注册操作*/
+//		DriverManager.registerDriver(driver);
+		
+  //获取连接
+  Connection con=DriverManager.getConnection(url,user,password);
+  System.out.println(con);
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>6590-1589871534007</coId><text/><inline-styles/><styles/></para><code><coId>9411-1589871534007</coId><text>//将连接数据库需要的4个基本信息声明在配置文件中
+		
+		//用当前类获取类加载器
+		InputStream in = Test1.class.getClassLoader().getResourceAsStream("jdbc.properties");
+		
+		Properties pros=new Properties();
+		pros.load(in);
+		
+		String user=pros.getProperty("user"); 
+		String password=pros.getProperty("password");
+		String url=pros.getProperty("url");
+		String driverClass=pros.getProperty("driverClass");
+		
+		//加载驱动
+		Class.forName(driverClass);
+		
+		//获取连接
+		Connection com=DriverManager.getConnection(url,user,password);
+		System.out.println(com);
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>8024-1589871534007</coId><text>配置文件：</text><inline-styles><font-family><from>0</from><to>5</to><value>SimSun</value></font-family><font-size><from>0</from><to>5</to><value>22</value></font-size></inline-styles><styles/></para><code><coId>7564-1589876929026</coId><text>user=root
+password=biubiu123
+url=jdbc:mysql://localhost:3306/test1
+driverClass=com.mysql.jdbc.Driver
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>4577-1589876929026</coId><text/><inline-styles/><styles/></para></body></note>

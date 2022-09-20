@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><image><coId>5744-1585639390486</coId><source>https://note.youdao.com/yws/res/2079/64EB4D7A70D542118455B828D0C72EA5</source><text/><styles><width>412</width><height>348</height></styles></image><para><coId>6741-1585101911692</coId><text/><inline-styles/><styles/></para><code><coId>1452-1585639600668</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容器
+        
+//        JLable l=new JLable("这是一个展示图片的标签");
+//        c.add(l);
+//        URL url=Demo.class.getResource("java.png");
+//        Icon icon=new ImageIcon(url);//Icon接口
+         Icon icon=new ImageIcon("src/java.png");
+        l.setIcon(icon);
+        
+        l.setHorizontalAlignment(SwingConstants.CENTER);//设置文字放在标签中间
+        l.setOpaque(true);//设置标签为不透明状态
+        
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>9240-1584093763001</coId><text>如果实现icon接口。则必须实现三个方法</text><inline-styles><font-family><from>0</from><to>20</to><value>SimSun</value></font-family></inline-styles><styles/></para><code><coId>2389-1584249079606</coId><text>public class Demo implements Icon{
+    private int width;
+    private int height;
+    public int getIconHeight(){
+        return this.height;
+    }
+    public int getIconWidth(){
+        return this.width;
+    }
+    public Demo(int width,int height){
+        this.width=width;
+        this.height=height;
+    }
+    public void paintIcon(Component arg0,Graphics arg1,int x,int y){
+        arg1.fillOval(x,y,width,height);//绘制一个园形
+    }
+    public void static main(String[] args){
+        Demo icon=new Demo(15,15);
+        JLable j=new JLable("测试",icon,SwingConstants.CENTER);
+        JFrame jf=new JFrame();
+        ............
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>8890-1584249079606</coId><text/><inline-styles/><styles/></para></body></note>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>9347-1606992389916</coId><text>Ajax：异步js和xml</text><inline-styles/><styles/></para><para><coId>9595-1606992611453</coId><text>异步刷新：可以只刷新某区域的内容，页面其他内容不受影响</text><inline-styles/><styles/></para><para><coId>7180-1606992668324</coId><text/><inline-styles/><styles/></para><para><coId>4453-1606995063029</coId><text>实现：</text><inline-styles/><styles/></para><para><coId>4876-1606995247371</coId><text>js：XMLHttpRequest对象</text><inline-styles/><styles/></para><heading compat="true" level="b"><coId>7000-1606995262336</coId><text>XMLHttpRequest对象的方法</text><inline-styles><bold><from>0</from><to>19</to><value>true</value></bold><font-size><from>0</from><to>19</to><value>18</value></font-size><color><from>0</from><to>19</to><value>#595959</value></color></inline-styles><styles/></heading><para><coId>5328-1606995273255</coId><text>open(方法名（提交方式get|post），服务器地址，true（是否全局）)：与服务器建立连接</text><inline-styles><italic><from>8</from><to>22</to><value>true</value></italic><italic><from>33</from><to>39</to><value>true</value></italic><underline><from>8</from><to>22</to><value>true</value></underline><underline><from>33</from><to>39</to><value>true</value></underline><font-size><from>8</from><to>22</to><value>9</value></font-size><font-size><from>33</from><to>39</to><value>9</value></font-size></inline-styles><styles/></para><para><coId>4062-1606995426526</coId><text>send():</text><inline-styles/><styles/></para><para><coId>1885-1606995430361</coId><text>get:  send(null)</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>2584-1606995437597</coId><text>post:  send(参数值)</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>9676-1606995451414</coId><text>setRequestHeader(header,value) kv对</text><inline-styles><italic><from>31</from><to>34</to><value>true</value></italic></inline-styles><styles/></para><para><coId>9548-1607083252170</coId><text>get：不需要设置此方法</text><inline-styles><italic><from>0</from><to>12</to><value>true</value></italic></inline-styles><styles><text-indent>1</text-indent></styles></para><para><coId>1886-1607083339416</coId><text>post:需要设置：	</text><inline-styles><italic><from>0</from><to>11</to><value>true</value></italic></inline-styles><styles><text-indent>1</text-indent></styles></para><para><coId>6668-1607083350676</coId><text>①如果请求元素包含了文件上传：</text><inline-styles><italic><from>0</from><to>15</to><value>true</value></italic></inline-styles><styles><text-indent>2</text-indent></styles></para><para><coId>8045-1607083376117</coId><text>setRequestHeader("Content-Type","multipart/form-data");</text><inline-styles><italic><from>0</from><to>55</to><value>true</value></italic></inline-styles><styles><text-indent>4</text-indent></styles></para><para><coId>2786-1607083489473</coId><text>②请求元素包含文件上传</text><inline-styles><italic><from>0</from><to>11</to><value>true</value></italic></inline-styles><styles><text-indent>2</text-indent></styles></para><para><coId>6754-1607083513230</coId><text>setRequestHeader("Content-Type","application/x-www-form-urlencoded");</text><inline-styles><italic><from>0</from><to>69</to><value>true</value></italic></inline-styles><styles><text-indent>4</text-indent></styles></para><heading compat="true" level="b"><coId>8332-1607083559945</coId><text>XMLHtttpRequest对象的属性：</text><inline-styles><bold><from>0</from><to>21</to><value>true</value></bold><italic><from>0</from><to>21</to><value>true</value></italic><font-size><from>0</from><to>21</to><value>18</value></font-size><color><from>0</from><to>21</to><value>#595959</value></color></inline-styles><styles/></heading><image><coId>3329-1607085886338</coId><source>https://note.youdao.com/yws/res/10138/583E6DEB0D4D4ED7959EC5812E1C4E53</source><text/><styles><width>620</width><height>132</height></styles></image><para><coId>3162-1607085886338</coId><text/><inline-styles/><styles/></para><para><coId>8175-1607086201570</coId><text/><inline-styles/><styles/></para><para><coId>1457-1607086201702</coId><text>JQuery方式实现</text><inline-styles><color><from>0</from><to>10</to><value>#df402a</value></color></inline-styles><styles/></para><code><coId>5495-1607086926107</coId><text>	function register(){
+		var $mobile =$("#moblie").val();
+		$.ajax({
+			url:服务器地址（“Servlet名称”）,
+			请求方式:get|post,
+			data:请求数据,
+			success:function(result,testStatus){
+				
+			},
+        error:function(xhr,errorMessage,e){
+				
+		}
+		});
+	}
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>1235-1607088187196</coId><text>post或get</text><inline-styles/><styles/></para><code><coId>6734-1607088187196</coId><text>		$post(
+			"MobileServlet",
+			"mobile="+$mobile,
+			function(result){
+				if(result=="true"){
+					alert("shibai");
+				}else{
+					alert("chenggong");
+				}
+			},
+			"text"
+		);
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>9889-1607088187196</coId><text/><inline-styles/><styles/></para></body></note>

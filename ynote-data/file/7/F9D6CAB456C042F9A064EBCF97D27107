@@ -1,0 +1,106 @@
+## Radio常见属性
+属性 | 描述
+---|---
+value | 单选的值
+onChanged | 改变时触发
+activeColor | 选中的颜色、背景颜色
+groupValue | 选择组的值
+
+RadioListTile常用属性
+属性 | 描述
+---|---
+value | true或者false
+onChanged | 改变的时候触发的事件
+activeColor | 选中的颜色、背景颜色
+title | 标题
+subtitle | 二级标题
+secondary | 配置图标或者图片
+groupValue |选择组的值
+
+**演示实例**
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/AppBarDemo.dart';
+
+class RadioPage extends StatefulWidget {
+  @override
+  _RadioPageState createState() => _RadioPageState();
+}
+
+class _RadioPageState extends State<RadioPage> {
+  var sex = 1;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Radio"),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: <Widget>[
+            /*Row(
+              children: <Widget>[
+                Text("男"),
+                Radio(
+                    value: 1,
+                    groupValue: this.sex,
+                    onChanged: (v){
+                      setState(() {
+                        this.sex = v;
+                      });
+                    }
+                ),
+                Text("女"),
+                Radio(
+                    value: 2,
+                    groupValue: this.sex,
+                    //通过一个groupValue管理，作为一个按钮组
+                    onChanged: (v){
+                      setState(() {
+                        this.sex = v;
+                      });
+                    }
+                ),
+              ],
+
+            ),
+            Row(
+              children: <Widget>[
+                Text("${this.sex}"),
+                SizedBox(width: 20,),
+                Text(this.sex==1?"男":"女"),
+              ],
+            ),
+            */
+             RadioListTile(
+                 value: 1,
+                 groupValue: this.sex,
+                 title: Text("标题"),
+                 subtitle: Text("二级标题"),
+                 secondary: Icon(Icons.help),
+                 selected: this.sex==1,//效果就是选中时文字也变色
+                 onChanged: (v){
+                   setState(() {
+               this.sex = v;
+             });}),
+            RadioListTile(
+                value: 2,
+                groupValue: this.sex,
+                title: Text("标题"),
+                subtitle: Text("二级标题"),
+                secondary: Image.asset('images/木兰.png'),
+                selected: this.sex==2,
+                onChanged: (v){
+                  setState(() {
+                    this.sex = v;
+                  });})
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+```

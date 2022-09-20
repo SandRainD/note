@@ -1,0 +1,163 @@
+>属于Scaffold
+
+==BottomNavigationBar常见属性==
+属性名 | 说明
+---|---
+items | List<BottomNavigationBaritem>底部导航条按钮集合
+iconSize | icon
+currentindex | 默认选中第几个
+onTap | 选中变化回调函数
+fixedColor | 选中的颜色
+type | BottomNavigationBarType.fixed     BottomNavigationBarType.shifting
+
+==实现底部导航栏并跳转==
+ButtomNavigationBar.dart
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/Tabs.dart';
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Demo',
+      home: Tabs(),
+    );
+  }
+}
+
+```
+在lib文件夹下创建pages,
+
+在pages下新建一个Tags.dart
+
+```
+import 'package:flutter/material.dart';
+import 'tabs/Home.dart';
+import 'tabs/Setting.dart';
+import 'tabs/Category.dart';
+
+class Tabs extends StatefulWidget {
+  Tabs({Key key}) : super(key: key);
+  _TabsState createState() => _TabsState();
+}
+
+class _TabsState extends State<Tabs> {
+
+  int _currentIndex = 0;
+  List _pageList = [
+    HomePage(),
+    CategoryPage(),
+    SettingPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ButtomNavigationBarDemo'),
+      ),
+      body: this._pageList[this._currentIndex],
+      bottomNavigationBar:BottomNavigationBar(
+        currentIndex: this._currentIndex, //配置对应的索引值选中
+        onTap: (int index){
+          setState(() {//改变状态
+            this._currentIndex=index;
+          });
+        },
+        iconSize: 36.0,//设置图标大小
+        fixedColor: Colors.red,//设置选中的图标的颜色(默认为蓝色)
+        type: BottomNavigationBarType.fixed, //配置底部tabs可以有多个按钮
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "首页",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              label: "分类"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "设置"
+          ),
+        ],
+      ),
+
+    );
+  }
+}
+```
+在Tags同目录下创建一个tags文件夹，将跳转的页面放入
+
+Home.dart
+```
+import 'package:flutter/material.dart';
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Text("我是首页");
+  }
+}
+
+```
+Setting.dart
+
+```
+import 'package:flutter/material.dart';
+
+class SettingPage extends StatefulWidget {
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        ListTile(
+          title: Text('我是设置页面'),
+        )
+      ],
+    );
+  }
+}
+
+```
+Category.dart
+
+```
+import 'package:flutter/material.dart';
+
+class CategoryPage extends StatefulWidget {
+  @override
+  _CategoryPageState createState() => _CategoryPageState();
+}
+
+class _CategoryPageState extends State<CategoryPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('我是分类页面'),
+    );
+  }
+}
+
+
+```
+### 如果按钮大于三个就要使用type属性
+
+```
+type: BottomNavigationBarType.fixed, //配置底部tabs可以有多个按钮
+```
+
+        

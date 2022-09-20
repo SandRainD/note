@@ -1,0 +1,138 @@
+## AlertDialog和SimpleDialog和showModelBottomSheet和toast
+**演示**
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/Form.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+class CategoryPage extends StatefulWidget {
+  @override
+  _CategoryPageState createState() => _CategoryPageState();
+}
+
+class _CategoryPageState extends State<CategoryPage> {
+  _alertDialog()async{
+    var result = await showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Text("提示信息"),
+            content: Text("你确定删除吗？"),
+            actions: [
+              FlatButton(onPressed: (){print("取消");Navigator.pop(context,"cancle");}, child: Text("取消")),
+              FlatButton(onPressed: (){print("确定");Navigator.pop(context,"Ok");}, child: Text("确定")),
+            ],
+          );
+        }
+    );
+    print(result);
+  }
+  _simpleDialog()async{
+    var result = await showDialog(
+        context: context,
+      builder: (context){
+          return SimpleDialog(
+            title: Text("选择内容"),
+            children: [
+              SimpleDialogOption(
+                child: Text("Option A"),
+                onPressed: (){
+                  print("Option A");
+                  Navigator.pop(context);
+                },
+              ),
+              Divider(),
+              SimpleDialogOption(
+                child: Text("Option B"),
+                onPressed: (){
+                  print("Option B");
+                  Navigator.pop(context);
+                },
+              ),
+              Divider(),
+              SimpleDialogOption(
+                child: Text("Option C"),
+                onPressed: (){
+                  print("Option C");
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+      }
+    );
+    print(result);
+  }
+  _modelBottomSheet()async{
+    showModalBottomSheet(
+        context: context,
+        builder: (context){
+          return Container(
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text("分享 A"),
+                  onTap: (){},
+                ),
+                ListTile(
+                  title: Text("分享 B"),
+                  onTap: (){},
+                ),
+                ListTile(
+                  title: Text("分享 C"),
+                  onTap: (){},
+                ),
+              ],
+            ),
+          ) ;
+        }
+    );
+  }
+  _toast(){
+    Fluttertoast.showToast(
+        msg: "提示信息",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,//弹出延时只在ios上有效果
+        backgroundColor: Colors.red,
+        textColor: Colors.white70,
+        fontSize: 16.0
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        RaisedButton(
+          child: Text("alert弹出框-AlertDialog"),
+          onPressed: _alertDialog,
+          color: Theme.of(context).accentColor,
+          textTheme: ButtonTextTheme.primary,
+        ),
+        RaisedButton(
+          child: Text("select弹出框-SimpleDialog"),
+          onPressed: _simpleDialog,
+          color: Theme.of(context).accentColor,
+          textTheme: ButtonTextTheme.primary,
+        ),
+        RaisedButton(
+          child: Text("ActionSheet底部弹出框-showMOdalBottomSheet"),
+          onPressed: _modelBottomSheet,
+          color: Theme.of(context).accentColor,
+          textTheme: ButtonTextTheme.primary,
+        ),
+        RaisedButton(
+          child: Text("toast-fluttertoast第三方库"),
+          onPressed: _toast,
+          color: Theme.of(context).accentColor,
+          textTheme: ButtonTextTheme.primary,
+        )
+      ],
+    );
+  }
+}
+
+```

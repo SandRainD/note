@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>8015-1615513963144</coId><text>与列表、字典一样是可变类型的序列，集合是没有value的字典，元素不允许重复，集合是无序的</text><inline-styles><font-size><from>0</from><to>45</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>2756-1615514171067</coId><text>声明：</text><inline-styles><font-size><from>0</from><to>3</to><value>16</value></font-size></inline-styles><styles/></para><code><coId>9010-1615514224123</coId><text>s={2,3,4,5,6}
+s=set(range(6))
+s=set([22,4,4,5,6,7,6])
+</text><inline-styles/><styles/><language>python</language><theme>tomorrow</theme></code><image><coId>6766-1615514425847</coId><source>https://note.youdao.com/yws/res/12029/78975DFDA87F499881C1ED217779299F</source><text/><styles><width>303</width><height>195</height></styles></image><para><coId>1939-1615514418838</coId><text/><inline-styles/><styles/></para><image><coId>4788-1615514466765</coId><source>https://note.youdao.com/yws/res/12032/D390CD17B4B144A38D57A31CB814FD85</source><text/><styles><width>620</width><height>260</height></styles></image><image><coId>1542-1615514717815</coId><source>https://note.youdao.com/yws/res/12034/8BD43DBD6541482C9621DFA90296787E</source><text/><styles><width>342</width><height>236</height></styles></image><para><coId>4037-1615514711429</coId><text/><inline-styles/><styles/></para><para><coId>7952-1615514772450</coId><text/><inline-styles/><styles/></para><image><coId>3072-1615514838655</coId><source>https://note.youdao.com/yws/res/12036/AFE339420CD24B148DA357EE8C24DCF1</source><text/><styles><width>270</width><height>158</height></styles></image><code><coId>3730-1615514836003</coId><text>#取交集
+print(s1.intersection(s2))
+print(s1 &amp; s2) 
+
+#并集
+print(s1.union(s2))
+print(s1 | s2)
+
+#差集
+print(s1.difference(s2))
+print(s1-s2)
+
+#对称差集
+print(s1.symmetric_difference(s2))
+print(s1^s2)
+</text><inline-styles/><styles/><language>python</language><theme>tomorrow</theme></code><para><coId>3519-1615514836003</coId><text/><inline-styles/><styles/></para><para><coId>4569-1615515219622</coId><text/><inline-styles/><styles/></para><para><coId>5856-1615515219794</coId><text>集合生成式</text><inline-styles><font-size><from>0</from><to>5</to><value>16</value></font-size></inline-styles><styles/></para><code><coId>5285-1615515233516</coId><text>s={ i8i for i in range(10)}
+</text><inline-styles/><styles/><language>python</language><theme>tomorrow</theme></code><para><coId>4256-1615515233516</coId><text/><inline-styles/><styles/></para></body></note>

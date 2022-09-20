@@ -1,0 +1,188 @@
+> dio是一个强大的DartHttp请求库，支持Restful API、FormData、拦截器、请求取消、Cookie管理、文件上传/下载、超时、自定义适配器等...
+
+通过dio请求和发送数据
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/user/RegisterFirst.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;//引入http库
+import 'package:dio/dio.dart';
+class SettingPage extends StatefulWidget {
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+  String _msg="";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Map userInfo={
+      "username":"张三",
+      "age":"19",
+    };
+    var a = json.encode(userInfo);//把Map类型数据转换成json字符串
+    print(userInfo is Map);
+    print(a is String);
+
+
+    String userinfo='{"username":"zhanghsan","age":20}';
+    Map u = json.decode(userinfo);//把json字符串转换成Map类型
+    print(u["username"]);
+  }
+  //这一块是http的
+ /* //请求数据
+  _getData() async{
+    //获取数据的接口: https://jd.itying.com/api/httpGet
+    var apiUrl = Uri.parse('https://jd.itying.com/api/httpGet');
+    var response = await http.get(apiUrl);
+    print('Response status: ${response.statusCode}');
+    print('Response body : ${response.body}');
+    print(response.body is String);
+
+    setState(() {
+      this._msg = json.decode(response.body)["msg"];
+    });
+  }
+  //提交数据
+  _postData() async{
+    //https://jd.itying.com/api/httpPost
+    var apiUrl = Uri.parse('https://jd.itying.com/api/httpPost');
+    var response = await http.post(apiUrl,body: {"username":"张三","age":"20"});
+    print('Response status: ${response.statusCode}');
+    print('Response body : ${response.body}');
+    print(response.body is String);
+
+   *//* setState(() {
+      this._msg = json.decode(response.body)["msg"];
+    });*//*
+  }*/
+
+  //这一块是dio的
+  //请求数据
+  _getData() async{
+    //获取数据的接口："https://jd.itying.com/api/httpGet"
+    var response = await Dio().get('https://jd.itying.com/api/httpGet');
+    print(response);
+    print(response.data);
+    print(response.data is Map);
+    setState(() {
+      this._msg = response.data["msg"];
+    });
+  }
+  //提交数据
+  _postData() async{
+    //地址：https://jd.itying.com/api/httpPost
+    var response = await Dio().post('https://jd.itying.com/api/httpPost',data: {"username":"张三","age":"10"});
+    print(response);
+  }
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        Text(this._msg),
+        ListTile(
+          title: Text('我是设置页面'),
+        ),
+        RaisedButton(
+          onPressed:(){
+            Navigator.pushNamed(context, '/login');
+          },
+          child: Text("跳转到登录页面"),
+        ),
+        RaisedButton(
+            onPressed:(){
+              Navigator.pushNamed(context, '/registerFirst');
+            },
+          child: Text("跳转到注册页面"),
+        ),
+        ElevatedButton(
+          onPressed:_getData,
+          child: Text("Get请求数据"),
+        ),
+        RaisedButton(
+          onPressed: _postData,
+          child: Text("Post提交数据"),
+        ),
+        RaisedButton(
+          onPressed: (){
+            Navigator.pushNamed(context, '/getdemo');
+          },
+          child: Text("Get请求数据，渲染数据演示demo"),
+        ),
+        ElevatedButton(
+          onPressed:(){
+            Navigator.pushNamed(context, '/getdio');
+          },
+          child: Text("dio"),
+        ),
+      ],
+    );
+  }
+}
+
+```
+通过dio请求渲染数据
+
+```
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/AppBarDemo.dart';
+
+class DioDemoPage extends StatefulWidget {
+  const DioDemoPage({Key key}) : super(key: key);
+
+  @override
+  _DioDemoPageState createState() => _DioDemoPageState();
+}
+
+class _DioDemoPageState extends State<DioDemoPage> {
+  List _list=[];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this._getData();
+  }
+  _getData() async{
+    //地址：https://jd.itying.com/api/pcate
+    var response = await Dio().get('https://jd.itying.com/api/pcate');
+    print(response.data);
+    print(response.statusCode);//状态码
+    if (response.statusCode == 200){
+      setState(() {
+        this._list = response.data["result"];
+      });
+    }else{
+      print(response.statusCode);
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Dio请求渲染数据"),
+      ),
+      body: this._list.length>0?ListView.builder(
+        itemCount: this._list.length,
+        itemBuilder: (context,index){
+          return ListTile(title:Text(this._list[index]["title"]));
+        },
+      ):Text("")
+      /*
+      body:
+      this._list.length>0?ListView（
+      childeren: this._list.map(value){
+          return ListTile(title:Text(value["title"]));
+          }).toList(),
+      ):Text("")
+      */
+    );
+  }
+}
+
+```

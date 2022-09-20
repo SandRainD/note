@@ -1,0 +1,14 @@
+## 日期和时间戳
+
+日期转换成时间戳
+```
+var now = new DateTime.new();
+print(now.millisecondsSinceEpoch);//单位毫秒，13位时间戳
+```
+时间戳转换成日期
+
+```
+var now = new.DateTime.now();
+var a = now.millisecondsSinceEpoch;//时间戳
+print(DateTime.fromMillisecondsSinceEpoch(a));
+```

@@ -1,0 +1,217 @@
+> 说白了就是页面跳转
+## 普通路由和普通路由传值
+
+Category.dart
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/Form.dart';
+
+class CategoryPage extends StatefulWidget {
+  @override
+  _CategoryPageState createState() => _CategoryPageState();
+}
+
+class _CategoryPageState extends State<CategoryPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        RaisedButton(
+          child: Text("跳转到表单页面并传值"),
+          onPressed: (){
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context)=>FormPage(title: 'shabi',)//路由传值
+                //相当于builder:(){return FormPage();}
+              )
+            );
+          },
+          color: Theme.of(context).accentColor,
+          textTheme: ButtonTextTheme.primary,
+        )
+      ],
+    );
+  }
+}
+
+```
+Form.dart
+
+```
+import 'package:flutter/material.dart';
+
+class FormPage extends StatelessWidget{
+
+  String title;
+  FormPage({this.title='表单'});
+  @override
+  Widget build(BuildContext context){
+    return  Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Text("返回"),
+        onPressed: (){
+          Navigator.of(context).pop();//在该表单页面添加一个浮动的返回按钮
+        },
+      ),
+      appBar: AppBar(
+        title: Text(this.title),
+      ),
+      body: ListView(
+        children: <Widget>[
+          ListTile(
+            title: Text("我是表单页面"),
+          ),
+          ListTile(
+            title: Text("我是表单页面"),
+          ),
+          ListTile(
+            title: Text("我是表单页面"),
+          ),
+          ListTile(
+            title: Text("我是表单页面"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+## 命名路由和命名路由传值
+
+路由命名需要在MaterialApp组件下
+
+
+main.dart
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/Form.dart';
+import 'package:flutterapp01/pages/Search.dart';
+import 'package:flutterapp01/pages/Tabs.dart';
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Demo',
+      home: Tabs(),
+      routes: {//定义路由
+        '/form':(context)=>FormPage(),
+        '/search':(context)=>SearchPage()
+      },
+    );
+  }
+}
+
+
+```
+category.dart
+
+```
+import 'package:flutter/material.dart';
+import '../Search.dart';
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        RaisedButton(
+          child: Text('跳转到搜索页面'),
+          onPressed: (){
+           //命名路由跳转   区别不大
+            Navigator.pushNamed(context, '/search');
+          },
+          color: Theme.of(context).accentColor,
+          textTheme: ButtonTextTheme.primary,
+        ),
+        RaisedButton(
+          child: Text('跳转到表单页面并传值'),
+          onPressed: (){
+
+          },
+          color: Theme.of(context).accentColor,
+          textTheme: ButtonTextTheme.primary,
+        ),
+      ],
+    );
+  }
+}
+
+```
+### 命名路由传值
+> 老版本的命名路由不支持传值
+
+有点难
+
+
+配置路由
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/Tabs.dart';
+
+import '../pages/Tabs.dart';
+import '../pages/Form.dart';
+import '../pages/Search.dart';
+import '../pages/Product.dart';
+
+//配置路由
+final routes={
+  '/':(context)=>Tabs(),
+  '/form':(context)=>FormPage(),
+  '/product':(context)=>ProductPage(),
+  '/search':(context,{arguments})=>SearchPage(arguments:arguments),
+};
+
+//固定写法
+var onGenerateRoute = (RouteSettings settings) {
+  //统一处理
+  final String name = settings.name;
+  print(settings.name);
+  if (pageContentBuilder != null){
+    if (settings.arguments != null){
+      final Route route = MaterialPageRoute(
+        builder: (context)=>pageContentBuilder(context,arguments:settings.arguments));
+      return route;
+    }else{
+      final Route route = MaterialPageRoute(builder: (context)=>
+          pageContentBuilder(context));
+      return route;
+    }
+  }
+};
+```
+在main.dart中
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/Form.dart';
+import 'package:flutterapp01/pages/Search.dart';
+import 'package:flutterapp01/pages/Tabs.dart';
+import 'routes/Routes.dart';
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Demo',
+      home: Tabs(),
+      initialRoute: '/',//加上根路由，不然容易报错
+      onGenerateRoute: onGenerateRoute,
+    );
+  }
+}
+
+
+```

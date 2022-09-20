@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head><list id="3290-1606223018370" type="unordered"/></head><body><para><coId>5772-1603113639699</coId><text>文档：JDBC</text><inline-styles/><styles/></para><para><coId>4924-1603113680437</coId><text>链接：http://note.youdao.com/noteshare?id=cc3571e6ebf7bf69a5fb9d2266188a8e</text><inline-styles><underline><from>3</from><to>71</to><value>true</value></underline><color><from>3</from><to>71</to><value>#003884</value></color><href><from>3</from><to>71</to><value>http://note.youdao.com/noteshare?id=cc3571e6ebf7bf69a5fb9d2266188a8e</value></href></inline-styles><styles/></para><para><coId>3970-1603113689346</coId><text/><inline-styles/><styles/></para><para><coId>5933-1603113690435</coId><text/><inline-styles/><styles/></para><para><coId>7350-1603113690637</coId><text>1导入驱动包，加载驱动类Class.forName(driverClass);</text><inline-styles/><styles/></para><para><coId>4291-1603113740428</coId><text>2建立数据库连接Connection com=DriverManager.getConnection(url,user,password);</text><inline-styles/><styles/></para><para><coId>5931-1603113801250</coId><text>3通过com连接，获取操作数据库的对象</text><inline-styles/><styles/></para><para><coId>5933-1603113984276</coId><text>4处理结果集</text><inline-styles/><styles/></para><para><coId>4169-1603114029386</coId><text>5关闭资源，打开顺序与关闭顺序相反</text><inline-styles/><styles/></para><para><coId>9062-1603114071030</coId><text/><inline-styles/><styles/></para><para><coId>1700-1603114113666</coId><text/><inline-styles/><styles/></para><para><coId>0048-1603114113802</coId><text>callablestatement   调用数据库中的存储过程或函数</text><inline-styles/><styles/></para><para><coId>6784-1603114530142</coId><text>connection.prepareCall(参数：存储过程或存储函数名)</text><inline-styles/><styles/></para><list-item level="1" list-id="3290-1606223018370"><coId>5948-1603195648190</coId><text>存储过程的参数格式（无返回值，用Out参数替代）:{call   存储过程名(参数列表)}</text><inline-styles/><styles><text-indent>1</text-indent></styles></list-item><list-item level="1" list-id="3290-1606223018370"><coId>8587-1603195907839</coId><text>存储函数的参数格式（有返回值return）：{?=call   存储过程名(参数列表)}</text><inline-styles/><styles><text-indent>1</text-indent></styles></list-item><code><coId>2345-1606293359672</coId><text>	//调用存储过程
+	public static void callprocess(String str) {
+		Connection com=null;
+		CallableStatement result=null;
+		try {
+			com = JDBCUtils.getConnection();//获取链接
+			result=com.prepareCall(str);//通过连接产生一个存储过程对象
+			//result=com.prepareCall("{call add(?,?,?)}");
+			result.setInt(1, 10);
+			result.setInt(2, 10);
+			//传入输入的值	
+			result.registerOutParameter(3, Types.INTEGER);//设置传出参数的类型
+			result.execute();
+			int rs =result.getInt(3);//接收结果，即传出的值
+			System.out.println(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//调用存储函数
+	public static void callfunction(String str) {
+		Connection com=null;
+		CallableStatement result=null;
+		try {
+			com = JDBCUtils.getConnection();//获取链接
+			result=com.prepareCall(str);//通过连接产生一个存储过程对象
+			//result=com.prepareCall("{call add(?,?,?)}");
+			result.setInt(2, 10);
+			result.setInt(3, 10);
+			//传入输入的值	
+			result.registerOutParameter(1, Types.INTEGER);//设置传出参数的类型
+			result.execute();
+			int rs =result.getInt(1);//接收结果，即传出的值
+			System.out.println(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>2264-1603196101248</coId><text/><inline-styles/><styles/></para><para><coId>6779-1603196101255</coId><text>处理CLOB/BLOB类型，也可以存路径的方式存储大</text><inline-styles/><styles/></para><para><coId>2540-1606202246789</coId><text>型的文件</text><inline-styles/><styles/></para><para><coId>5998-1603197409398</coId><text>CLOB：大文本数据</text><inline-styles/><styles/></para><para><coId>1870-1603197426152</coId><text>BLOB：二进制,与CLOB步骤基本一致，get/set BinaryStream</text><inline-styles/><styles/></para><para><coId>3650-1603198367092</coId><text>大文件写入数据库</text><inline-styles/><styles/></para><image><coId>5322-1603197863475</coId><source>https://note.youdao.com/yws/res/9470/AB7013525B164712A88A37EAA8C8CB3C</source><text/><styles><width>620</width><height>197</height></styles></image><image><coId>9062-1603197923828</coId><source>https://note.youdao.com/yws/res/9472/AEFF867CF4A042C8B452F47FF33BEAAD</source><text/><styles><width>620</width><height>98</height></styles></image><para><coId>7546-1603197922471</coId><text>最后执行</text><inline-styles/><styles/></para><para><coId>2538-1603196101270</coId><text/><inline-styles/><styles/></para><para><coId>8155-1603196101300</coId><text>大文件从数据库中读取：</text><inline-styles/><styles/></para><image><coId>4524-1603198405634</coId><source>https://note.youdao.com/yws/res/9480/AA442538C5784F258FBA39470AB4E542</source><text/><styles><width>620</width><height>157</height></styles></image><image><coId>1991-1603198516700</coId><source>https://note.youdao.com/yws/res/9483/DA0D37621563422E8180C8EAFFC3EA44</source><text/><styles><width>620</width><height>91</height></styles></image><image><coId>1940-1603198545167</coId><source>https://note.youdao.com/yws/res/9485/C71F02791B7C4AE79F8769516B8E0CE6</source><text/><styles><width>620</width><height>172</height></styles></image><para><coId>8610-1603198542454</coId><text/><inline-styles/><styles/></para><para><coId>3748-1607343379045</coId><text/><inline-styles/><styles/></para><para><coId>4481-1607343379230</coId><text/><inline-styles/><styles/></para><heading compat="true" level="a"><coId>4883-1607343379379</coId><text>连接池</text><inline-styles><bold><from>0</from><to>3</to><value>true</value></bold><font-size><from>0</from><to>3</to><value>32</value></font-size></inline-styles><styles/></heading><para><coId>7599-1603196101329</coId><text>常见的连接池有Tomcat-dbcp、dbcp、c3p0、druid</text><inline-styles/><styles/></para><para><coId>3493-1607343439641</coId><text>可以通过数据源（javax.sql.DataSource）管理连接池</text><inline-styles/><styles/></para><para><coId>1290-1603196101362</coId><text/><inline-styles/><styles/></para><heading compat="true" level="1"><coId>4495-1607343874568</coId><text>Tomcat-dbcp</text><inline-styles><bold><from>0</from><to>11</to><value>true</value></bold><font-size><from>0</from><to>11</to><value>28</value></font-size></inline-styles><styles/></heading><heading compat="true" level="4"><coId>9025-1607343875070</coId><text>配置conf/context.xml</text><inline-styles><bold><from>0</from><to>18</to><value>true</value></bold></inline-styles><styles/></heading><para><coId>8436-1607343875200</coId><text>&lt;Resource</text><inline-styles/><styles/></para><para><coId>1746-1607344214480</coId><text>        name="mysql_connect"</text><inline-styles/><styles/></para><para><coId>2472-1607344214480</coId><text>        auth="Container"</text><inline-styles/><styles/></para><para><coId>6164-1607344214480</coId><text>        type="javax.sql.DataSource"</text><inline-styles/><styles/></para><para><coId>1742-1607344214480</coId><text>        driverClassName="com.mysql.cj.jdbc.Driver"</text><inline-styles/><styles/></para><para><coId>6370-1607344214480</coId><text>        url="jdbc:mysql://localhost:3306/makerpanda?useSSL=false"</text><inline-styles/><styles/></para><para><coId>5585-1607344214480</coId><text>        username="makerpanda"</text><inline-styles/><styles/></para><para><coId>4370-1607344214480</coId><text>        password="makerpanda"</text><inline-styles/><styles/></para><para><coId>8895-1607344214480</coId><text>        maxActive="10"//最大活动链接</text><inline-styles/><styles/></para><para><coId>3780-1607344214480</coId><text>        maxIdle="5"//最大空闲时间</text><inline-styles/><styles/></para><para><coId>4930-1607344214480</coId><text>        maxWait="10000"//最大等待时间</text><inline-styles/><styles/></para><para><coId>7220-1607344343037</coId><text>/&gt;</text><inline-styles/><styles/></para><image><coId>3740-1607344440579</coId><source>https://note.youdao.com/yws/res/10196/C3D1D944C42D4EEA89C5C846D7001BA0</source><text/><styles><width>620</width><height>361</height></styles></image><para><coId>9076-1607343875268</coId><text/><inline-styles/><styles/></para><para><coId>2480-1607343875301</coId><text>配置web.xml</text><inline-styles/><styles/></para><code><coId>1271-1607344734005</coId><text>&lt;resource-ref&gt;
+    &lt;res-ref-name&gt;student&lt;/res-ref-name&gt;
+    &lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;
+    &lt;res-auth&gt;Container&lt;/res-auth&gt;
+&lt;/resource-ref&gt;
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>8143-1607343875333</coId><text>导入mysql api的jar包</text><inline-styles/><styles/></para><para><coId>5479-1607346009223</coId><text>代码：</text><inline-styles/><styles/></para><image><coId>9576-1607345543356</coId><source>https://note.youdao.com/yws/res/10201/3D0D341589AE460F9B9EE977FEDC2D86</source><text/><styles><width>620</width><height>116</height></styles></image><para><coId>9239-1607343875398</coId><text/><inline-styles/><styles/></para><heading compat="true" level="1"><coId>5025-1603196101393</coId><text>DBCP连接池</text><inline-styles><bold><from>0</from><to>7</to><value>true</value></bold><font-size><from>0</from><to>7</to><value>28</value></font-size></inline-styles><styles/></heading><para><coId>7287-1607346743395</coId><text>需要导入commmons-dbcp-1.4.jar，依赖common-pool.jar</text><inline-styles/><styles/></para><para><coId>8140-1607346762850</coId><text>BasicDataSource    BasicDataSourceFactory</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><attach><coId>5527-1607415345319</coId><source>https://note.youdao.com/yws/res/10216/8CB5720A00CC498B8DAEAACE327D4B7D</source><resource>https://note.youdao.com/yws/res/10217/D1B7E12804CE47A2B6E373CA48939C3A</resource><filename>commons-dbcp-1.4.jar</filename><filelength>160519</filelength><styles/></attach><attach><coId>7172-1607415342015</coId><source>https://note.youdao.com/yws/res/10228/C44341E030BC4CD1B99E57F6A80EAD1C</source><resource>https://note.youdao.com/yws/res/10227/2CE4A7B96A4949629B4B96FD814A8F3E</resource><filename>commons-pool-1.6.jar</filename><filelength>111119</filelength><styles/></attach><para><coId>3757-1607414220677</coId><text>连接池核心：指向数据源</text><inline-styles/><styles/></para><para><coId>8734-1607415336656</coId><text/><inline-styles/><styles/></para><heading compat="true" level="3"><coId>2485-1607346700333</coId><text>BasicDataSource（硬编码模式）核心方法</text><inline-styles><bold><from>0</from><to>26</to><value>true</value></bold><font-size><from>0</from><to>26</to><value>16</value></font-size></inline-styles><styles/></heading><image><coId>2260-1607414511369</coId><source>https://note.youdao.com/yws/res/10221/EF2AFDDC40344C20865A1DBA9B61134A</source><text/><styles><width>620</width><height>309</height></styles></image><para><coId>8214-1607414219092</coId><text>链接示例</text><inline-styles/><styles/></para><code><coId>7576-1607415432380</coId><text>public static DataSource getDataSourceWithDBCP(){
+    BasicDataSource dbcp=new BasicDataSource();
+    dbcp.setDriverClassName("com.mysql.cj.jdbc.Driver");
+    dbcp.setUrl("jdbc:mysql://localhost:3306/makerpanda?useSSL=false");
+    dbcp.setUsername("root");
+    dbcp.setPassword("biubiu123");
+    dbcp.setInitialSize(20);
+    dbcp.setMaxActive(10);
+    return dbcp;
+}
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>6646-1607415432380</coId><text/><inline-styles/><styles/></para><para><coId>7526-1607415498589</coId><text/><inline-styles/><styles/></para><heading compat="true" level="3"><coId>9169-1607415498712</coId><text>BasicDataSourceFactory（配置方式）</text><inline-styles><bold><from>0</from><to>28</to><value>true</value></bold><font-size><from>0</from><to>28</to><value>16</value></font-size></inline-styles><styles/></heading><code><coId>9849-1607415644795</coId><text>public static DataSource getDataSourceWithDBCPPro(){
+    DataSource cbcp=null;
+    Properties props=new Properties();
+    InputStream input=new DBCP().getClass().getClassLoader().getResourceAsStream("dbcpconfig.properties");
+    props.load(input);
+    dbcp=BasicDataSourceFactory.createDataSource(props);
+    return dbcp;
+}
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>5792-1607415644795</coId><text/><inline-styles/><styles/></para></body></note>

@@ -1,0 +1,81 @@
+package org.Servlet;
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+@WebServlet("/upLoadServlet")
+public class upLoadServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    public upLoadServlet() {
+        super();
+    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		//判断前台enctype="multipart/form-data"，是否有multipart
+		boolean isMultipartContent=ServletFileUpload.isMultipartContent(request);
+		if(isMultipartContent) {
+			List<FileItem> items=null;
+			FileItemFactory factory=new DiskFileItemFactory();
+			ServletFileUpload upload=new ServletFileUpload(factory);//创建ServletFileUpload对象操作form表单内容
+			//通过parseRequest解析form中的所有请求字段，并保存到items集合中（即前台中的sno等就保存在了item中）
+			try {
+				items=upload.parseRequest(request);
+				//迭代器遍历items
+				Iterator<FileItem> iter=items.iterator();
+				while(iter.hasNext()) {
+					FileItem item=iter.next();
+					String itemname=item.getFieldName();//
+					int sno=-1;
+					String sname=null; 
+					if(item.isFormField()) {
+						if(itemname.equals("sno")) {//根据name属性判断item的字段
+							sno=Integer.parseInt(  item.getString("utf-8"));
+						}else if(itemname.equals("sname")) {
+							sname=item.getString();
+						}else {
+							System.out.println("其他字段");
+						}
+					}else {//picture
+						//文件上传,先拿文件名
+						//getFieldName是获取普通表单字段的Name值，getName()是获取文件名
+						String filename=item.getName();
+						
+						//定义文件路径，指定文件上传位置（服务器路径D:\\program files\\apache-tomcat-9.0.36\\wtpwebapps\\upload）
+						String path = "D:\\.temp\\upload";
+						File file=new File(path,filename);
+						//获取文件内容并上传
+						item.write(file);
+						System.out.println("上传成功："+filename);
+						return;
+					}
+					
+				}
+			} catch (FileUploadException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}

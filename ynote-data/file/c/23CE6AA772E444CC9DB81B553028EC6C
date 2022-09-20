@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>1462-1584245833067</coId><text/><inline-styles/><styles/></para><code><coId>1670-1584245833067</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容
+        c.setLayout(new FlowLayout());
+        
+        JPasswordField jp=new JPasswordField();//在括号中添加数字可以设置密码框的长度
+        jp.setColumns(20);
+        jp.setFont(new Font("Arial".Font.BOLD,18));//设置字体
+        jp.setEchoChar("#");//设置回显字符
+        
+        jp.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent arg0){
+                char ch[]=jp.getPassword();//获取密码的字符数组
+                String str=new String(ch);
+            }
+        });
+        c.add(jp);
+        
+        
+        
+        
+        
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>2577-1584245833067</coId><text/><inline-styles/><styles/></para></body></note>

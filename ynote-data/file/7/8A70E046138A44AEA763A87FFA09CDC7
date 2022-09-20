@@ -1,0 +1,30 @@
+首先在yaml文件中
+
+```
+dependencies:
+  flutter:
+    sdk: flutter
+    
+  //增加的
+  flutter_localizations:
+    sdk: flutter
+
+```
+第二步
+> 在main函数中的MaterialApp中加入
+
+```
+ //从这到
+      localizationsDelegates: [
+        //此处
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        //此处
+        const Locale('zh','CH'),
+        const Locale('en','US'),
+      ],
+      //这  配置语言国际化
+```
+ok完工

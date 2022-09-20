@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>1032-1606908112398</coId><text>创建过滤器Filter，并重写doFilter方法</text><inline-styles/><styles/></para><code><coId>9086-1606912884575</coId><text>	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		System.out.println("拦截请求");
+		chain.doFilter(request, response);//放行
+		System.out.println("拦截响应");
+	}
+
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>7169-1606912884575</coId><text>web.xml配置过滤器（拦截器）</text><inline-styles/><styles/></para><code><coId>6176-1606912929689</coId><text>&lt;filter&gt;
+	&lt;filter-name&gt;MyServlet&lt;/filter-name&gt;
+	&lt;filter-class&gt;org.filter.Mfilter&lt;/filter-class&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+	&lt;filter-name&gt;MyServlet&lt;/filter-name&gt;
+	&lt;url-pattern&gt;/MyServlet&lt;/url-pattern&gt;// '/*'拦截一切请求
+ &lt;dispatcher&gt;FORWARD&lt;/dispatcher&gt;  //可以加上dispatcher的标签，拦截指定请求
+&lt;/filter-mapping&gt;
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><image><coId>2865-1606980859496</coId><source>https://note.youdao.com/yws/res/10037/525E18E7439744488F58FF5C14F58918</source><text/><styles><width>620</width><height>79</height></styles></image><para><coId>5046-1606980784489</coId><text> </text><inline-styles/><styles/></para><image><coId>3188-1611115297379</coId><source>https://note.youdao.com/yws/res/10632/EF6ADC59D05E41478BAF91D414931686</source><text/><styles><width>620</width><height>334</height></styles></image><para><coId>9990-1606981592102</coId><text/><inline-styles/><styles/></para><para><coId>2529-1606981592600</coId><text/><inline-styles/><styles/></para><para><coId>4042-1606981592633</coId><text/><inline-styles/><styles/></para><para><coId>8765-1606981592665</coId><text/><inline-styles/><styles/></para><para><coId>9681-1606980784489</coId><text>监听器</text><inline-styles/><styles/></para><image><coId>5223-1606982959583</coId><source>https://note.youdao.com/yws/res/10054/5366A9141D9049E1ACE10BF0F2250C01</source><text/><styles><width>620</width><height>235</height></styles></image><para><coId>3851-1606982998678</coId><text/><inline-styles/><styles/></para><image><coId>2078-1606982998678</coId><source>https://note.youdao.com/yws/res/10058/8553E2EDBB734A788291CD0081FCBF44</source><text/><styles><width>620</width><height>126</height></styles></image><para><coId>2132-1606982996944</coId><text>web.xml配置</text><inline-styles/><styles/></para><code><coId>2287-1606982063752</coId><text>&lt;listener&gt;
+	&lt;listener-class&gt;org.listener.MyListener&lt;/listener-class&gt;
+&lt;/listener&gt;
+</text><inline-styles/><styles/><language>javascript</language><theme>tomorrow</theme></code><para><coId>7928-1606981642012</coId><text/><inline-styles/><styles/></para><para><coId>9181-1606981642045</coId><text/><inline-styles/><styles/></para><para><coId>5742-1606981642079</coId><text/><inline-styles/><styles/></para><para><coId>2587-1606981642112</coId><text/><inline-styles/><styles/></para><para><coId>7565-1606982964729</coId><text/><inline-styles/><styles/></para><para><coId>9190-1606982965229</coId><text/><inline-styles/><styles/></para><para><coId>6667-1606982965262</coId><text/><inline-styles/><styles/></para><para><coId>3990-1606982965295</coId><text/><inline-styles/><styles/></para><para><coId>4023-1606982967519</coId><text/><inline-styles/><styles/></para></body></note>

@@ -1,0 +1,92 @@
+TabBar常见属性
+
+属性 | 描述
+---|---
+tabs | 显示的标签内容，一般使用Tab对象，也可以是其他的Widget
+isScrollable |是否可滚动
+controller | TabController
+indicatorColor | 指示器颜色
+indicatorWeight | 指示器高度
+indicatorPadding | 底部指示器的Padding
+indicator | 指示器decoration，例如边框等
+indicatorSize | 指示器大小计算方式，TabBarINdicatorSize.label跟文字等宽，TabBarIndicatorSize.tab跟每个tab等宽
+labelColor | 选中label颜色
+labelStyle | 选中label的Style
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/Tabs.dart';
+
+class AppBarDemoPage extends StatelessWidget{
+  const AppBarDemoPage({Key key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+      appBar: AppBar(
+        title: Text('hello'),
+        /*centerTitle: true,//标题居中显示
+        backgroundColor: Colors.red,
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.search), onPressed: (){print("search");}),
+          IconButton(icon: Icon(Icons.home), onPressed: (){print("search");}),
+          IconButton(icon: Icon(Icons.face), onPressed: (){print("search");}),
+        ],*/
+        bottom: TabBar(
+          tabs: <Widget>[
+            Tab(text:"热门"),
+            Tab(text:"推荐"),
+            Tab(text:"人气"),
+
+          ],
+        ),
+      ),
+      body: TabBarView(
+        children: <Widget>[
+          ListView(
+            children: <Widget>[
+              ListTile(
+                title: Text("第一个tab"),
+              ),
+              ListTile(
+                title: Text("第一个tab"),
+              ),
+              ListTile(
+                title: Text("第一个tab"),
+              ),
+            ],
+          ),
+          ListView(
+            children: <Widget>[
+              ListTile(
+                title: Text("第二个tab"),
+              ),
+              ListTile(
+                title: Text("第二个tab"),
+              ),
+              ListTile(
+                title: Text("第二个tab"),
+              ),
+            ],
+          ),
+          ListView(
+            children: <Widget>[
+              ListTile(
+                title: Text("第三个tab"),
+              ),
+              ListTile(
+                title: Text("第三个tab"),
+              ),
+              ListTile(
+                title: Text("第三个tab"),
+              ),
+            ],
+          ),
+        ],
+      ),
+     ),
+    );
+  }
+}
+```

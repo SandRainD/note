@@ -1,0 +1,41 @@
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/AppBarDemo.dart';
+
+class RadioPage extends StatefulWidget {
+  @override
+  _RadioPageState createState() => _RadioPageState();
+}
+
+class _RadioPageState extends State<RadioPage> {
+  var sex = 1;
+  bool flag = true;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Radio"),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: <Widget>[
+         
+            SizedBox(height: 20,),
+            Switch(
+                value: this.flag,
+                onChanged:(v){
+                 setState(() {
+                   print(v);
+                   this.flag = v;
+                 });
+                }),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+```

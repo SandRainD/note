@@ -1,0 +1,19 @@
+package com.idea.boot.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/*
+@author lts
+@create 2021-04-06-11:48
+usage 
+*/
+@Controller
+public class HelloController {
+    @ResponseBody
+    @RequestMapping("/hello")
+    public String handle(){
+        return "hello springboot";
+    }
+}

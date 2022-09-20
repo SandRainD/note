@@ -1,0 +1,289 @@
+DrawerHeader常见属性
+
+
+属性 | 描述
+---|---
+decoration | 设置顶部背景颜色
+padding | 内边距
+child | 配置子元素
+margin | 外边距
+
+## 快速实现用户头部组件
+UserAccountsDrawerHeader
+
+
+属性 | 描述
+---|---
+decoration | 设置顶部背景颜色
+accountName | 账户名称
+accountEmail | 账户邮箱
+currentAccountPicture | 用户头像
+otherAccountsPictures | 用来设置当前账户和其他账户头像
+margin | 
+
+
+
+```
+import 'package:flutter/material.dart';
+import 'tabs/Home.dart';
+import 'tabs/Setting.dart';
+import 'tabs/Category.dart';
+
+class Tabs extends StatefulWidget {
+  //创建一个变量来控制跳转的页面
+  final index;
+  Tabs({Key key,this.index=0}) : super(key: key);//index可选参数
+
+  _TabsState createState() => _TabsState(this.index);
+}
+
+class _TabsState extends State<Tabs> {
+
+  int _currentIndex ;
+  _TabsState(index){
+    this._currentIndex=index;//接收变量
+  }
+  List _pageList = [
+    HomePage(),
+    CategoryPage(),
+    SettingPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ButtomNavigationBarDemo'),
+      ),
+      body: this._pageList[this._currentIndex],
+      bottomNavigationBar:BottomNavigationBar(
+        currentIndex: this._currentIndex, //配置对应的索引值选中
+        onTap: (int index){
+          setState(() {//改变状态
+            this._currentIndex=index;
+          });
+        },
+        iconSize: 36.0,//设置图标大小
+        fixedColor: Colors.red,//设置选中的图标的颜色(默认为蓝色)
+        type: BottomNavigationBarType.fixed, //配置底部tabs可以有多个按钮
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "首页",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              label: "分类"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "设置"
+          ),
+        ],
+      ),
+
+      drawer: Drawer(//左侧侧边栏
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: UserAccountsDrawerHeader(
+                      accountName: Text("4G41.17"),//名字
+                      accountEmail: Text("996957240@qq.com",),//邮箱
+                      currentAccountPicture: CircleAvatar(//头像处理，CircleAvatar圆角处理
+                        backgroundImage: AssetImage("images/木兰.png"),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.yellow,
+                        image: DecorationImage(
+                          image: AssetImage("images/木兰2.png"),
+                          fit:BoxFit.cover,
+                        )
+                      ),
+                      otherAccountsPictures: <Widget>[
+                        Image.network('src')
+                      ],
+                    ),
+                ),
+              ],
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.home_sharp),
+              ),
+              title: Text("我的空间"),
+            ),
+            Divider(),//就是一条线
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.people),
+              ),
+              title: Text("用户中心"),
+            ),
+            Divider(),//就是一条线
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.home_sharp),
+              ),
+              title: Text("设置中心"),
+            ),
+          ],
+        ),
+      ),
+      endDrawer: Drawer(
+        child: Text("右侧侧边栏的你好flutter"),
+
+      ),
+    );
+  }
+}
+```
+
+
+## 侧边栏路由跳转
+点击侧边栏中的列表，然后实现侧边栏退出到主页面，再跳转到该页面
+
+routes中导入路由
+
+```
+'/user':(context)=>UserPage(),
+```
+
+写一个用户中心的组件
+User
+
+```
+import 'package:flutter/material.dart';
+
+class UserPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("用户中心"),
+      ),
+    );
+  }
+}
+```
+
+在Tabs页面中
+```
+import 'package:flutter/material.dart';
+import 'tabs/Home.dart';
+import 'tabs/Setting.dart';
+import 'tabs/Category.dart';
+
+class Tabs extends StatefulWidget {
+  //创建一个变量来控制跳转的页面
+  final index;
+  Tabs({Key key,this.index=0}) : super(key: key);//index可选参数
+
+  _TabsState createState() => _TabsState(this.index);
+}
+
+class _TabsState extends State<Tabs> {
+
+  int _currentIndex ;
+  _TabsState(index){
+    this._currentIndex=index;//接收变量
+  }
+  List _pageList = [
+    HomePage(),
+    CategoryPage(),
+    SettingPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ButtomNavigationBarDemo'),
+      ),
+      body: this._pageList[this._currentIndex],
+      bottomNavigationBar:BottomNavigationBar(
+        currentIndex: this._currentIndex, //配置对应的索引值选中
+        onTap: (int index){
+          setState(() {//改变状态
+            this._currentIndex=index;
+          });
+        },
+        iconSize: 36.0,//设置图标大小
+        fixedColor: Colors.red,//设置选中的图标的颜色(默认为蓝色)
+        type: BottomNavigationBarType.fixed, //配置底部tabs可以有多个按钮
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "首页",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              label: "分类"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "设置"
+          ),
+        ],
+      ),
+
+      drawer: Drawer(//左侧侧边栏
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: UserAccountsDrawerHeader(
+                      accountName: Text("4G41.17"),//名字
+                      accountEmail: Text("996957240@qq.com",),//邮箱
+                      currentAccountPicture: CircleAvatar(//头像处理，CircleAvatar圆角处理
+                        backgroundImage: AssetImage("images/木兰.png"),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.yellow,
+                        image: DecorationImage(
+                          image: AssetImage("images/木兰2.png"),
+                          fit:BoxFit.cover,
+                        )
+                      ),
+
+                    ),
+                ),
+              ],
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.home_sharp),
+              ),
+              title: Text("我的空间"),
+            ),
+            Divider(),//就是一条线
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.people),
+              ),
+              title: Text("用户中心"),
+              onTap: (){
+                Navigator.of(context).pop();//返回时隐藏侧边栏
+                Navigator.pushNamed(context, '/user');
+              },
+            ),
+            Divider(),//就是一条线
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.home_sharp),
+              ),
+              title: Text("设置中心"),
+            ),
+          ],
+        ),
+      ),
+      endDrawer: Drawer(
+        child: Text("右侧侧边栏的你好flutter"),
+
+      ),
+    );
+  }
+}
+```

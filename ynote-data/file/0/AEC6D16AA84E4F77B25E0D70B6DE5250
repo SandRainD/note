@@ -1,0 +1,53 @@
+
+名称 | 功能
+---|---
+textAlign | 文本对齐方式(center居中，left左对齐，right右对齐，justfy两端对齐)
+overflow | 文字超出屏幕之后的处理方式(clip裁剪，fade渐隐，ellopsis省略号)
+textDirection | 文本方向(ltr从左到右，rtl从右至左)
+textScaleFactor | 字体显示倍率
+maxLines | 文字显示最大行数
+style | 字体的样式设置
+
+
+
+```
+import 'package:flutter/material.dart';
+
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Text Widget',
+      home: Scaffold(
+        body: Center(
+          child: Container(
+            child: Text(
+                'helloworld!',
+                style: TextStyle(
+                    fontSize: 18.0
+                )
+            ),
+            alignment: Alignment.topLeft,
+            //对齐方式 center居中，bottomCenter底部居中，topCenter顶部居中，。。。
+            width: 400.0, //宽
+            height: 400.0,//高
+            
+            padding: const EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),//padding内边距
+            //L左;R右。。。
+            margin: const EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(//渐变
+                colors: [Colors.lightBlue,Colors.greenAccent,Colors.purple]
+              ),
+              border: Border.all(width:5.0,color:Colors.red)
+              ),
+            )
+          ),
+        ),
+    );
+  }
+}
+```

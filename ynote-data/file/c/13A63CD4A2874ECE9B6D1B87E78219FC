@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>5189-1623331021749</coId><text/><inline-styles/><styles/></para><image><coId>1935-1623331021749</coId><source>https://note.youdao.com/yws/res/13900/6B7F013E1E88437F97069D75801D0B03</source><text/><styles><width>620</width><height>291</height></styles></image><para><coId>9126-1623331030046</coId><text/><inline-styles/><styles/></para><image><coId>8639-1623331030046</coId><source>https://note.youdao.com/yws/res/13902/F1C48A2344E24E6D852E514D86D56435</source><text/><styles><width>620</width><height>316</height></styles></image><para><coId>7062-1623759596247</coId><text/><inline-styles/><styles/></para><code><coId>8424-1623759596247</coId><text>// 测试查询
+@Test
+public void testSelectById(){
+User user = userMapper.selectById(1L);
+System.out.println(user);
+}
+// 测试批量查询！
+@Test
+public void testSelectByBatchId(){
+List&lt;User&gt; users = userMapper.selectBatchIds(Arrays.asList(1, 2, 3));
+users.forEach(System.out::println);
+}
+// 按条件查询之一使用map操作
+@Test
+public void testSelectByBatchIds(){
+HashMap&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+// 自定义要查询
+map.put("name","狂神说Java");
+map.put("age",3);
+List&lt;User&gt; users = userMapper.selectByMap(map);
+users.forEach(System.out::println);
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>6075-1637753899685</coId><text/><inline-styles/><styles/></para><image><coId>5691-1637753899685</coId><source>https://note.youdao.com/yws/res/15288/EA2958B4D8224E8CBB864CC922822A6E</source><text/><styles><width>620</width><height>119</height></styles></image><para><coId>9360-1637754084728</coId><text/><inline-styles/><styles/></para><image><coId>8418-1637754084728</coId><source>https://note.youdao.com/yws/res/15290/76F0F1786A0C454789F730D2C5DB2F8C</source><text/><styles><width>620</width><height>193</height></styles></image><para><coId>6866-1637754084728</coId><text/><inline-styles/><styles/></para></body></note>

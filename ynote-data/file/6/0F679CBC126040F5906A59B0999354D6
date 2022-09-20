@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head><list id="4463-1618924827015" type="unordered"/><list id="5365-1619003816422" type="unordered"/><list id="2551-1619003816424" type="unordered"/><list id="3736-1619003816425" type="unordered"/><list id="3186-1619009455829" type="unordered"/><list id="9040-1619009455834" type="unordered"/><list id="6421-1619009455839" type="unordered"/><list id="2291-1619438299508" type="unordered"/><list id="6898-1619513826800" type="unordered"/><list id="4148-1619514859237" type="unordered"/></head><body><heading compat="true" level="2"><coId>8188-1618924379865</coId><text>1、rest使用与原理</text><inline-styles><bold><from>0</from><to>11</to><value>true</value></bold><font-size><from>0</from><to>11</to><value>20</value></font-size></inline-styles><styles/></heading><list-item level="1" list-id="4463-1618924827015"><coId>2887-1618924781068</coId><text>@xxxMapping；</text><inline-styles><font-size><from>0</from><to>12</to><value>16</value></font-size></inline-styles><styles/></list-item><list-item level="1" list-id="4463-1618924827015"><coId>8683-1618924781068</coId><text>Rest风格支持（使用HTTP请求方式动词来表示对资源的操作）</text><inline-styles><font-size><from>0</from><to>31</to><value>16</value></font-size></inline-styles><styles/></list-item><para><coId>6517-1618924781068</coId><text>以前:/getUser获取用户   /deleteUser删除用户   /editUser修改用户   /saveUser保存用户</text><inline-styles><font-size><from>0</from><to>65</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>9166-1618924781068</coId><text>现在: /user    GET-获取用户    DELETE-删除用户     PUT-修改用户      POST-保存用户</text><inline-styles><font-size><from>0</from><to>64</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>6530-1618924781068</coId><text>核心Filter；HiddenHttpMethodFilter</text><inline-styles><font-size><from>0</from><to>31</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>5660-1618924781068</coId><text>用法： 表单method=post，隐藏域 _method=put</text><inline-styles><font-size><from>0</from><to>33</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>3791-1618924781068</coId><text>SpringBoot中手动开启</text><inline-styles><font-size><from>0</from><to>15</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>6174-1618924781068</coId><text>扩展：如何把_method 这个名字换成我们自己喜欢的。</text><inline-styles><font-size><from>0</from><to>28</to><value>16</value></font-size></inline-styles><styles/></para><image><coId>4744-1618925036234</coId><source>https://note.youdao.com/yws/res/13407/5DAAB9A34BD14F7EA989CDD823F5F06C</source><text/><styles><width>620</width><height>186</height></styles></image><code><coId>4416-1618924906175</coId><text>//@Getmapping("/user"),代替下面注解DeleteMapping等
+  @RequestMapping(value = "/user",method = RequestMethod.GET)
+    public String getUser(){
+        return "GET-张三";
+    }
+    @RequestMapping(value = "/user",method = RequestMethod.POST)
+    public String saveUser(){
+        return "POST-张三";
+    }
+    @RequestMapping(value = "/user",method = RequestMethod.PUT)
+    public String putUser(){
+        return "PUT-张三";
+    }
+    @RequestMapping(value = "/user",method = RequestMethod.DELETE)
+    public String deleteUser(){
+        return "DELETE-张三";
+    }
+    
+//源码解析
+//WebMvcAutoConfiguration中：默认关闭Rest风格
+    @Bean
+    @ConditionalOnMissingBean(HiddenHttpMethodFilter.class)
+    @ConditionalOnProperty(prefix = "spring.mvc.hiddenmethod.filter", name = "enabled", matchIfMissing = false)
+    public OrderedHiddenHttpMethodFilter hiddenHttpMethodFilter() {
+        return new OrderedHiddenHttpMethodFilter();
+    }
+    
+    //自定义filter
+    @Bean
+    public HiddenHttpMethodFilter hiddenHttpMethodFilter(){
+        HiddenHttpMethodFilter methodFilter = new HiddenHttpMethodFilter();
+        methodFilter.setMethodParam("_m");
+        return methodFilter;
+    }s
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>9781-1618925285943</coId><text>application.yaml中配置开启Rest风格</text><inline-styles><font-size><from>0</from><to>27</to><value>16</value></font-size></inline-styles><styles/></para><code><coId>1878-1618925433650</coId><text>mvc:
+    hiddenmethod:
+        filter:
+            enabled:true#开启页面表单的Rest功能
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>6854-1618925418827</coId><text>Rest原理（表单提交要使用REST的时候）</text><inline-styles><font-size><from>0</from><to>22</to><value>15</value></font-size><color><from>0</from><to>22</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><list-item level="1" list-id="5365-1619003816422"><coId>1076-1619003816430</coId><text>表单提交会带上_method=PUT</text><inline-styles><bold><from>7</from><to>18</to><value>true</value></bold><font-size><from>0</from><to>18</to><value>15</value></font-size><color><from>0</from><to>18</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="1" list-id="5365-1619003816422"><coId>7277-1619003816430</coId><text>请求过来被HiddenHttpMethodFilter拦截</text><inline-styles><bold><from>0</from><to>5</to><value>true</value></bold><font-size><from>0</from><to>29</to><value>15</value></font-size><color><from>0</from><to>29</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="2" list-id="2551-1619003816424"><coId>3553-1619003816430</coId><text>请求是否正常，并且是POST</text><inline-styles><font-size><from>0</from><to>14</to><value>15</value></font-size><color><from>0</from><to>14</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="3" list-id="3736-1619003816425"><coId>3946-1619003816430</coId><text>获取到_method的值。 </text><inline-styles><bold><from>3</from><to>10</to><value>true</value></bold><font-size><from>0</from><to>14</to><value>15</value></font-size><color><from>0</from><to>14</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="3" list-id="3736-1619003816425"><coId>9258-1619003816430</coId><text>兼容以下请求；PUT.DELETE.PATCH</text><inline-styles><bold><from>7</from><to>10</to><value>true</value></bold><bold><from>11</from><to>17</to><value>true</value></bold><bold><from>18</from><to>23</to><value>true</value></bold><font-size><from>0</from><to>23</to><value>15</value></font-size><color><from>0</from><to>23</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="3" list-id="3736-1619003816425"><coId>7063-1619003816430</coId><text>原生request（post），包装模式requesWrapper重写了getMethod方法，返回的是传入的值。</text><inline-styles><bold><from>0</from><to>57</to><value>true</value></bold><font-size><from>0</from><to>57</to><value>15</value></font-size><color><from>0</from><to>57</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="3" list-id="3736-1619003816425"><coId>5264-1619003816430</coId><text>过滤器链放行的时候用wrapper。以后的方法调用getMethod是调用requesWrapper的。</text><inline-styles><bold><from>0</from><to>52</to><value>true</value></bold><font-size><from>0</from><to>52</to><value>15</value></font-size><color><from>0</from><to>52</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><para><coId>7444-1619005510541</coId><text/><inline-styles/><styles><line-height>1.74</line-height></styles></para><para><coId>9183-1619005692775</coId><text/><inline-styles/><styles><line-height>1.74</line-height></styles></para><heading compat="true" level="2"><coId>3046-1619005693047</coId><text>2、请求映射原理</text><inline-styles><bold><from>0</from><to>8</to><value>true</value></bold><font-size><from>0</from><to>8</to><value>20</value></font-size><color><from>0</from><to>8</to><value>#404040</value></color></inline-styles><styles><line-height>1.4</line-height></styles></heading><image><coId>8670-1619006416151</coId><source>https://note.youdao.com/yws/res/13447/6B921986FF2849FFBFD8CC4E23D1B3A6</source><text/><styles><width>620</width><height>120</height></styles></image><para><coId>7715-1619006416151</coId><text>SpringMVC功能分析都从 org.springframework.web.servlet.DispatcherServlet-》doDispatch（）</text><inline-styles><font-size><from>0</from><to>79</to><value>15</value></font-size><color><from>0</from><to>79</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><code><coId>2718-1619009412396</coId><text>protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpServletRequest processedRequest = request;
+        HandlerExecutionChain mappedHandler = null;
+        boolean multipartRequestParsed = false;
+
+        WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
+
+        try {
+            ModelAndView mv = null;
+            Exception dispatchException = null;
+
+            try {
+                processedRequest = checkMultipart(request);
+                multipartRequestParsed = (processedRequest != request);
+
+                // 找到当前请求使用哪个Handler（Controller的方法）处理
+                mappedHandler = getHandler(processedRequest);
+                
+                //HandlerMapping：处理器映射。/xxx-&gt;&gt;xxxx
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>7039-1619009423124</coId><text/><inline-styles/><styles><line-height>1.74</line-height></styles></para><image><coId>3862-1619009423124</coId><source>https://note.youdao.com/yws/res/13456/E56AA65D46E8442B8A9D28CBC4F0165B</source><text/><styles><width>501</width><height>217</height></styles></image><para><coId>5510-1619009409333</coId><text/><inline-styles/><styles/></para><para><coId>6083-1619009410179</coId><text>RequestMappingHandlerMapping：保存了所有@RequestMapping 和handler的映射规则</text><inline-styles><bold><from>0</from><to>28</to><value>true</value></bold></inline-styles><styles/></para><image><coId>3556-1619009442967</coId><source>https://note.youdao.com/yws/res/13459/A359BB3522CE408BAC5071CE490D49F0</source><text/><styles><width>620</width><height>235</height></styles></image><para><coId>7757-1619009425565</coId><text>所有的请求映射都在HandlerMapping中。</text><inline-styles><font-size><from>0</from><to>25</to><value>15</value></font-size><color><from>0</from><to>25</to><value>#404040</value></color></inline-styles><styles/></para><para><coId>1179-1619009446089</coId><text/><inline-styles/><styles/></para><list-item level="1" list-id="3186-1619009455829"><coId>7798-1619009455841</coId><text>SpringBoot自动配置欢迎页的 WelcomePageHandlerMapping 。访问 /能访问到index.html；</text><inline-styles><font-size><from>0</from><to>65</to><value>15</value></font-size><color><from>0</from><to>65</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="1" list-id="3186-1619009455829"><coId>2052-1619009455841</coId><text>SpringBoot自动配置了默认 的 RequestMappingHandlerMapping</text><inline-styles><font-size><from>0</from><to>48</to><value>15</value></font-size><color><from>0</from><to>48</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="1" list-id="3186-1619009455829"><coId>1792-1619009455841</coId><text>请求进来，挨个尝试所有的HandlerMapping看是否有请求信息。</text><inline-styles><font-size><from>0</from><to>35</to><value>15</value></font-size><color><from>0</from><to>35</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="2" list-id="9040-1619009455834"><coId>2920-1619009455841</coId><text>如果有就找到这个请求对应的handler</text><inline-styles><font-size><from>0</from><to>20</to><value>15</value></font-size><color><from>0</from><to>20</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="2" list-id="9040-1619009455834"><coId>0099-1619009455841</coId><text>如果没有就是下一个 HandlerMapping</text><inline-styles><font-size><from>0</from><to>24</to><value>15</value></font-size><color><from>0</from><to>24</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="1" list-id="6421-1619009455839"><coId>4582-1619009455841</coId><text>我们需要一些自定义的映射处理，我们也可以自己给容器中放HandlerMapping。自定义 HandlerMapping</text><inline-styles><bold><from>27</from><to>41</to><value>true</value></bold><bold><from>46</from><to>60</to><value>true</value></bold><font-size><from>0</from><to>60</to><value>15</value></font-size><color><from>0</from><to>60</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><code><coId>7190-1619009463077</coId><text>    protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
+        if (this.handlerMappings != null) {
+            for (HandlerMapping mapping : this.handlerMappings) {
+                HandlerExecutionChain handler = mapping.getHandler(request);
+                if (handler != null) {
+                    return handler;
+                }
+            }
+        }
+        return null;
+    }
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>5430-1619009437302</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>4162-1619009437517</coId><text>3、普通参数与基本注解</text><inline-styles><bold><from>0</from><to>11</to><value>true</value></bold><font-size><from>0</from><to>11</to><value>20</value></font-size><color><from>0</from><to>11</to><value>#404040</value></color></inline-styles><styles><line-height>1.3333333333333333</line-height></styles></heading><list-item level="1" list-id="2291-1619438299508"><coId>1028-1619438274911</coId><text>注解：</text><inline-styles/><styles/></list-item><list-item level="2" list-id="2291-1619438299508"><coId>7163-1619438307652</coId><text>@PathVariable路径变量、@RequestHeader请求头、@ModelAttribute、@RequestParam请求参数、@MatrixVariable矩阵变量、@CookieValue获取cookie值、@RequestBody获取请求体</text><inline-styles><color><from>0</from><to>129</to><value>#808000</value></color></inline-styles><styles/></list-item><image><coId>5682-1619512782592</coId><source>https://note.youdao.com/yws/res/13487/0A8C12AC568C491FB8453BA4AC1AFCE7</source><text/><styles><width>620</width><height>103</height></styles></image><para><coId>9036-1619512774819</coId><text>开启矩阵变量方法1</text><inline-styles><font-size><from>0</from><to>9</to><value>16</value></font-size></inline-styles><styles/></para><image><coId>9047-1619512854495</coId><source>https://note.youdao.com/yws/res/13490/9BC7CFB039B24962921DA06D8E4CA6B6</source><text/><styles><width>620</width><height>374</height></styles></image><para><coId>9079-1619512780705</coId><text>方法2，放置组件：</text><inline-styles><font-size><from>0</from><to>9</to><value>16</value></font-size></inline-styles><styles/></para><image><coId>6898-1619512891136</coId><source>https://note.youdao.com/yws/res/13496/209A78866AA54150BCBF3757073A5B61</source><text/><styles><width>620</width><height>205</height></styles></image><para><coId>3323-1619512882038</coId><text/><inline-styles/><styles/></para><code><coId>9822-1619438788902</coId><text>@RestController
+public class ParameterTestController {
+    @GetMapping("/car/{id}/owner/{username}")
+    public Map&lt;String,Object&gt; getCar(@PathVariable("id") Integer id,
+                                     @PathVariable("username") String name,
+                                     @PathVariable Map&lt;String,String&gt; pv,
+                                     @RequestHeader("User-Agent") String userAgent,
+                                     @RequestHeader Map&lt;String,String&gt; header,
+                                     @RequestParam("age") Integer age,
+                                     @RequestParam("inters") List&lt;String&gt; inters,
+                                     @RequestParam Map&lt;String,String&gt; params,
+                                     @CookieValue("_ga") String _ga,
+                                     @CookieValue("_ga") Cookie cookie){
+        Map&lt;String,Object&gt; map = new HashMap&lt;&gt;();
+        map.put("age",age);
+        map.put("inters",inters);
+        map.put("params",params);
+        map.put("_ga",_ga);
+        System.out.println(cookie.getName()+"===&gt;"+cookie.getValue());
+        return map;
+    }
+    @PostMapping("/save")
+    public Map postMethod(@RequestBody String content){
+        Map&lt;String,Object&gt; map = new HashMap&lt;&gt;();
+        map.put("content",content);
+        return map;
+    }
+    //1、语法： 请求路径：/cars/sell;low=34;brand=byd,audi,yd
+    //2、SpringBoot默认是禁用了矩阵变量的功能
+    //      手动开启：原理。对于路径的处理。UrlPathHelper进行解析。
+    //              removeSemicolonContent（移除分号内容）支持矩阵变量的
+    //3、矩阵变量必须有url路径变量才能被解析
+    @GetMapping("/cars/{path}")
+    public Map carsSell(@MatrixVariable("low") Integer low,
+                        @MatrixVariable("brand") List&lt;String&gt; brand,
+                        @PathVariable("path") String path){
+        Map&lt;String,Object&gt; map = new HashMap&lt;&gt;();
+        map.put("low",low);
+        map.put("brand",brand);
+        map.put("path",path);
+        return map;
+    }
+    // /boss/1;age=20/2;age=10   当参数具有相同的名字时
+    @GetMapping("/boss/{bossId}/{empId}")
+    public Map boss(@MatrixVariable(value = "age",pathVar = "bossId") Integer bossAge,
+                    @MatrixVariable(value = "age",pathVar = "empId") Integer empAge){
+        Map&lt;String,Object&gt; map = new HashMap&lt;&gt;();
+        map.put("bossAge",bossAge);
+        map.put("empAge",empAge);
+        return map;
+    }}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><list-item level="1" list-id="2291-1619438299508"><coId>7394-1619438307926</coId><text>Servlet api</text><inline-styles><font-size><from>0</from><to>11</to><value>16</value></font-size></inline-styles><styles/></list-item><para><coId>9824-1619612807764</coId><text>WebRequest、ServletRequest、MultipartRequest、 HttpSession、javax.servlet.http.PushBuilder、Principal、InputStream、Reader、HttpMethod、Locale、TimeZone、ZoneId</text><inline-styles/><styles><text-indent>2</text-indent></styles></para><para><coId>7210-1619612829662</coId><text>ServletRequestMethodArgumentResolver  以上的部分参数</text><inline-styles><bold><from>0</from><to>45</to><value>true</value></bold><font-size><from>0</from><to>45</to><value>15</value></font-size><color><from>0</from><to>45</to><value>#404040</value></color></inline-styles><styles><text-indent>2</text-indent></styles></para><code><coId>6697-1619612834365</coId><text>@Override
+	public boolean supportsParameter(MethodParameter parameter) {
+		Class&lt;?&gt; paramType = parameter.getParameterType();
+		return (WebRequest.class.isAssignableFrom(paramType) ||
+				ServletRequest.class.isAssignableFrom(paramType) ||
+				MultipartRequest.class.isAssignableFrom(paramType) ||
+				HttpSession.class.isAssignableFrom(paramType) ||
+				(pushBuilder != null &amp;&amp; pushBuilder.isAssignableFrom(paramType)) ||
+				Principal.class.isAssignableFrom(paramType) ||
+				InputStream.class.isAssignableFrom(paramType) ||
+				Reader.class.isAssignableFrom(paramType) ||
+				HttpMethod.class == paramType ||
+				Locale.class == paramType ||
+				TimeZone.class == paramType ||
+				ZoneId.class == paramType);
+	}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><list-item level="1" list-id="2291-1619438299508"><coId>9030-1619438331470</coId><text>复杂参数</text><inline-styles><font-size><from>0</from><to>4</to><value>16</value></font-size></inline-styles><styles/></list-item><para><coId>0019-1619613400041</coId><text>Map、Model（map、model里面的数据会被放在request的请求域  相当于调用了request.setAttribute）、Errors/BindingResult、RedirectAttributes（ 重定向携带数据）、ServletResponse（response）、SessionStatus、UriComponentsBuilder、ServletUriComponentsBuilder</text><inline-styles><bold><from>0</from><to>3</to><value>true</value></bold><bold><from>4</from><to>69</to><value>true</value></bold><bold><from>90</from><to>118</to><value>true</value></bold><bold><from>119</from><to>144</to><value>true</value></bold></inline-styles><styles/></para><code><coId>8669-1619613419211</coId><text>Map&lt;String,Object&gt; map,  Model model, HttpServletRequest request 都是可以给request域中放数据，
+request.getAttribute();
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>7892-1619615147315</coId><text>Map、Model类型的参数，会返回 mavContainer.getModel（）；---&gt; BindingAwareModelMap 是Model 也是Map</text><inline-styles><bold><from>0</from><to>14</to><value>true</value></bold><font-size><from>0</from><to>81</to><value>15</value></font-size><color><from>0</from><to>81</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><para><coId>9880-1619615174714</coId><text>mavContainer.getModel(); 获取到值的</text><inline-styles><bold><from>0</from><to>12</to><value>true</value></bold><font-size><from>0</from><to>30</to><value>15</value></font-size><color><from>0</from><to>30</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><image><coId>2363-1619615397420</coId><source>https://note.youdao.com/yws/res/13571/164E132CBDB14D518352963B77B15218</source><text/><styles><width>620</width><height>161</height></styles></image><image><coId>4869-1619615443699</coId><source>https://note.youdao.com/yws/res/13573/6CDF22596FEA41FD9C36CE9DDF65F124</source><text/><styles><width>620</width><height>153</height></styles></image><para><coId>3434-1619615449871</coId><text/><inline-styles/><styles/></para><image><coId>4612-1619615449871</coId><source>https://note.youdao.com/yws/res/13575/D842F7EF87F5470FAC71E2A46A79E724</source><text/><styles><width>620</width><height>282</height></styles></image><para><coId>3086-1619615390350</coId><text/><inline-styles/><styles><line-height>1.74</line-height></styles></para><list-item level="1" list-id="2291-1619438299508"><coId>8350-1619615158037</coId><text>自定义对象参数</text><inline-styles><font-size><from>0</from><to>7</to><value>16</value></font-size></inline-styles><styles/></list-item><para><coId>6767-1619009437693</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>8988-1619009425598</coId><text>4、参数处理原理</text><inline-styles><bold><from>0</from><to>8</to><value>true</value></bold><font-size><from>0</from><to>8</to><value>20</value></font-size></inline-styles><styles/></heading><list-item level="1" list-id="6898-1619513826800"><coId>9112-1619513826806</coId><text>HandlerMapping中找到能处理请求的Handler（Controller. method()）</text><inline-styles><font-size><from>0</from><to>52</to><value>15</value></font-size><color><from>0</from><to>52</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="1" list-id="6898-1619513826800"><coId>8166-1619513826806</coId><text>为当前Handler 找一个适配器 HandlerAdapter； RequestMappingHandlerAdapter</text><inline-styles><bold><from>34</from><to>62</to><value>true</value></bold><font-size><from>0</from><to>62</to><value>15</value></font-size><color><from>0</from><to>62</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="1" list-id="6898-1619513826800"><coId>2025-1619513826806</coId><text>适配器执行目标方法并确定方法参数的每一个值</text><inline-styles><font-size><from>0</from><to>21</to><value>15</value></font-size><color><from>0</from><to>21</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><heading compat="true" level="3"><coId>6990-1619009410527</coId><text>1、HandlerAdapter</text><inline-styles><bold><from>0</from><to>16</to><value>true</value></bold><font-size><from>0</from><to>16</to><value>16</value></font-size></inline-styles><styles><line-height>1.4</line-height></styles></heading><image><coId>2457-1619513839646</coId><source>https://note.youdao.com/yws/res/13505/6FD93A0185664897A0C08EEBA51D3C4A</source><text/><styles><width>539</width><height>192</height></styles></image><para><coId>6780-1619513905945</coId><text>0 - 支持方法上标注@RequestMapping</text><inline-styles><font-size><from>0</from><to>26</to><value>15</value></font-size><color><from>0</from><to>26</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><para><coId>8724-1619513911950</coId><text>1 - 支持函数式编程的</text><inline-styles><font-size><from>0</from><to>12</to><value>15</value></font-size><color><from>0</from><to>12</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><para><coId>2270-1619513911950</coId><text>xxxxxx</text><inline-styles><font-size><from>0</from><to>6</to><value>15</value></font-size><color><from>0</from><to>6</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><heading compat="true" level="3"><coId>2060-1619514008332</coId><text>2、执行目标方法</text><inline-styles><bold><from>0</from><to>8</to><value>true</value></bold><font-size><from>0</from><to>8</to><value>16</value></font-size><color><from>0</from><to>8</to><value>#404040</value></color></inline-styles><styles><line-height>1.4</line-height></styles></heading><code><coId>7716-1619514021519</coId><text>// Actually invoke the handler.
+//DispatcherServlet -- doDispatch
+mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>8971-1619514027477</coId><text/><inline-styles/><styles/></para><code><coId>5674-1619514027477</coId><text>mav = invokeHandlerMethod(request, response, handlerMethod); //执行目标方法
+//ServletInvocableHandlerMethod
+Object returnValue = invokeForRequest(webRequest, mavContainer, providedArgs);
+//获取方法的参数值
+Object[] args = getMethodArgumentValues(request, mavContainer, providedArgs);
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><heading compat="true" level="3"><coId>9543-1619514027477</coId><text>3、参数解析器-HandlerMethodArgumentResolver</text><inline-styles><bold><from>0</from><to>37</to><value>true</value></bold><font-size><from>0</from><to>37</to><value>16</value></font-size><color><from>0</from><to>37</to><value>#404040</value></color></inline-styles><styles><line-height>1.4</line-height></styles></heading><para><coId>8210-1619514820216</coId><text>确定将要执行的目标方法的每一个参数的值是什么;</text><inline-styles><font-size><from>0</from><to>23</to><value>15</value></font-size><color><from>0</from><to>23</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><para><coId>8361-1619514827182</coId><text>SpringMVC目标方法能写多少种参数类型。取决于参数解析器。</text><inline-styles><font-size><from>0</from><to>32</to><value>15</value></font-size><color><from>0</from><to>32</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><image><coId>3211-1619514834336</coId><source>https://note.youdao.com/yws/res/13521/3B6D0FFA88FA47C889C79D58F40642A4</source><text/><styles><width>526</width><height>646</height></styles></image><para><coId>3054-1619514848746</coId><text/><inline-styles/><styles><line-height>1.74</line-height></styles></para><image><coId>1331-1619514848746</coId><source>https://note.youdao.com/yws/res/13524/D34153A5EFAB4F0AB75374194BDCF31E</source><text/><styles><width>620</width><height>93</height></styles></image><list-item level="1" list-id="4148-1619514859237"><coId>1099-1619514848746</coId><text>当前解析器是否支持解析这种参数</text><inline-styles/><styles><line-height>1.74</line-height></styles></list-item><list-item level="1" list-id="4148-1619514859237"><coId>2072-1619514854305</coId><text>支持就调用 resolveArgument</text><inline-styles/><styles/></list-item><para><coId>3240-1619514861384</coId><text/><inline-styles/><styles/></para><heading compat="true" level="3"><coId>4030-1619514863898</coId><text>4、返回值处理器</text><inline-styles><bold><from>0</from><to>8</to><value>true</value></bold><font-size><from>0</from><to>8</to><value>16</value></font-size><color><from>0</from><to>8</to><value>#404040</value></color></inline-styles><styles><line-height>1.4</line-height></styles></heading><image><coId>1163-1619515012603</coId><source>https://note.youdao.com/yws/res/13529/44C148AAB7204A04BFDD63672FC14607</source><text/><styles><width>620</width><height>482</height></styles></image><heading compat="true" level="3"><coId>3998-1619515012603</coId><text>5、如何确定目标方法每一个参数的值</text><inline-styles><bold><from>0</from><to>17</to><value>true</value></bold><font-size><from>0</from><to>17</to><value>16</value></font-size></inline-styles><styles><line-height>1.4</line-height></styles></heading><code><coId>6992-1619611276146</coId><text>============InvocableHandlerMethod==========================
+protected Object[] getMethodArgumentValues(NativeWebRequest request, @Nullable ModelAndViewContainer mavContainer,
+            Object... providedArgs) throws Exception {
+
+        MethodParameter[] parameters = getMethodParameters();
+        if (ObjectUtils.isEmpty(parameters)) {
+            return EMPTY_ARGS;
+        }
+        Object[] args = new Object[parameters.length];
+        for (int i = 0; i &lt; parameters.length; i++) {
+            MethodParameter parameter = parameters[i];
+            parameter.initParameterNameDiscovery(this.parameterNameDiscoverer);
+            args[i] = findProvidedArgument(parameter, providedArgs);
+            if (args[i] != null) {
+                continue;
+            }
+            if (!this.resolvers.supportsParameter(parameter)) {
+                throw new IllegalStateException(formatArgumentError(parameter, "No suitable resolver"));
+            }
+            try {
+                args[i] = this.resolvers.resolveArgument(parameter, mavContainer, request, this.dataBinderFactory);
+            }
+            catch (Exception ex) {
+                // Leave stack trace for later, exception may actually be resolved and handled...
+                if (logger.isDebugEnabled()) {
+                    String exMsg = ex.getMessage();
+                    if (exMsg != null &amp;&amp; !exMsg.contains(parameter.getExecutable().toGenericString())) {
+                        logger.debug(formatArgumentError(parameter, exMsg));
+                    }
+                }
+                throw ex;
+            }
+        }
+        return args;
+    }
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><heading compat="true" level="4"><coId>6164-1619611276146</coId><text>5.1、挨个判断所有参数解析器那个支持解析这个参数  supportsParameter(parameter)</text><inline-styles><bold><from>0</from><to>27</to><value>true</value></bold></inline-styles><styles><line-height>1.5</line-height></styles></heading><code><coId>8050-1619611384689</coId><text>  @Nullable
+    private HandlerMethodArgumentResolver getArgumentResolver(MethodParameter parameter) {
+        HandlerMethodArgumentResolver result = this.argumentResolverCache.get(parameter);
+        if (result == null) {
+            for (HandlerMethodArgumentResolver resolver : this.argumentResolvers) {
+                if (resolver.supportsParameter(parameter)) {
+                    result = resolver;
+                    this.argumentResolverCache.put(parameter, result);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><heading compat="true" level="4"><coId>8060-1619611384689</coId><text>5.2解析这个参数的值</text><inline-styles><bold><from>0</from><to>11</to><value>true</value></bold><color><from>3</from><to>11</to><value>#404040</value></color></inline-styles><styles><line-height>1.5</line-height></styles></heading><para><coId>2325-1619611528908</coId><text>调用各自 HandlerMethodArgumentResolver 的 resolveArgument 方法即可</text><inline-styles><font-size><from>0</from><to>57</to><value>13</value></font-size><color><from>0</from><to>57</to><value>#595959</value></color><back-color><from>0</from><to>57</to><value>#f9f9f9</value></back-color></inline-styles><styles/></para><heading compat="true" level="4"><coId>9066-1619611535091</coId><text>5.3、自定义类型参数 封装POJO</text><inline-styles><bold><from>0</from><to>18</to><value>true</value></bold><color><from>0</from><to>18</to><value>#404040</value></color></inline-styles><styles><line-height>1.5</line-height></styles></heading><para><coId>9611-1619611546997</coId><text/><inline-styles/><styles/></para></body></note>

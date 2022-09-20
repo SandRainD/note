@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>1147-1584160861894</coId><text/><inline-styles/><styles/></para><code><coId>5393-1584160861894</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容
+        
+        c.setLayout(new FlowLayout(FlowLayout.LEFT,20,40));
+        //流布局，默认居中对齐，添加参数可修改
+        //组件之间距离：水平间距20，垂直间距40
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>8914-1584160861894</coId><text/><inline-styles/><styles/></para></body></note>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>4261-1613987148349</coId><text/><inline-styles/><styles/></para><image><coId>8344-1613987148349</coId><source>https://note.youdao.com/yws/res/11508/CC8773DA73C74A66A01995823A8E452F</source><text/><styles><width>620</width><height>82</height></styles></image><para><coId>3690-1613987148349</coId><text/><inline-styles/><styles/></para><para><coId>6171-1614047653771</coId><text>    &lt;h3&gt;入门程序&lt;/h3&gt;</text><inline-styles><font-family><from>8</from><to>12</to><value>SimSun</value></font-family><font-size><from>0</from><to>17</to><value>18</value></font-size><color><from>0</from><to>4</to><value>#a9b7c6</value></color><color><from>4</from><to>8</to><value>#e8bf6a</value></color><color><from>8</from><to>12</to><value>#a9b7c6</value></color><color><from>12</from><to>17</to><value>#e8bf6a</value></color><back-color><from>0</from><to>17</to><value>#2b2b2b</value></back-color></inline-styles><styles/></para><para><coId>3840-1614047653958</coId><text>&lt;a href="hello"&gt;程序&lt;/a&gt;</text><inline-styles><font-family><from>16</from><to>18</to><value>SimSun</value></font-family><font-size><from>0</from><to>22</to><value>18</value></font-size><color><from>0</from><to>3</to><value>#e8bf6a</value></color><color><from>3</from><to>7</to><value>#bababa</value></color><color><from>7</from><to>15</to><value>#a5c261</value></color><color><from>15</from><to>16</to><value>#e8bf6a</value></color><color><from>16</from><to>18</to><value>#a9b7c6</value></color><color><from>18</from><to>22</to><value>#e8bf6a</value></color><back-color><from>0</from><to>22</to><value>#2b2b2b</value></back-color></inline-styles><styles/></para><para><coId>1037-1614047438098</coId><text>web.xml</text><inline-styles><font-size><from>0</from><to>7</to><value>16</value></font-size></inline-styles><styles/></para><code><coId>9540-1614047445868</coId><text>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"&gt;
+  &lt;display-name&gt;springMVC-01&lt;/display-name&gt;
+  &lt;welcome-file-list&gt;
+    &lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;
+  &lt;/welcome-file-list&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;dispatcherServlet&lt;/servlet-name&gt;&lt;!--加载springMVC配置文件--&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+      &lt;param-value&gt;classpath:springmvc.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;&lt;!--webxml加载的时候springmvc配置文件加载--&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;dispatcherServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>2287-1614047486905</coId><text>springMVC.xml</text><inline-styles><font-size><from>0</from><to>13</to><value>16</value></font-size></inline-styles><styles/></para><code><coId>1035-1614047486905</coId><text>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd"&gt;
+    &lt;context:component-scan base-package="com.idea" /&gt;
+    &lt;!--视图解析器对象--&gt;
+    &lt;bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"&gt;
+        &lt;property name="prefix" value="/WEB-INF/pages/"&gt;&lt;/property&gt;
+        &lt;property name="suffix" value=".jsp"&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+    &lt;!--开启springMVC框架注解支持--&gt;
+    &lt;mvc:annotation-driven/&gt;
+&lt;/beans&gt;
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>4020-1614047486905</coId><text>controller.java</text><inline-styles><font-size><from>0</from><to>15</to><value>16</value></font-size></inline-styles><styles/></para><code><coId>5276-1614047523690</coId><text>@Controller
+public class HelloController {
+//    请求映射
+    @RequestMapping(path = "/hello",method="POST",params={"username=123"})
+    public String sayhello(){
+        System.out.println("hello");
+        return "success";
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>3034-1614047523690</coId><text/><inline-styles/><styles/></para></body></note>

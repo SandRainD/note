@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>6397-1584187944055</coId><text/><inline-styles/><styles/></para><code><coId>6829-1584187944055</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容
+        c.setLayout(null);
+        
+//        JComboBox&lt;String&gt; combobox=new JComboBox&lt;&gt;();
+//        combobox.addItem("身份证");
+//        combobox.addItem("身785证");
+//        combobox.addItem("4563证");
+        //下拉列表框中添加第二种方法
+//        String items[]={"56556","564","454"};
+//        JComboBox&lt;String&gt; combobox=new JComboBox&lt;&gt;(items);
+        //第三种方法
+        JComboBox&lt;String&gt; combobox=new JComboBox&lt;&gt;();
+        String items[]={"56556","564","454"};
+        ComboBoxModel cm=new DefaultComboBoxModel&lt;&gt;(items);//创建下拉列表模型
+        comboBox.setModel(cm);//向下拉列表中添加数据模型
+        
+        //btn........................
+        comboBox.getSelectedIndex();//获取选中的索引
+        comboBox.getSelectedItem();//获取选中的值
+        
+        combobox.setEditable(true);//是否可以编辑
+        //索引会返回-1
+        
+        c.add(combobox);
+        
+        
+           
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>3400-1584187944055</coId><text/><inline-styles/><styles/></para></body></note>

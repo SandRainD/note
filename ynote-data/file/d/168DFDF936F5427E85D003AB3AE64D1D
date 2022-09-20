@@ -1,0 +1,257 @@
+Flutter中常见的表单有TextField单行文本框，TextField多行文本框，CheckBox、Radio、Switch、CheckboxListTile、RadioListTile、SwitchListTile、Slide。
+
+## TextField文本框组件
+
+常见属性
+属性 | 描述
+---|---
+maxLines | 设置此参数可以把文本框改为多行文本框
+onChanged | 文本框改变的时候触发的事件
+decoration | 1. hintText 类似html中的placeholder 2. border 配置文本框边框 3. OoutlineInputBorder配合使用 4. labelText lable的名称
+obscureText | 把文本框改为密码框
+controller | controller 结合TextEditingController()可以配置表单默认显示的内容
+
+**演示实例**
+
+```
+import 'package:flutter/material.dart';
+
+class TextFieldDemoPage extends StatefulWidget {
+  @override
+  _TextFieldDemoPageState createState() => _TextFieldDemoPageState();
+}
+
+class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("表单演示页面"),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: <Widget>[
+            TextField(),
+            SizedBox(height: 20,),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "请输入搜索的内容",//输入东西的时候默认显示的内容消失
+                border: OutlineInputBorder(),
+              ),
+            ),
+            TextField(
+              maxLength: 4,//最大显示的文字
+              decoration: InputDecoration(
+                hintText: "多行文本框",//输入东西的时候默认显示的内容消失
+                border: OutlineInputBorder(),
+              ),
+            ),
+            TextField(
+              maxLines: 4,//最大显示的文字行数
+              decoration: InputDecoration(
+                hintText: "多行文本框",//输入东西的时候默认显示的内容消失
+                border: OutlineInputBorder(),
+              ),
+            ),
+            TextField(
+              obscureText: true,//把文本框变成密码框
+              decoration: InputDecoration(
+                hintText: "密码框",//输入东西的时候默认显示的内容消失
+                border: OutlineInputBorder(),
+              ),
+            ),
+            //不好描述，当没输入东西时默认显示用户名，
+            // 输入就会把用户名嵌入到框里
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "用户名",
+              ),
+            ),
+            //在文本框前添加图标
+            TextField(
+              decoration: InputDecoration(
+                icon: Icon(Icons.people),
+                hintText: "请输入用户名",//输入东西的时候默认显示的内容消失
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+```
+
+## 获取表单中的数据
+
+
+```
+import 'package:flutter/material.dart';
+
+class TextFieldDemoPage extends StatefulWidget {
+  @override
+  _TextFieldDemoPageState createState() => _TextFieldDemoPageState();
+}
+
+class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
+
+  var _username = new TextEditingController();//初始化给表单赋值
+  var _password ;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _username.text=null;
+    _password=null;
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("表单演示页面"),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: <Widget>[
+            TextField(
+              decoration: InputDecoration(
+                hintText: "请输入用户名"
+              ),
+              controller: _username,
+              onChanged: (value){
+                setState(() {this._username.text=value;});
+              },
+            ),
+            TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                  hintText: "密码",
+              ),
+              controller: _password,
+              onChanged: (value){
+                setState(() {this._password=value;});
+              },
+            ),
+            SizedBox(height: 2,),
+            Container(
+              width: double.infinity,//宽度设置和容器宽度一样
+              height: 30,
+              child: RaisedButton(
+                child: Text("登录"),
+                onPressed: (){
+                  print(_username);
+                  print(_password);
+                },
+                color: Colors.blue,
+                textColor: Colors.white70,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+```
+
+## Checkbox、CheckBoxListTile多选框组件
+
+checkbox常见属性：
+
+属性 | 描述
+---|---
+value | true或者false
+onChanged | 改变的时候触发的事件
+activeColor | 选中的颜色，背景颜色
+checkColor | 选中的颜色，Checkbox里面对号的颜色
+
+checkboxListTile常见属性：
+
+属性 | 描述
+---|---
+value | true或者false
+onChanged | 改变的时候触发的事件
+activeColor | 选中的颜色，背景颜色
+title | 标题
+subtitle | 二级标题
+secondary | 配置图标或者图片
+selected | 选中的时候文字颜色是否跟着改变
+
+
+**演示实例**
+
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/pages/AppBarDemo.dart';
+
+class CheckBoxDemo extends StatefulWidget {
+  @override
+  _CheckBoxDemoState createState() => _CheckBoxDemoState();
+}
+
+class _CheckBoxDemoState extends State<CheckBoxDemo> {
+  var flag = true;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("checkbox"),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Checkbox(
+                value: this.flag,
+                onChanged: (v){
+                  setState(() {
+                    this.flag=v;
+                  });
+                },
+                activeColor: Colors.red,
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text(this.flag?"选中":"未选中"),
+            ],
+          ),
+          CheckboxListTile(
+              value: this.flag,
+              onChanged: (v){
+                setState(() {
+                  this.flag=v;
+                });
+              },
+            title: Text("标题"),
+            subtitle: Text("二级标题"),
+            ),
+          CheckboxListTile(
+            value: this.flag,
+            onChanged: (v){
+              setState(() {
+                this.flag=v;
+              });
+            },
+            title: Text("标题"),
+            subtitle: Text("二级标题"),
+            secondary: Icon(Icons.flag),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+```

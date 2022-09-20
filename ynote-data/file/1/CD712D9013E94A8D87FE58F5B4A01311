@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>9091-1584093049764</coId><text>JLable：j.setHorizontalAlignment(SwingConstants.CENTER);</text><inline-styles><font-family><from>0</from><to>55</to><value>SimSun</value></font-family><font-size><from>0</from><to>55</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>4957-1586146902938</coId><text>或JLable("",JLable.CENTER);</text><inline-styles><font-family><from>0</from><to>26</to><value>SimSun</value></font-family><font-size><from>0</from><to>26</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>4567-1586146941790</coId><text>使标签居中</text><inline-styles><font-family><from>0</from><to>5</to><value>SimSun</value></font-family><font-size><from>0</from><to>5</to><value>22</value></font-size></inline-styles><styles/></para><code><coId>6018-1584093049764</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容器
+        
+        JLable l=new JLable("这是一个标签");
+        l.setText("修改标签的内容");
+        l.getText();//获取标签内容
+        l.setFont(new Font("微软雅黑",Font.BOLD,15));//更改字体，样式，大小
+        l.setForeground(Color.RED);//更改前景色，即字体颜色
+        c.add(l);
+        
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>3324-1584093049764</coId><text/><inline-styles/><styles/></para></body></note>

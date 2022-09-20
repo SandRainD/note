@@ -1,0 +1,413 @@
+## 常见的Button组件
+- RaisedButton：凸起的按钮，其实就是Material Design风格的Button
+- FlatButton：扁平化的按钮
+- OutlineButton：线框按钮
+- IconButton：图标按钮
+- ButtonBar：按钮组
+- FloatingActionButton：浮动按钮
+
+**按钮组件中的一些属性**
+
+
+属性名称 | 值类型 | 属性值
+---|--- | ---
+onPressed | VoidCallback，一般接收一个方法 | 必填参数，按下按钮式出发的回调，接收一个方法，传null表示按钮禁用，会显示禁用相关样式
+child | Widget | 文本控件
+textColor | Color | 文本颜色
+color | Color| 按钮的颜色
+disabledColor| Color | 按钮禁用时的颜色
+disabledTextColor | Color | 按钮禁用时的文本颜色
+splashColor | Color | 点击按钮式水波纹的颜色
+highlightColor | Color | 点击(长按)按钮后按钮的颜色
+elevation | double |阴影的范围，值越大阴影范围越大
+padding | |内边距
+shape | | 设置按钮的形状 
+
+
+```
+shape的使用
+第一种
+shape: RoundedRectangleBorder(
+    borderRadius:
+    BorderRadiius.circular(10)
+)
+
+第二种
+shape: CircleBorder(
+    side: BorderSide(
+        color: Colors.white,
+    )
+)
+```
+
+## 实例
+
+```
+import 'package:flutter/material.dart';
+
+class ButtonDemoPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("按钮演示界面"),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.settings), onPressed: (){})
+        ],
+      ),
+      //浮动按钮
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){
+          print("FloatingActionButton");
+        },
+      ),
+      //设置浮动按钮位置
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,//垂直居中
+        children: <Widget>[
+          /*Row(
+            mainAxisAlignment: MainAxisAlignment.center,//水平居中
+            children: <Widget>[
+              RaisedButton(
+                  child: Text('普通按钮'),
+                  onPressed: (){
+                    print("普通按钮");
+                  },
+              ),
+              SizedBox(width: 10,),
+              RaisedButton(
+                child: Text('普通按钮'),
+                color: Colors.blueAccent,//按钮颜色
+                textColor: Colors.white70,//字体颜色
+                onPressed: (){
+                  print("有颜色的按钮");
+                },
+              ),
+              SizedBox(width: 10,),
+              RaisedButton(
+                child: Text('普通按钮'),
+                color: Colors.blueAccent,//按钮颜色
+                textColor: Colors.white70,//字体颜色
+                elevation: 20.0,
+                onPressed: (){
+                  print("有阴影的按钮");
+                },
+              ),
+            ],
+          ),
+          //给按钮设置的高度和宽度的话，在RasiedButton外围设置一个container组件
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,//水平居中
+            children: <Widget>[
+              Container(
+                height: 50.0,
+                width: 360.0,
+                child: RaisedButton(
+                  child: Text('更改过高度和宽度的按钮'),
+                  color: Colors.blueAccent,//按钮颜色
+                  textColor: Colors.white70,//字体颜色
+                  onPressed: (){
+                    print("更改过高度和宽度的按钮");
+                  },
+                ),
+              )
+            ],
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,//水平居中
+            children: <Widget>[
+              Expanded(
+                  child: RaisedButton(
+                    child: Text('自适应按钮'),
+                    color: Colors.blueAccent,
+                    textColor: Colors.white70,
+                    elevation: 10.0,
+                    onPressed: (){
+                      print('自适应按钮');
+                    },
+                  ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,//水平居中
+            children: <Widget>[
+              RaisedButton(
+                child: Text('普通按钮'),
+                color: Colors.blueAccent,//按钮颜色
+                textColor: Colors.white70,//字体颜色
+                onPressed: (){
+                  print("有颜色的按钮");
+                },
+              ),
+              SizedBox(width: 5,),
+              RaisedButton(
+                child: Text('普通按钮'),
+                color: Colors.blueAccent,//按钮颜色
+                textColor: Colors.white70,//字体颜色
+                elevation: 20.0,
+                onPressed: (){
+                  print("有阴影的按钮");
+                },
+              ),
+              SizedBox(width: 5,),
+              RaisedButton.icon(
+                  onPressed: (){},
+                  icon: Icon(Icons.add),
+                  label: Text('图标按钮'),
+                color: Colors.blueAccent,//按钮颜色
+                textColor: Colors.white70,//字体颜色
+              )
+            ],
+          ),
+          //给按钮加圆角
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,//水平居中
+            children: <Widget>[
+              RaisedButton(
+                child: Text('圆角按钮'),
+                color: Colors.blueAccent,
+                textColor: Colors.white70,
+                elevation: 10.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+
+                ),
+                onPressed: (){
+                  print('圆角按钮');
+                },
+              ),
+              Container(
+                height: 100,
+                child: RaisedButton(
+                  child: Text('圆型按钮'),
+                  color: Colors.blueAccent,
+                  textColor: Colors.white70,
+                  elevation: 10.0,
+                  splashColor: Colors.red,//添加水波纹颜色
+                  shape: CircleBorder(
+                      side: BorderSide(
+                        color: Colors.white70,
+                      )
+                  ),
+                  onPressed: (){
+                    print('圆型按钮');
+                  },
+                ),
+              ),
+              //扁平按钮
+              FlatButton(onPressed: (){}, child: Text("扁平按钮"),textColor: Colors.white70,color: Colors.blueAccent,),
+              //线框按钮  color: Colors.blueAccent没有效果
+              OutlineButton(onPressed: (){},color: Colors.blueAccent,textColor: Colors.red,child: Text("线框按钮"),)
+            ],
+          ),*/
+          Row(
+            children: <Widget>[
+              ButtonBar(//按钮组
+                children: <Widget>[
+                  RaisedButton(
+                    child: Text("登录"),
+                    color: Colors.blueAccent,
+                    textColor: Colors.white70,
+                    elevation: 10.0,
+                    onPressed: (){print("登录");},
+                  ),
+                  RaisedButton(
+                    child: Text("注册"),
+                    color: Colors.blueAccent,
+                    textColor: Colors.white70,
+                    elevation: 10.0,
+                    onPressed: (){print("注册");},
+                  ),
+                  MyButton(text: "自定义按钮",pressed:(){},width: 100.0,height: 20.0,)
+                ],
+              ),
+            ],
+          )
+        ],
+      )
+    );
+  }
+}
+
+//自定义按钮组件
+
+class MyButton extends StatelessWidget{
+  final text;
+  final pressed;
+  final height;
+  final width;
+  const MyButton({this.text='',this.pressed=null,this.width=80,this.height=80});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: this.height,
+      width: this.width,
+      child: RaisedButton(
+        child: Text(this.text),
+        onPressed: this.pressed,
+      ),
+    );
+  }
+}
+```
+**FloatingActionButton**
+又称FAB
+
+属性 | 属性值
+---|---
+child | 子视图，一般为Icon，不推荐使用文字
+tooltip | FAB被长按时显示，也是无障碍功能
+backgroundColor | 背景颜色
+elevation | 未点击时候的阴影
+hignlightElevation | 点击时阴影值，默认12.0
+onPressed  | 点击事件回调
+shape | 可以定义FAB的形状等
+mini | 是否是mini类型默认false
+
+
+实现类似咸鱼app类似浮动底部导航
+
+```
+import 'package:flutter/material.dart';
+import 'tabs/Home.dart';
+import 'tabs/Setting.dart';
+import 'tabs/Category.dart';
+
+class Tabs extends StatefulWidget {
+  //创建一个变量来控制跳转的页面
+  final index;
+  Tabs({Key key,this.index=0}) : super(key: key);//index可选参数
+
+  _TabsState createState() => _TabsState(this.index);
+}
+
+class _TabsState extends State<Tabs> {
+
+  int _currentIndex ;
+  _TabsState(index){
+    this._currentIndex=index;//接收变量
+  }
+  List _pageList = [
+    HomePage(),
+    CategoryPage(),
+    SettingPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ButtomNavigationBarDemo'),
+      ),
+      floatingActionButton: Container(
+        height: 90,
+        width: 90,
+        padding: EdgeInsets.all(8),
+        margin: EdgeInsets.only(top: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(45),
+          color: Colors.white,//容器背景颜色
+        ),
+
+        child: FloatingActionButton(
+          child: Icon(Icons.add,color: Colors.black,),
+          onPressed: (){
+            setState(() {
+              this._currentIndex=1;
+            });
+          },
+          //如果索引值等于1就红，不然为黄；说白了就是选中就变红
+          backgroundColor: this._currentIndex==1?Colors.red:Colors.yellow,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: this._pageList[this._currentIndex],
+      bottomNavigationBar:BottomNavigationBar(
+        currentIndex: this._currentIndex, //配置对应的索引值选中
+        onTap: (int index){
+          setState(() {//改变状态
+            this._currentIndex=index;
+          });
+        },
+        iconSize: 36.0,//设置图标大小
+        fixedColor: Colors.red,//设置选中的图标的颜色(默认为蓝色)
+        type: BottomNavigationBarType.fixed, //配置底部tabs可以有多个按钮
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "首页",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              label: "分类"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "设置"
+          ),
+        ],
+      ),
+======================================================以下无关
+      drawer: Drawer(//左侧侧边栏
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: UserAccountsDrawerHeader(
+                      accountName: Text("4G41.17"),//名字
+                      accountEmail: Text("996957240@qq.com",),//邮箱
+                      currentAccountPicture: CircleAvatar(//头像处理，CircleAvatar圆角处理
+                        backgroundImage: AssetImage("images/木兰.png"),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.yellow,
+                        image: DecorationImage(
+                          image: AssetImage("images/木兰2.png"),
+                          fit:BoxFit.cover,
+                        )
+                      ),
+
+                    ),
+                ),
+              ],
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.home_sharp),
+              ),
+              title: Text("我的空间"),
+            ),
+            Divider(),//就是一条线
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.people),
+              ),
+              title: Text("用户中心"),
+              onTap: (){
+                Navigator.of(context).pop();//返回时隐藏侧边栏
+                Navigator.pushNamed(context, '/user');
+              },
+            ),
+            Divider(),//就是一条线
+            ListTile(
+              leading: CircleAvatar(
+                child: Icon(Icons.home_sharp),
+              ),
+              title: Text("设置中心"),
+            ),
+          ],
+        ),
+      ),
+      endDrawer: Drawer(
+        child: Text("右侧侧边栏的你好flutter"),
+
+      ),
+    );
+  }
+}
+```

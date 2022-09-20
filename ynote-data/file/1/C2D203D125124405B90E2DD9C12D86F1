@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>9490-1584094456810</coId><text>使用绝对布局通常是固定大小的，组件的位置和形状不会随着窗体的改变而改变</text><inline-styles><font-family><from>0</from><to>35</to><value>SimSun</value></font-family></inline-styles><styles/></para><code><coId>2138-1584094456810</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容
+        c.setLayout(null);//绝对布局
+        JButton b1=new JButton("按钮1");
+        JButton b2=new JButton("按钮2");
+        b1.setBounds(int ,int ,int,int);
+        c.add(b1);
+        
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>8320-1584094456810</coId><text/><inline-styles/><styles/></para></body></note>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>5187-1585549558043</coId><text> </text><inline-styles><font-family><from>0</from><to>1</to><value>SimSun</value></font-family><font-size><from>0</from><to>1</to><value>22</value></font-size></inline-styles><styles/></para><image><coId>4573-1585549558043</coId><source>https://note.youdao.com/yws/res/2270/E27E97B55BCE41CE9CA4A95EB16DA3EF</source><text/><styles><width>620</width><height>304</height></styles></image><para><coId>8164-1585549558043</coId><text>载入模型的方法：</text><inline-styles><bold><from>0</from><to>8</to><value>true</value></bold><font-family><from>0</from><to>8</to><value>SimSun</value></font-family><font-size><from>0</from><to>8</to><value>22</value></font-size><color><from>0</from><to>8</to><value>#973632</value></color></inline-styles><styles/></para><para><coId>3681-1585715387017</coId><text>JTable table=new JTable(model);</text><inline-styles><bold><from>0</from><to>31</to><value>true</value></bold><font-family><from>0</from><to>31</to><value>SimSun</value></font-family><font-size><from>0</from><to>31</to><value>22</value></font-size></inline-styles><styles><text-indent>1</text-indent></styles></para><para><coId>7498-1585715453455</coId><text/><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>2129-1585715468849</coId><text>JTable table=new JTable();</text><inline-styles><bold><from>0</from><to>26</to><value>true</value></bold><font-family><from>0</from><to>26</to><value>SimSun</value></font-family><font-size><from>0</from><to>26</to><value>22</value></font-size></inline-styles><styles><text-indent>1</text-indent></styles></para><para><coId>9424-1585715481839</coId><text>table.setModel(model);</text><inline-styles><bold><from>0</from><to>22</to><value>true</value></bold><font-family><from>0</from><to>22</to><value>SimSun</value></font-family><font-size><from>0</from><to>22</to><value>22</value></font-size></inline-styles><styles><text-indent>1</text-indent></styles></para><para><coId>6260-1585715377293</coId><text>构造方法：</text><inline-styles><font-family><from>0</from><to>5</to><value>SimSun</value></font-family><font-size><from>0</from><to>5</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>4040-1585708643098</coId><text>DefaultTableModel();//创建一个空的表格模型</text><inline-styles/><styles/></para><para><coId>5364-1585708667954</coId><text>DefaultTableModel(int,int);//创建一个n行n列的表格</text><inline-styles/><styles/></para><para><coId>1865-1585708711085</coId><text>DefaultTableModel(object[][] data,object[] columns);</text><inline-styles/><styles/></para><para><coId>8277-1585708750970</coId><text>DefaultTableModel(Vector data,Vector columnsName);</text><inline-styles/><styles/></para><para><coId>6829-1585709773216</coId><text>排序：//设置排序器</text><inline-styles><font-size><from>0</from><to>10</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>7017-1585709776706</coId><text>table.setRowSorter(new TableRowSorter&lt;&gt;(tableModel);</text><inline-styles/><styles/></para><para><coId>7027-1585709923280</coId><text>或通过setModel(TableModel model);方法</text><inline-styles/><styles/></para><para><coId>2885-1585709975035</coId><text>维护表格模型：</text><inline-styles><font-size><from>0</from><to>7</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>3120-1585709980598</coId><text>添加到尾部：</text><inline-styles/><styles/></para><para><coId>6427-1585710175381</coId><text>addRow(Object[] rowData);</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>1563-1585710088310</coId><text>addRow(Vector rowData);</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>6620-1585710179980</coId><text>删除一行：</text><inline-styles/><styles/></para><para><coId>3660-1585715138885</coId><text>removeRow(int);</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>5923-1585715212800</coId><text>插入一行：</text><inline-styles/><styles/></para><para><coId>5039-1585715220048</coId><text>insertRow(int row,Object[] rowData);//插入到指定索引位置</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>7571-1585715252611</coId><text>insertRow(int row,Vector rowData);</text><inline-styles/><styles><text-indent>1</text-indent></styles></para><para><coId>4063-1585710158670</coId><text/><inline-styles/><styles/></para><code><coId>2020-1585615402010</coId><text>package com.min;
+
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+public class TableModelTest extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTable table;//定义表格对象
+	private JTextField aTextField,bTextField;//面板下方两个框
+	private JButton addButton,delButton,updButton;//增删改三个按钮
+	private DefaultTableModel model;//表格模型
+	
+	
+	public static void main(String[] args) {
+		TableModelTest frame=new TableModelTest();
+		frame.setVisible(true);
+	}
+	
+	public TableModelTest() {
+		super();
+		setTitle("维护表格模型");
+		setBounds(100,100,510,300);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		String[] columnNames= {"A","B"};
+		String[][] tableValues={{"A1","B1"},{"A2","B2"},{"A3","B3"}};
+		
+		model=new DefaultTableModel(tableValues,columnNames);
+//		table=new JTable(model);//构造方法载入模型
+		table=new JTable();
+		table.setModel(model);
+		
+		
+		JScrollPane sc=new JScrollPane(table);
+		getContentPane().add(sc,BorderLayout.CENTER);
+		
+		buttonInit();
+		addListener();
+	}
+	
+	private void buttonInit() {
+		final JPanel panel=new JPanel();
+		getContentPane().add(panel,BorderLayout.SOUTH);
+		panel.add(new JLabel("A:"));
+		aTextField=new JTextField("A4",10);
+		panel.add(aTextField);
+		panel.add(new JLabel("B:"));
+		bTextField=new JTextField("B4",10);
+		panel.add(bTextField);
+		addButton=new JButton("添加");
+		updButton=new JButton("修改");
+		delButton=new JButton("删除");
+		
+		panel.add(addButton);
+		panel.add(updButton);
+		panel.add(delButton);
+	}
+	
+	
+	
+	private void addListener() {
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String rowData[]= {aTextField.getText(),bTextField.getText()};
+				model.addRow(rowData);//添加一行
+				int rowCount=table.getRowCount()+1;//获取当前行数+1
+				aTextField.setText("A"+rowCount);
+				aTextField.setText("B"+rowCount);
+			}
+		});
+		
+		updButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow=table.getSelectedRow();//选中行的索引
+				if(selectedRow!=-1) {
+					model.setValueAt(aTextField.getText(),selectedRow,0);
+					model.setValueAt(aTextField.getText(),selectedRow,1);
+				}
+			}
+		});
+		
+		delButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow=table.getSelectedRow();//选中行的索引
+				if(selectedRow!=-1) {
+					model.removeRow(selectedRow);
+				}
+			}
+		});
+	}
+	
+		
+}
+
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>9777-1585615402010</coId><text>--------------------------------------------------------</text><inline-styles><font-family><from>0</from><to>56</to><value>SimSun</value></font-family><font-size><from>0</from><to>56</to><value>22</value></font-size></inline-styles><styles/></para><image><coId>7229-1585715605108</coId><source>https://note.youdao.com/yws/res/2528/9DB6269E02934E8A85CD3C679C708849</source><text/><styles><width>620</width><height>262</height></styles></image><image><coId>2947-1585715863803</coId><source>https://note.youdao.com/yws/res/2531/482C1F2A06BD4143A4843F4A492C8A4B</source><text/><styles><width>620</width><height>340</height></styles></image><image><coId>0049-1585715869971</coId><source>https://note.youdao.com/yws/res/2533/BB5CB8BD790C474FA59872D1F6B987E8</source><text/><styles><width>620</width><height>370</height></styles></image><image><coId>5640-1585807010041</coId><source>https://note.youdao.com/yws/res/2552/24A9A9BEBC4F4CCAB445F156966D75F9</source><text/><styles><width>620</width><height>403</height></styles></image><para><coId>6139-1585807007970</coId><text/><inline-styles/><styles/></para><para><coId>7982-1585807007970</coId><text/><inline-styles/><styles/></para></body></note>

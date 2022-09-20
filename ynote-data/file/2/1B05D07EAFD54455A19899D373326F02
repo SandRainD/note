@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>9482-1584245343091</coId><text/><inline-styles/><styles/></para><code><coId>8090-1584245343091</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容
+        c.setLayout(new FlowLayout());
+        
+        JTextField jt=new JTextField();//在括号中添加数字就是文本框的长度,添加字符串就是初始值
+        jt.setColumns(20);//设置文本框长度
+        jt.setText("sf");//设置文本
+        jt.setFont(new Font("黑体",Font.PLAIN,20));//设置文本框字体
+        c.add(jt);
+        //btn监听...................也可使用jt.addActionListener
+        jt.getText();//获取文本框中的文本值
+        jt.setText("");//清空文本框
+        jt.requestFocus();//获取光标（焦点）
+        
+        
+        
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>1928-1584245343091</coId><text/><inline-styles/><styles/></para></body></note>

@@ -1,0 +1,55 @@
+## Stack与Align，Stack与Positioned实现定位布局
+
+
+属性 | 说明
+---|---
+alignment | 配置所有的子元素的显示位置
+children | 子组件
+
+
+属性 | 说明
+---|---
+top | 子元素距离顶部的距离
+bottom | 子元素距离底部的距离
+left | 子元素距离左侧的距离
+right | 子元素距离右侧的距离
+child | 子组件
+
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/Row.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: '实验三',
+        home: Scaffold(
+          appBar: AppBar(title: Text('介绍')),
+          body:www(),
+          bottomNavigationBar: sss(),
+      ),
+    );
+  }
+}
+class LayoutDemo extends StatelessWidget{
+    @override
+    Widget build(BuildContext context){
+        return Center(
+            Stack(
+                children: <Widget>[
+                    Containr(
+                        height: 400,
+                        width: 300,
+                       color:Colors.red,
+                    ),
+                 Text('我是一个文本'    ),
+                ],
+            )
+        );
+    }
+}
+```

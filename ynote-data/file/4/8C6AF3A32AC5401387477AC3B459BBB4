@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>2784-1593911330804</coId><text>兼容性不好</text><inline-styles/><styles/></para><para><coId>8926-1593913888080</coId><text/><inline-styles/><styles/></para><code><coId>6696-1593911330804</coId><text>html{
+    --color:#bfa;
+}
+.box1{
+    background-color:var(--color);
+    width:calc(200px*2);
+    /*calc计算函数*/
+}
+</text><inline-styles/><styles/><language>javascript</language><theme>default</theme></code><attach><coId>2454-1593913891751</coId><source>https://note.youdao.com/yws/res/7702/CD6928D0720A4B59B8A08B844169ABE4</source><resource>https://note.youdao.com/yws/res/7701/44C98EBF89074739A84C42475190614D</resource><filename>less1.txt</filename><filelength>1111</filelength><styles/></attach><attach><coId>2085-1593914659718</coId><source>https://note.youdao.com/yws/res/7706/96C9B0D1E71A490DBBBA39523B326BD8</source><resource>https://note.youdao.com/yws/res/7707/2F8A72437F3A46DCB71A9386B622379F</resource><filename>less2.txt</filename><filelength>1381</filelength><styles/></attach><para><coId>2049-1593914657944</coId><text/><inline-styles/><styles/></para><para><coId>4664-1593914657944</coId><text/><inline-styles/><styles/></para></body></note>

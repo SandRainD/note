@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>0094-1584092253348</coId><text/><inline-styles/><styles/></para><code><coId>2371-1584092253348</coId><text>public void Demo extends JDialog{
+    public Demo(JFrame J){
+        super(J,"对话框标题",true);//阻塞父窗体
+        setBounds(int,int,int,int);//窗体位置和大小
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(){
+        Demo d=new Demo();
+    }
+}
+
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>1648-1584092253348</coId><text/><inline-styles/><styles/></para></body></note>

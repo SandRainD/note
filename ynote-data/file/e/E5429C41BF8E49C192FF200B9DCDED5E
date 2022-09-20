@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>4051-1584162183669</coId><text/><inline-styles/><styles/></para><image><coId>5366-1584162183669</coId><source>https://note.youdao.com/yws/res/353/5D0A8F3A52BB4F9DA7036DCAB920850D</source><text/><styles><width>620</width><height>286</height></styles></image><para><coId>2580-1584162206716</coId><text/><inline-styles/><styles/></para><image><coId>7964-1584162206716</coId><source>https://note.youdao.com/yws/res/355/29E15764B4BD4E37A829942ADC79C1EF</source><text/><styles><width>620</width><height>300</height></styles></image><para><coId>6846-1584162206716</coId><text/><inline-styles/><styles/></para><para><coId>8498-1584165843268</coId><text/><inline-styles/><styles/></para><para><coId>6063-1584165847273</coId><text>**************************************************************************************************************************************************************************</text><inline-styles><bold><from>0</from><to>170</to><value>true</value></bold><font-family><from>0</from><to>170</to><value>SimSun</value></font-family><color><from>0</from><to>170</to><value>#f77567</value></color></inline-styles><styles/></para><para><coId>1363-1584165846084</coId><text>**************************************************************************************************************************************************************************</text><inline-styles><bold><from>0</from><to>170</to><value>true</value></bold><font-family><from>0</from><to>170</to><value>SimSun</value></font-family><color><from>0</from><to>170</to><value>#df402a</value></color></inline-styles><styles/></para><para><coId>9450-1584162226376</coId><text>*************************************************************************************</text><inline-styles><bold><from>0</from><to>85</to><value>true</value></bold><font-family><from>0</from><to>85</to><value>SimSun</value></font-family><color><from>0</from><to>85</to><value>#528cd8</value></color></inline-styles><styles/></para><para><coId>5139-1584164843622</coId><text>*************************************************************************************</text><inline-styles><bold><from>0</from><to>85</to><value>true</value></bold><font-family><from>0</from><to>85</to><value>SimSun</value></font-family><color><from>0</from><to>85</to><value>#528cd8</value></color></inline-styles><styles/></para><image><coId>6622-1584162307234</coId><source>https://note.youdao.com/yws/res/359/46532EF8A8E5476E8978DA95F07BDF1A</source><text/><styles><width>620</width><height>276</height></styles></image><para><coId>3399-1584162342719</coId><text/><inline-styles/><styles/></para><code><coId>4053-1584162342719</coId><text>public void Demo{
+    JFrame f=new JFrame();//主窗体
+    Container c;//主容器
+    
+    void createFrame(){
+        c=f.getContentPane();
+        c.setLayout(new GridBagLayout());
+        f.setSize(800,600);
+        f.setLocationRelativeTo(null);//设置居中
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    void init(){
+        GridBagConstraints g1=new GridBagConstraints();
+        g1.gridx=0;g1.gridy=0;
+        c.add(new JButton("组件1"),g1);
+        
+        GridBagConstraints g2=new GridBagConstraints();
+        g2.gridx=1;g2.gridy=1;   //索引从0开始
+        c.add(new JButton("组件1"),g2);
+        
+        GridBagConstraints g3=new GridBagConstraints();
+        g3.gridx=2;g3.gridy=2; //没有组件的部分会被隐藏
+        c.add(new JButton("组件1"),g3);
+    }
+    public void static main(String[] args){
+        Demo d=new Demo();
+        d.createFrame();
+        d.init();
+        d.f.setVisible()
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>1452-1584162342719</coId><text/><inline-styles/><styles/></para><para><coId>1772-1584162441617</coId><text>**************************************************************************************************************************************************************************</text><inline-styles><bold><from>0</from><to>170</to><value>true</value></bold><font-family><from>0</from><to>170</to><value>SimSun</value></font-family><color><from>0</from><to>170</to><value>#528cd8</value></color></inline-styles><styles/></para><image><coId>2500-1584164940494</coId><source>https://note.youdao.com/yws/res/426/CFA7C1E6625342C2878F84E37C53E63F</source><text/><styles><width>620</width><height>285</height></styles></image><para><coId>5455-1584164975666</coId><text>接上面的代码继续写：</text><inline-styles><font-family><from>0</from><to>10</to><value>SimSun</value></font-family><font-size><from>0</from><to>10</to><value>30</value></font-size></inline-styles><styles/></para><code><coId>1038-1584164975666</coId><text>public void Demo{
+    JFrame f=new JFrame();//主窗体
+    Container c;//主容器
+    
+    void createFrame(){
+        c=f.getContentPane();
+        c.setLayout(new GridBagLayout());
+        f.setSize(800,600);
+        f.setLocationRelativeTo(null);//设置居中
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    void createButton(){
+        for(int i=0;i&lt;9;i++){
+            GridBagConstraints g1=new GridBagConstraints();
+            g1.gridx=i;
+            g1.gridy=0;
+            c.add(new JButton("组件"),g1);
+            
+            GridBagConstraints g2=new GridBagConstraints();
+            g2.gridx=0;
+            g2.gridy=i;
+            c.add(new JButton("组件"),g2);
+        }
+    }
+    
+    void init2(){
+        GridBagConstraints g1=new GridBagConstraints();
+        g1.gridx=1;g1.gridy=1;
+        c.add(new JButton("组件1"),g1);
+        
+        GridBagConstraints g2=new GridBagConstraints();
+        g2.gridx=2;g2.gridy=2;   //索引从0开始
+        g2.gridwidth=2;g2.gridheight=1;
+        c.add(new JButton("组件1"),g2);
+        
+        GridBagConstraints g3=new GridBagConstraints();
+        g3.gridx=4;g3.gridy=4; //没有组件的部分会被隐藏
+        g3.gridwidth=2;g3.height=2;
+        c.add(new JButton("组件1"),g3);
+    }
+    
+    public void static main(String[] args){
+        Demo d=new Demo();
+        d.createFrame();
+        d.createButton();
+        d.init2();
+        d.f.setVisible()
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>2960-1584162442183</coId><text/><inline-styles/><styles/></para><para><coId>8516-1584162442214</coId><text/><inline-styles/><styles/></para><para><coId>5196-1584165810566</coId><text>**************************************************************************************************************************************************************************</text><inline-styles><bold><from>0</from><to>170</to><value>true</value></bold><font-family><from>0</from><to>170</to><value>SimSun</value></font-family><color><from>0</from><to>170</to><value>#528cd8</value></color></inline-styles><styles/></para><image><coId>6078-1584165906313</coId><source>https://note.youdao.com/yws/res/474/0AD5ABE344FF457A800E7170FE1B6B44</source><text/><styles><width>620</width><height>238</height></styles></image><para><coId>8840-1584165940873</coId><text/><inline-styles/><styles/></para><code><coId>6431-1584165940873</coId><text>public void Demo{
+    JFrame f=new JFrame();//主窗体
+    Container c;//主容器
+    
+    void createFrame(){
+        c=f.getContentPane();
+        c.setLayout(new GridBagLayout());
+        f.setSize(800,600);
+        f.setLocationRelativeTo(null);//设置居中
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    void createButton(){//放满第一行第一列，防止自动的隐藏无内容元素
+        for(int i=0;i&lt;9;i++){
+            GridBagConstraints g1=new GridBagConstraints();
+            g1.gridx=i;
+            g1.gridy=0;
+            c.add(new JButton("组件"),g1);
+            
+            GridBagConstraints g2=new GridBagConstraints();
+            g2.gridx=0;
+            g2.gridy=i;
+            c.add(new JButton("组件"),g2);
+        }
+    }
+    void init3(){
+        GridBagConstraints g1=new GridBagConstraints();
+        g1.gridx=1;g1.gridy=1;
+        g1.gridwidth=2;g1.gridhieght=2;
+        c.add(new JButton("none"),g1);
+        
+        GridBagConstraints g2=new GridBagConstraints();
+        g2.gridx=3;g2.gridy=1;   //索引从0开始
+        g2.gridwidth=2;g2.gridheight=2;
+        g2.fill =GridBagConstraints.HORIZONTAL;//水平填充
+        c.add(new JButton("HORIZONTAL"),g2);
+        
+        GridBagConstraints g3=new GridBagConstraints();
+        g3.gridx=5;g3.gridy=1; //没有组件的部分会被隐藏
+        g3.gridwidth=2;g3.height=2;
+        g2.fill =GridBagConstraints.VERTICAL;//垂直填充
+        c.add(new JButton("VERTICAL"),g3);
+        
+        GridBagConstraints g4=new GridBagConstraints();
+        g3.gridx=7;g3.gridy=1; //没有组件的部分会被隐藏
+        g3.gridwidth=2;g3.height=2;
+        g2.fill =GridBagConstraints.BOTH;//全部填充
+        c.add(new JButton("BOTH"),g3);
+    }
+    
+    public void static main(String[] args){
+        Demo d=new Demo();
+        d.createFrame();
+        d.createButton();
+        d.init3();
+        d.f.setVisible()
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>3036-1584165822698</coId><text>**************************************************************************************************************************************************************************</text><inline-styles><bold><from>0</from><to>170</to><value>true</value></bold><font-family><from>0</from><to>170</to><value>SimSun</value></font-family><color><from>0</from><to>170</to><value>#528cd8</value></color></inline-styles><styles/></para><image><coId>9654-1584166534803</coId><source>https://note.youdao.com/yws/res/511/D8CDD91983C346928DB7519DFFCB8927</source><text/><styles><width>620</width><height>336</height></styles></image><para><coId>3787-1584166619193</coId><text/><inline-styles/><styles/></para><code><coId>2621-1584166619193</coId><text>public void Demo{
+    JFrame f=new JFrame();//主窗体
+    Container c;//主容器
+    
+    void createFrame(){
+        c=f.getContentPane();
+        c.setLayout(new GridBagLayout());
+        f.setSize(800,600);
+        f.setLocationRelativeTo(null);//设置居中
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    void createButton(){//放满第一行第一列，防止自动的隐藏无内容元素
+        for(int i=0;i&lt;9;i++){
+            GridBagConstraints g1=new GridBagConstraints();
+            g1.gridx=i;
+            g1.gridy=0;
+            c.add(new JButton("组件"),g1);
+            
+            GridBagConstraints g2=new GridBagConstraints();
+            g2.gridx=0;
+            g2.gridy=i;
+            c.add(new JButton("组件"),g2);
+        }
+    }
+    void init4(){
+        GridBagConstraints g1=new GridBagConstraints();
+        g1.gridx=1;g1.gridy=1;
+        g1.gridwidth=2;g1.gridhieght=2;
+        g1.anchor=GridBagConstraints.NORTH;//向北停靠
+        c.add(new JButton("none"),g1);
+    }
+    
+    public void static main(String[] args){
+        Demo d=new Demo();
+        d.createFrame();
+        d.createButton();
+        d.init4();
+        d.f.setVisible()
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>2111-1584165823197</coId><text/><inline-styles/><styles/></para><para><coId>8840-1584165823230</coId><text>**************************************************************************************************************************************************************************</text><inline-styles><bold><from>0</from><to>170</to><value>true</value></bold><font-family><from>0</from><to>170</to><value>SimSun</value></font-family><color><from>0</from><to>170</to><value>#528cd8</value></color></inline-styles><styles/></para><image><coId>2858-1584166759327</coId><source>https://note.youdao.com/yws/res/522/EFB982E7A7C04D78A272F85EEFAF2371</source><text/><styles><width>620</width><height>284</height></styles></image><para><coId>8182-1584166789992</coId><text/><inline-styles/><styles/></para><code><coId>4826-1584166789992</coId><text>public void Demo{
+    JFrame f=new JFrame();//主窗体
+    Container c;//主容器
+    
+    void createFrame(){
+        c=f.getContentPane();
+        c.setLayout(new GridBagLayout());
+        f.setSize(800,600);
+        f.setLocationRelativeTo(null);//设置居中
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    void createButton(){//放满第一行第一列，防止自动的隐藏无内容元素
+        for(int i=0;i&lt;9;i++){
+            GridBagConstraints g1=new GridBagConstraints();
+            g1.gridx=i;
+            g1.gridy=0;
+            c.add(new JButton("组件"),g1);
+            
+            GridBagConstraints g2=new GridBagConstraints();
+            g2.gridx=0;
+            g2.gridy=i;
+            c.add(new JButton("组件"),g2);
+        }
+    }
+    void init5(){
+        GridBagConstraints g1=new GridBagConstraints();
+        g1.gridx=1;g1.gridy=1;
+        g1.gridwidth=2;g1.gridhieght=2;
+        g1.insets=new Insets(5,10,5,10);//上5，左10， 下5，右10
+        c.add(new JButton("none"),g1);
+    }
+    
+    public void static main(String[] args){
+        Demo d=new Demo();
+        d.createFrame();
+        d.createButton();
+        d.init5();
+        d.f.setVisible()
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>9722-1584165823329</coId><text>**************************************************************************************************************************************************************************</text><inline-styles><bold><from>0</from><to>170</to><value>true</value></bold><font-family><from>0</from><to>170</to><value>SimSun</value></font-family><color><from>0</from><to>170</to><value>#528cd8</value></color></inline-styles><styles/></para><image><coId>2884-1584166961465</coId><source>https://note.youdao.com/yws/res/534/22BBE2F450A84AEFB1D700005FD85604</source><text/><styles><width>620</width><height>228</height></styles></image><para><coId>4256-1584166991680</coId><text/><inline-styles/><styles/></para><code><coId>3480-1584166991680</coId><text>g1.ipadx=5;
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>2417-1584165823426</coId><text/><inline-styles/><styles/></para><para><coId>8315-1584165823462</coId><text>**************************************************************************************************************************************************************************</text><inline-styles><bold><from>0</from><to>170</to><value>true</value></bold><font-family><from>0</from><to>170</to><value>SimSun</value></font-family><color><from>0</from><to>170</to><value>#528cd8</value></color></inline-styles><styles/></para><image><coId>4170-1584167086248</coId><source>https://note.youdao.com/yws/res/541/2C18BB559DDA4B7DA429E654037CAEE3</source><text/><styles><width>620</width><height>312</height></styles></image><para><coId>2095-1584162442381</coId><text/><inline-styles/><styles/></para><para><coId>2210-1584167074909</coId><text/><inline-styles/><styles/></para><para><coId>4297-1584167075408</coId><text/><inline-styles/><styles/></para><para><coId>3491-1584167075442</coId><text/><inline-styles/><styles/></para><para><coId>5528-1584167075477</coId><text/><inline-styles/><styles/></para><para><coId>3116-1584167075511</coId><text/><inline-styles/><styles/></para><para><coId>6741-1584167075543</coId><text/><inline-styles/><styles/></para><para><coId>9787-1584167075574</coId><text/><inline-styles/><styles/></para><para><coId>1058-1584167075608</coId><text/><inline-styles/><styles/></para><para><coId>5462-1584167075639</coId><text/><inline-styles/><styles/></para><para><coId>2211-1584167075673</coId><text/><inline-styles/><styles/></para><para><coId>3044-1584162442415</coId><text/><inline-styles/><styles/></para></body></note>

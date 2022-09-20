@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>7086-1613207271332</coId><text/><inline-styles/><styles/></para><code><coId>8557-1613207271332</coId><text>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;
+&lt;mapper namespace="com.idea.Dao.UserDao"&gt;
+    &lt;!--默认情况下，mybatis会将查询到的数据与需要返回的对象的属性进行匹配赋值
+        需要表中列名与对象属性名完全一致。
+        开发中可能会不一致，因此需要resultmap元素进行处理--&gt;
+    &lt;!--配置 查询结果的列名和实体类属性名的对应关系（也可使用在sql中取别名的的方式解决）--&gt;
+    &lt;resultMap id="userMap" type="com.idea.domain.User"&gt;
+        &lt;!--主键字段的对应--&gt;
+        &lt;id property="userId" column="id"&gt;&lt;/id&gt;
+        &lt;!--非主键字段的对应--&gt;
+        &lt;result property="userName" column="username"&gt;&lt;/result&gt;
+        &lt;result property="userAddress" column="address"&gt;&lt;/result&gt;
+        &lt;result property="userSex" column="sex"&gt;&lt;/result&gt;
+    &lt;/resultMap&gt;
+    &lt;!-- id是DAO中方法的名称--&gt;
+
+    &lt;select id="findAll" parameterType="Integer" resultType="com.idea.domain.User"&gt;
+        select * from user where id=#{id}
+    &lt;/select&gt;
+    &lt;select id="findAll" parameterType="Integer" resultMap="userMap"&gt;
+        select * from user where id=#{id}
+    &lt;/select&gt;
+    &lt;select id="findByName" parameterType="string" resultType="com.itheima.domain.User"&gt;
+        select * from user where username like '%${value}%'
+    &lt;/select&gt;
+&lt;!--    我们在上面将原来的#{}占位符，改成了${value}。注意如果用模糊查询的这种写法，那么${value}的写--&gt;
+&lt;!--    法就是固定的，不能写成其它名字。--&gt;
+
+    &lt;insert id="saveuser"  parameterType="com.idea.domain.User"&gt;
+            &lt;!--配置插入操作后，获取插入时的id --&gt;
+        &lt;selectKey keyProperty="id" keyColumn="id" resultType="int" order="BEFORE"&gt;
+            select last_insert_id();
+        &lt;/selectKey&gt;
+        insert into user(username,address,sex,birthday) values(#{username},...)
+    &lt;/insert&gt;
+    &lt;update id="sss"&gt;&lt;/update&gt;
+    &lt;delete id="sss"&gt;&lt;/delete&gt;
+    &lt;!--一个dao中通常需要定义多个sql语句，语句有可能部分重复，可以使用sql标签重组--&gt;
+    &lt;sql id="user col"&gt;id,user,job,address&lt;/sql&gt;
+    &lt;select id="findusername" parameterType="Integer" resultType="com.idea.domain.User"&gt;
+        select &lt;include refid="user col"/&gt;
+         from user;
+    &lt;/select&gt;
+&lt;/mapper&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>4740-1616816655796</coId><text/><inline-styles/><styles/></para><para><coId>5187-1616818084594</coId><text>#{}表示一个占位符号</text><inline-styles><font-size><from>0</from><to>11</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>2215-1616818071894</coId><text>通过#{}可以实现 preparedStatement 向占位符中设置值，自动进行 java 类型和 jdbc 类型转换，#{}可以有效防止 sql 注入。 #{}可以接收简单类型值或 pojo 属性值。 如果 parameterType 传输单个简单类型值，#{}括号中可以是 value 或其它名称。</text><inline-styles><font-size><from>0</from><to>152</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>2154-1616818071894</coId><text>${}表示拼接 sql 串</text><inline-styles><font-size><from>0</from><to>13</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>6882-1616818071894</coId><text>通过${}可以将 parameterType 传入的内容拼接在 sql 中且不进行 jdbc 类型转换， ${}可以接收简单类型值或 pojo 属性值，如果 parameterType 传输单个简单类型值，${}括号中只能是 value。</text><inline-styles><font-size><from>0</from><to>119</to><value>16</value></font-size></inline-styles><styles/></para><code><coId>1087-1616816655796</coId><text>public static void main(String[] args) throws Exception{
+    //1读取配置文件
+    InputStream inputStream= Resources.getResourceAsStream("SqlMapConfig.xml");
+    //2创建SQLSessionFactory实例
+    SqlSessionFactoryBuilder builder=new SqlSessionFactoryBuilder();
+    SqlSessionFactory factory=builder.build(inputStream);
+    //3创建SQLSession实例
+    SqlSession session=factory.openSession(【ture】);//设置为true表示自动提交
+    //4使用SQLSession创建Dao接口的代理对象
+    UserDao userDao=session.getMapper(UserDao.class);
+    //5使用代理对象执行方法
+    List&lt;User&gt; users=userDao.findAll();
+    for (User user:users){
+        System.out.println(user);
+    }
+    //增删改需要提交事务：sesssion.commit();
+    //6释放资源
+    session.close();
+    inputStream.close();
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>9442-1616816655796</coId><text>@Insert:实现新增</text><inline-styles><bold><from>0</from><to>8</to><value>true</value></bold><font-family><from>0</from><to>8</to><value>Courier New</value></font-family><font-family><from>8</from><to>12</to><value>SimSun</value></font-family><font-size><from>0</from><to>12</to><value>12</value></font-size><color><from>0</from><to>8</to><value>#0070c0</value></color></inline-styles><styles/></para><para><coId>8953-1616818540638</coId><text>@Update:实现更新</text><inline-styles><font-family><from>0</from><to>8</to><value>Courier New</value></font-family><font-family><from>8</from><to>12</to><value>SimSun</value></font-family><font-size><from>0</from><to>12</to><value>12</value></font-size><color><from>0</from><to>8</to><value>#0070c0</value></color></inline-styles><styles/></para><para><coId>7450-1616818540638</coId><text>@Delete:实现删除</text><inline-styles><font-family><from>0</from><to>8</to><value>Courier New</value></font-family><font-family><from>8</from><to>12</to><value>SimSun</value></font-family><font-size><from>0</from><to>12</to><value>12</value></font-size><color><from>0</from><to>8</to><value>#0070c0</value></color></inline-styles><styles/></para><para><coId>6269-1616818540638</coId><text>@Select:实现查询</text><inline-styles><font-family><from>0</from><to>8</to><value>Courier New</value></font-family><font-family><from>8</from><to>12</to><value>SimSun</value></font-family><font-size><from>0</from><to>12</to><value>12</value></font-size><color><from>0</from><to>8</to><value>#0070c0</value></color></inline-styles><styles/></para><para><coId>1880-1616818540638</coId><text>@Result:实现结果集封装</text><inline-styles><font-family><from>0</from><to>8</to><value>Courier New</value></font-family><font-family><from>8</from><to>15</to><value>SimSun</value></font-family><font-size><from>0</from><to>15</to><value>12</value></font-size><color><from>0</from><to>8</to><value>#0070c0</value></color></inline-styles><styles/></para><para><coId>2556-1616818540638</coId><text>@Results:可以与@Result 一起使用，封装多个结果集</text><inline-styles><font-family><from>0</from><to>9</to><value>Courier New</value></font-family><font-family><from>9</from><to>12</to><value>SimSun</value></font-family><font-family><from>12</from><to>20</to><value>Courier New</value></font-family><font-family><from>20</from><to>32</to><value>SimSun</value></font-family><font-size><from>0</from><to>32</to><value>12</value></font-size><color><from>0</from><to>9</to><value>#0070c0</value></color></inline-styles><styles/></para><para><coId>7800-1616818540638</coId><text>@ResultMap:实现引用@Results 定义的封装</text><inline-styles><font-family><from>0</from><to>11</to><value>Courier New</value></font-family><font-family><from>11</from><to>15</to><value>SimSun</value></font-family><font-family><from>15</from><to>24</to><value>Courier New</value></font-family><font-family><from>24</from><to>29</to><value>SimSun</value></font-family><font-size><from>0</from><to>29</to><value>12</value></font-size><color><from>0</from><to>11</to><value>#0070c0</value></color></inline-styles><styles/></para><para><coId>2443-1616818540638</coId><text>@One:实现一对一结果集封装</text><inline-styles><font-family><from>0</from><to>5</to><value>Courier New</value></font-family><font-family><from>5</from><to>15</to><value>SimSun</value></font-family><font-size><from>0</from><to>15</to><value>12</value></font-size><color><from>0</from><to>5</to><value>#0070c0</value></color></inline-styles><styles/></para><para><coId>2069-1616818540638</coId><text>@Many:实现一对多结果集封装</text><inline-styles><font-family><from>0</from><to>6</to><value>Courier New</value></font-family><font-family><from>6</from><to>16</to><value>SimSun</value></font-family><font-size><from>0</from><to>16</to><value>12</value></font-size><color><from>0</from><to>6</to><value>#0070c0</value></color></inline-styles><styles/></para><para><coId>1539-1616818540638</coId><text>@SelectProvider: 实现动态 SQL 映射</text><inline-styles><font-family><from>0</from><to>17</to><value>Courier New</value></font-family><font-family><from>17</from><to>22</to><value>SimSun</value></font-family><font-family><from>22</from><to>26</to><value>Courier New</value></font-family><font-family><from>26</from><to>28</to><value>SimSun</value></font-family><font-size><from>0</from><to>28</to><value>12</value></font-size><color><from>0</from><to>17</to><value>#0070c0</value></color></inline-styles><styles/></para><para><coId>4252-1616818540638</coId><text>@CacheNamespace:实现注解二级缓存的使用</text><inline-styles><font-family><from>0</from><to>16</to><value>Courier New</value></font-family><font-family><from>16</from><to>27</to><value>SimSun</value></font-family><font-size><from>0</from><to>27</to><value>12</value></font-size><color><from>0</from><to>16</to><value>#0070c0</value></color></inline-styles><styles/></para></body></note>

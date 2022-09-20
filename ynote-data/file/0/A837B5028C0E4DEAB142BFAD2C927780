@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>6078-1637917479146</coId><text>更多查询细则在mybatisplus官网文档</text><inline-styles><font-size><from>0</from><to>22</to><value>16</value></font-size></inline-styles><styles/></para><image><coId>3895-1637917479146</coId><source>https://note.youdao.com/yws/res/15330/AC2B2C78BF4746258EA1C2E81CF1C8D6</source><text/><styles><width>620</width><height>158</height></styles></image><para><coId>7066-1637918101137</coId><text/><inline-styles/><styles/></para><image><coId>6099-1637918116320</coId><source>https://note.youdao.com/yws/res/15334/89B8A98898ED4174AEEBD6BA33AA3B39</source><text/><styles><width>620</width><height>138</height></styles></image><para><coId>9839-1637918175186</coId><text/><inline-styles/><styles/></para><image><coId>6393-1637918175186</coId><source>https://note.youdao.com/yws/res/15336/698C4983EAB4437591427073FAF13155</source><text/><styles><width>620</width><height>175</height></styles></image><para><coId>6527-1641538209674</coId><text/><inline-styles/><styles/></para><code><coId>5031-1641538209674</coId><text>
+        //通过QueryWrapper设置条件
+        //ge、gt、le、lt
+        //查询age&gt;=30记录
+        //第一个参数字段名称，第二个参数设置值
+//        wrapper.ge("age",30);
+
+        //eq、ne
+        //wrapper.eq("name","lilei");
+        //wrapper.ne("name","lilei");
+
+        //between
+        //查询年龄 20-30
+       // wrapper.between("age",20,30);
+
+        //like
+        //wrapper.like("name","岳");
+
+        //orderByDesc
+       // wrapper.orderByDesc("id");
+
+        //last
+        //wrapper.last("limit 1");
+
+        //指定要查询的列
+        wrapper.select("id","name");
+        List&lt;User&gt; users = userMapper.selectList(wrapper);
+System.out.println(users);
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>7862-1641538248494</coId><text/><inline-styles/><styles/></para><image><coId>7942-1641538248494</coId><source>https://note.youdao.com/yws/res/16805/D5CF57F9F8B84BF2BF262F5ECED00BAB</source><text/><styles><width>448</width><height>465</height></styles></image><para><coId>3049-1641538248494</coId><text/><inline-styles/><styles/></para></body></note>

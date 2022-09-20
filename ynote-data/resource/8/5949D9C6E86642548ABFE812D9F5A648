@@ -1,0 +1,12 @@
+<servlet>  
+ <!-- 当前servlet的名称 -->  
+ <servlet-name>WelcomeServlet</servlet-name>  
+  <!-- servlet所在的包名跟类名 -->  
+ <servlet-class>com.servlet.java</servlet-class>  
+ </servlet>  
+ <servlet-mapping>  
+ <!-- 必须于上一个servlet标签中的名称保持一致 -->  
+ <servlet-name>WelcomeServlet</servlet-name>  
+ <!-- 这是你在浏览器上访问的地址,必须要提 /servlet/xxxx 格式，不然tomcat启动会报错-->  
+ <url-pattern>/Welcome</url-pattern>  
+ </servlet-mapping>

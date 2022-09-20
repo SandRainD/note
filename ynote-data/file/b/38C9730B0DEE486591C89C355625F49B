@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>3874-1637752202996</coId><text/><inline-styles/><styles/></para><code><coId>2055-1637752202996</coId><text>     @Bean
+     public PaginationInterceptor paginationInterceptor() {
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        return paginationInterceptor;
+    }
+</text><inline-styles><font-size><from>0</from><to>1</to><value>16</value></font-size></inline-styles><styles/><language>java</language><theme>tomorrow</theme></code><image><coId>4589-1637753859811</coId><source>https://note.youdao.com/yws/res/15286/BC3FC0DB06DB40DF8F1020B5811E2ABA</source><text/><styles><width>620</width><height>299</height></styles></image><para><coId>9610-1637753859811</coId><text/><inline-styles/><styles/></para></body></note>

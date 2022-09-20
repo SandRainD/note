@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>5089-1584246340706</coId><text/><inline-styles/><styles/></para><code><coId>4115-1584246340706</coId><text>public void Demo extends JFrame{
+    public Demo(){
+        setTitle();设置窗体标题
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭窗体，停止程序
+        setBounds(int,int,int,int);//窗体位置和大小
+        Container c=getContentPane();//获取窗体的容
+        c.setLayout(new FlowLayout());
+        
+        JTextArea area=new JTextArea();//在括号里添加字符串就是默认值
+        area.setFont(new Font("楷体",Font.PLAIN,20));
+        area.setText("sdf");//设置文本
+        area.setRow(5);//设定行数
+        area.setColumns(20);//设定列数
+        area.append("追加内容");
+        area.insert("插入内容",2);
+        JScrollPane js=new JScrollPane(area);
+        c.add(js);
+        
+        
+        setVisible(true);//设置窗体可见
+    }
+    public void static main(String[] args){
+        new Demo();
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>2815-1584246340706</coId><text>messagejta1.setRows(5);//设置行数</text><inline-styles/><styles/></para><para><coId>8087-1590221878759</coId><text>messagejta1.setColumns(20);//设置列数</text><inline-styles/><styles/></para><para><coId>5052-1590221899219</coId><text>messagejta1.setFont(new Font("楷体",Font.PLAIN,20));//设置字体</text><inline-styles/><styles/></para><para><coId>4792-1590221915307</coId><text>messagejta1.setLineWrap(true);//设置文本框自动换行</text><inline-styles/><styles/></para><para><coId>3123-1590221927503</coId><text>setBackground(Color.orange);//设置字体颜色</text><inline-styles/><styles/></para><para><coId>2720-1590221927747</coId><text>setForeground(Color.blue);//设置字体颜色</text><inline-styles/><styles/></para></body></note>

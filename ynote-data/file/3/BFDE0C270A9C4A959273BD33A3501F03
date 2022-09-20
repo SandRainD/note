@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>9316-1611728982248</coId><text>Spring 框架对 JDBC 进行封装，使用 JdbcTemplate 方便实现对数据库操作</text><inline-styles/><styles/></para><para><coId>9693-1611742341639</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>4532-1611742341914</coId><text>JDBCTemplate创建和注入</text><inline-styles><bold><from>0</from><to>17</to><value>true</value></bold><font-size><from>0</from><to>17</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>3049-1611741964524</coId><text>&lt;bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"&gt;
+    &lt;property name="driverClassName" value="com.mysql.jdbc.Driver"&gt;&lt;/property&gt;
+    &lt;property name="url" value="jdbc:mysql://localhost:3306/userDb"&gt;&lt;/property&gt;
+    &lt;property name="username" value="root"&gt;&lt;/property&gt;
+    &lt;property name="password" value="biubiu123"&gt;&lt;/property&gt;
+&lt;/bean&gt;
+&lt;!--配置jdbc对象--&gt;
+&lt;bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" &gt;
+    &lt;!--注入datasource--&gt;
+    &lt;property name="dataSource" ref="dataSource"&gt; &lt;/property&gt;
+&lt;/bean&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>1418-1611741992005</coId><text/><inline-styles/><styles/></para><code><coId>6369-1611741992005</coId><text>&lt;context:component-scan base-package="com.atguigu"&gt;&lt;/context:component-scan&gt;
+</text><inline-styles/><styles/><language>xml</language><theme>tomorrow</theme></code><para><coId>6167-1611742129325</coId><text/><inline-styles/><styles/></para><code><coId>3059-1611742129325</coId><text>@Service
+public class BookService {
+ //注入 dao
+ @Autowired
+ private BookDao bookDao;
+}
+@Repository
+public class BookDaoImpl implements BookDao {
+ //注入 JdbcTemplate
+ @Autowired
+ private JdbcTemplate jdbcTemplate;
+}
+
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><heading compat="true" level="2"><coId>4113-1611742129325</coId><text/><inline-styles/><styles/></heading><heading compat="true" level="2"><coId>7926-1611742516062</coId><text>2、JdbcTemplate 操作数据库（添加，修改，删除）</text><inline-styles><bold><from>0</from><to>30</to><value>true</value></bold><font-size><from>0</from><to>30</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>9110-1611742518638</coId><text>​ a）对应数据库创建实体类</text><inline-styles/><styles/></para><para><coId>8522-1611742542149</coId><text>​ b）创建service和dao</text><inline-styles/><styles/></para><para><coId>5860-1611742542149</coId><text>​ （1）在 dao 进行数据库添加操作</text><inline-styles/><styles/></para><para><coId>4491-1611742542149</coId><text>​ （2）调用 JdbcTemplate 对象里面 update 方法实现添加操作</text><inline-styles/><styles/></para><code><coId>9344-1611742568147</coId><text>@Repository
+public class BookDaoImpl implements BookDao {
+ //注入 JdbcTemplate
+ @Autowired
+ private JdbcTemplate jdbcTemplate;
+ //添加的方法
+ @Override
+ public void add(Book book) {
+ //1 创建 sql 语句
+ String sql = "insert into t_book values(?,?,?)";
+ //2 调用方法实现
+ Object[] args = {book.getUserId(), book.getUsername(),book.getUstatus()};
+ int update = jdbcTemplate.update(sql,args);
+ System.out.println(update);
+ }
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><heading compat="true" level="2"><coId>6846-1611742520316</coId><text>3、JdbcTemplate 操作数据库（查询返回某个值）</text><inline-styles><bold><from>0</from><to>29</to><value>true</value></bold><font-size><from>0</from><to>29</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>6767-1611806947291</coId><text>//查询表记录数
+@Override
+public int selectCount() {
+ String sql = "select count(*) from t_book";
+//queryForObject方法中：第一个参数代表--sql语句；第二个参数代表--返回类型class  
+ Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
+ return count;
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><heading compat="true" level="2"><coId>5230-1611742520758</coId><text>4、JdbcTemplate 操作数据库（查询返回对象）</text><inline-styles><bold><from>0</from><to>28</to><value>true</value></bold><font-size><from>0</from><to>28</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>6833-1611806998772</coId><text>//查询返回对象
+@Override
+public Book findBookInfo(String id) {
+ String sql = "select * from t_book where user_id=?";
+ //调用方法
+/*
+	queryForObject方法中：
+		第一个参数：sql语句
+		第二个参数：RowMapper 是接口，针对返回不同类型数据，使用这个接口里面 实现类 完成数据封装
+		第三个参数：sql 语句值
+*/
+ Book book = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper&lt;Book&gt;(Book.class), id);
+ return book;
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><heading compat="true" level="2"><coId>2338-1611806998772</coId><text>5、JdbcTemplate 操作数据库（查询返回集合）</text><inline-styles><bold><from>0</from><to>28</to><value>true</value></bold><font-size><from>0</from><to>28</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>9088-1611808571461</coId><text>//所用场景：查询图书列表分页、、
+//查询返回集合
+@Override
+public List&lt;Book&gt; findAllBook() {
+ String sql = "select * from t_book";
+ //调用方法
+ List&lt;Book&gt; bookList = jdbcTemplate.query(sql, new BeanPropertyRowMapper&lt;Book&gt;(Book.class));
+ return bookList;
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>5512-1611808870354</coId><text/><inline-styles/><styles/></para><horizontal-line><coId>3740-1611808870354</coId><styles/></horizontal-line><para><coId>6520-1611808870354</coId><text/><inline-styles/><styles/></para><horizontal-line><coId>7020-1611808867378</coId><styles/></horizontal-line><heading compat="true" level="2"><coId>3956-1611808569565</coId><text>6、JdbcTemplate 操作数据库（批量操作）</text><inline-styles><bold><from>0</from><to>26</to><value>true</value></bold><font-size><from>0</from><to>26</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>1172-1611808895606</coId><text>//批量添加
+@Override
+public void batchAddBook(List&lt;Object[]&gt; batchArgs) {
+ String sql = "insert into t_book values(?,?,?)";
+//batchUpdate方法 第一个参数：sql语句		第二个参数：List集合，添加多条记录数据
+ int[] ints = jdbcTemplate.batchUpdate(sql, batchArgs);
+ System.out.println(Arrays.toString(ints));
+}
+
+//批量添加测试
+List&lt;Object[]&gt; batchArgs = new ArrayList&lt;&gt;();
+Object[] o1 = {"3","java","a"};
+Object[] o2 = {"4","c++","b"};
+Object[] o3 = {"5","MySQL","c"};
+batchArgs.add(o1);
+batchArgs.add(o2);
+batchArgs.add(o3);
+//调用批量添加
+bookService.batchAdd(batchArgs);
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>9988-1611808569879</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>8425-1611808570045</coId><text>7、JdbcTemplate 实现批量修改操作</text><inline-styles><bold><from>0</from><to>23</to><value>true</value></bold><font-size><from>0</from><to>23</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>4732-1611808917568</coId><text>//批量修改(同批量添加一样，调用同一个方法)
+@Override
+public void batchUpdateBook(List&lt;Object[]&gt; batchArgs) {
+ String sql = "update t_book set username=?,ustatus=? where user_id=?";
+ int[] ints = jdbcTemplate.batchUpdate(sql, batchArgs);
+ System.out.println(Arrays.toString(ints));
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>4971-1611808917568</coId><text/><inline-styles/><styles/></para></body></note>

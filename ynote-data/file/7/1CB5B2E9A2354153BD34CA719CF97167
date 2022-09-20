@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head><list id="6526-1622103002899" type="unordered"/><list id="5873-1622103002901" type="unordered"/></head><body><para><coId>4411-1622102031619</coId><text/><inline-styles/><styles/></para><code><coId>1331-1622102031619</coId><text>&lt;form method="post" action="/upload" enctype="multipart/form-data"&gt;
+    &lt;input type="file" name="file"&gt;&lt;br&gt;
+    &lt;input type="submit" value="提交"&gt;
+&lt;/form&gt;
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>2626-1622102037710</coId><text/><inline-styles/><styles/></para><code><coId>1823-1622102037710</coId><text>/**
+     * MultipartFile 自动封装上传过来的文件
+     * @param email
+     * @param username
+     * @param headerImg
+     * @param photos
+     * @return
+     */
+    @PostMapping("/upload")
+    public String upload(@RequestParam("email") String email,
+                         @RequestParam("username") String username,
+                         @RequestPart("headerImg") MultipartFile headerImg,
+                         @RequestPart("photos") MultipartFile[] photos) throws IOException {
+
+        log.info("上传的信息：email={}，username={}，headerImg={}，photos={}",
+                email,username,headerImg.getSize(),photos.length);
+
+        if(!headerImg.isEmpty()){
+            //保存到文件服务器，OSS服务器
+            String originalFilename = headerImg.getOriginalFilename();
+            headerImg.transferTo(new File("H:\\cache\\"+originalFilename));
+        }
+
+        if(photos.length &gt; 0){
+            for (MultipartFile photo : photos) {
+                if(!photo.isEmpty()){
+                    String originalFilename = photo.getOriginalFilename();
+                    photo.transferTo(new File("H:\\cache\\"+originalFilename));
+                }
+            }
+        }
+
+
+        return "main";
+    }
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>6074-1622102037710</coId><text/><inline-styles/><styles/></para><para><coId>2593-1622102576654</coId><text>application.properties中修改文件上传大小</text><inline-styles><font-size><from>0</from><to>31</to><value>16</value></font-size></inline-styles><styles/></para><image><coId>1985-1622102712960</coId><source>https://note.youdao.com/yws/res/13652/D42B68F8D5C748F785F6425C0A34ED44</source><text/><styles><width>620</width><height>79</height></styles></image><para><coId>6820-1622102621937</coId><text/><inline-styles/><styles/></para><para><coId>9587-1622102972628</coId><text/><inline-styles/><styles/></para><para><coId>8364-1622102972883</coId><text>自动配置原理</text><inline-styles><font-size><from>0</from><to>6</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>8795-1622102990341</coId><text>文件上传自动配置类-MultipartAutoConfiguration-MultipartProperties</text><inline-styles><bold><from>0</from><to>56</to><value>true</value></bold><font-size><from>0</from><to>56</to><value>15</value></font-size><color><from>0</from><to>56</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><list-item level="1" list-id="6526-1622103002899"><coId>8168-1622103002904</coId><text>自动配置好了 StandardServletMultipartResolver   【文件上传解析器】</text><inline-styles><bold><from>7</from><to>51</to><value>true</value></bold><font-size><from>0</from><to>51</to><value>15</value></font-size><color><from>0</from><to>51</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="1" list-id="6526-1622103002899"><coId>7578-1622103002904</coId><text>原理步骤</text><inline-styles><bold><from>0</from><to>4</to><value>true</value></bold><font-size><from>0</from><to>4</to><value>15</value></font-size><color><from>0</from><to>4</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="2" list-id="5873-1622103002901"><coId>3473-1622103002904</coId><text>1、请求进来使用文件上传解析器判断（isMultipart）并封装（resolveMultipart，返回MultipartHttpServletRequest）文件上传请求</text><inline-styles><bold><from>0</from><to>18</to><value>true</value></bold><bold><from>29</from><to>34</to><value>true</value></bold><bold><from>51</from><to>53</to><value>true</value></bold><bold><from>80</from><to>87</to><value>true</value></bold><font-size><from>0</from><to>87</to><value>15</value></font-size><color><from>0</from><to>87</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="2" list-id="5873-1622103002901"><coId>8873-1622103002904</coId><text>2、参数解析器来解析请求中的文件内容封装成MultipartFile</text><inline-styles><bold><from>0</from><to>34</to><value>true</value></bold><font-size><from>0</from><to>34</to><value>15</value></font-size><color><from>0</from><to>34</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><list-item level="2" list-id="5873-1622103002901"><coId>7988-1622103002904</coId><text>3、将request中文件信息封装为一个Map；MultiValueMap&lt;String, MultipartFile&gt;</text><inline-styles><bold><from>0</from><to>24</to><value>true</value></bold><font-size><from>0</from><to>60</to><value>15</value></font-size><color><from>0</from><to>60</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></list-item><para><coId>2678-1622103002904</coId><text>FileCopyUtils。实现文件流的拷贝</text><inline-styles><bold><from>0</from><to>13</to><value>true</value></bold><font-size><from>0</from><to>22</to><value>15</value></font-size><color><from>0</from><to>22</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para></body></note>

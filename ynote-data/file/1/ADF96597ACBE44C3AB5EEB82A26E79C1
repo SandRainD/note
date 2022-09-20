@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head><header compat="true"><text/><styles><align>center</align></styles></header><footer compat="true"><text/><styles><align>center</align></styles></footer></head><body><para><coId>9692-1585544011415</coId><text>JTable(Object[][] rowData,Object[] columnNames)</text><inline-styles><font-family><from>0</from><to>47</to><value>SimSun</value></font-family><font-size><from>0</from><to>47</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>6660-1585545002713</coId><text>//rowData封装表格中的数组，封装表格列名的数组</text><inline-styles><font-family><from>0</from><to>27</to><value>SimSun</value></font-family><font-size><from>0</from><to>27</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>9177-1585545127777</coId><text>setSelectionForeground(Color selectionForeground)</text><inline-styles><font-family><from>0</from><to>49</to><value>SimSun</value></font-family><font-size><from>0</from><to>49</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>1153-1585545169474</coId><text>//设置前景色，即选中行字体颜色</text><inline-styles><font-family><from>0</from><to>16</to><value>SimSun</value></font-family><font-size><from>0</from><to>16</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>1130-1585545225974</coId><text>setSelectionBackground(Color selectionBackground)</text><inline-styles><font-family><from>0</from><to>49</to><value>SimSun</value></font-family><font-size><from>0</from><to>49</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>3414-1585545262383</coId><text>//设置选中行背景色</text><inline-styles><font-family><from>0</from><to>10</to><value>SimSun</value></font-family><font-size><from>0</from><to>10</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>5100-1585545205409</coId><text>setSelectionMose(int selectionMode)</text><inline-styles><font-family><from>0</from><to>35</to><value>SimSun</value></font-family><font-size><from>0</from><to>35</to><value>22</value></font-size></inline-styles><styles/></para><image><coId>5048-1585545367220</coId><source>https://note.youdao.com/yws/res/2260/8251304EE8D6474A8F4AC5E6DA9DD0FC</source><text/><styles><width>398</width><float>right</float><height>86</height></styles></image><para><coId>5078-1585545364546</coId><text/><inline-styles/><styles/></para><para><coId>7053-1585545311861</coId><text>//设置选择模式</text><inline-styles><font-family><from>0</from><to>8</to><value>SimSun</value></font-family><font-size><from>0</from><to>8</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>7850-1585545355948</coId><text/><inline-styles/><styles/></para><para><coId>2078-1585702811268</coId><text/><inline-styles/><styles/></para><para><coId>6546-1585703501913</coId><text>setRowHeight(int rowHeight);//设置单元格的行高</text><inline-styles><font-family><from>0</from><to>38</to><value>SimSun</value></font-family><font-size><from>0</from><to>38</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>8523-1585703545510</coId><text>setRowSelectionAllowed(boolean as);//设置是否允许选中表格行</text><inline-styles><font-family><from>0</from><to>48</to><value>SimSun</value></font-family><font-size><from>0</from><to>48</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>9761-1585703606623</coId><text>setSAutoResizeMode(int mode);//设置表格的自动调整模式</text><inline-styles><font-family><from>0</from><to>42</to><value>SimSun</value></font-family><font-size><from>0</from><to>42</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>5014-1585703502366</coId><text/><inline-styles/><styles/></para><para><coId>9050-1585702811640</coId><text>重构JTable的isCellEditable(int row,int column);方法实现表格不可修改</text><inline-styles><font-family><from>0</from><to>54</to><value>SimSun</value></font-family><font-size><from>0</from><to>54</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>2334-1585703061809</coId><text>默认情况下表格数据居左对齐，重构JTable类的getDefaultRenderer(Class&lt;?&gt; columnClass)方法实现，例：</text><inline-styles><font-family><from>0</from><to>71</to><value>SimSun</value></font-family><font-size><from>0</from><to>71</to><value>22</value></font-size></inline-styles><styles/></para><code><coId>8223-1585703164974</coId><text>public TableCellRenderer getDefaultRenderer(Class&lt;?&gt; columnClass){
+    DefaultTableCellRenderer cr=(DefaultTableCellRenderer) 
+                        super.getDefaultRenderer(columnsClass);
+    cr.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+    return cr;
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>8040-1585703164974</coId><text/><inline-styles/><styles/></para><para><coId>8194-1585704849987</coId><text>getRowCount();//获得表格的行数</text><inline-styles><font-family><from>0</from><to>23</to><value>SimSun</value></font-family><font-size><from>0</from><to>23</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>2450-1585704900539</coId><text>getColumnCount();//获得表格列数</text><inline-styles><font-family><from>0</from><to>25</to><value>SimSun</value></font-family><font-size><from>0</from><to>25</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>5076-1585704930119</coId><text>getColumnName(int column);//获取指定索引位置的名称</text><inline-styles><font-family><from>0</from><to>39</to><value>SimSun</value></font-family><font-size><from>0</from><to>39</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>9081-1585704988731</coId><text/><inline-styles/><styles/></para><para><coId>3421-1585704989705</coId><text>setSelectionInterval(int from,int to);//选中索引从from到to的所有行</text><inline-styles><font-family><from>0</from><to>56</to><value>SimSun</value></font-family><font-size><from>0</from><to>56</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>9189-1585705515652</coId><text>addSelectionInterval(int from,int to);//追加索引从from到to的所有行</text><inline-styles><font-family><from>0</from><to>56</to><value>SimSun</value></font-family><font-size><from>0</from><to>56</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>3997-1585705537351</coId><text>isRowSelected(int row);//查看索引行是否被选中</text><inline-styles><font-family><from>0</from><to>35</to><value>SimSun</value></font-family><font-size><from>0</from><to>35</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>6510-1585705592631</coId><text>selectAll();//选中表格中所有行</text><inline-styles><font-family><from>0</from><to>22</to><value>SimSun</value></font-family><font-size><from>0</from><to>22</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>4284-1585705628709</coId><text>clearSelection();//取消选中行的选中状态</text><inline-styles><font-family><from>0</from><to>29</to><value>SimSun</value></font-family><font-size><from>0</from><to>29</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>5550-1585705670973</coId><text>getSelectedRowCount();//获得选中行的数量</text><inline-styles><font-family><from>0</from><to>32</to><value>SimSun</value></font-family><font-size><from>0</from><to>32</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>4866-1585705714917</coId><text>getSelectedRow();//获得被选中行最小的索引值也可返回数组</text><inline-styles><font-family><from>0</from><to>37</to><value>SimSun</value></font-family><font-size><from>0</from><to>37</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>1169-1585705759537</coId><text>getSelectedRows();//获得所有被选中行的索引值</text><inline-styles><font-family><from>0</from><to>32</to><value>SimSun</value></font-family><font-size><from>0</from><to>32</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>4294-1585706060392</coId><text>moveColumn(int column,int targetColumn);//将位于索引*处的列移动到目标列</text><inline-styles><font-family><from>0</from><to>57</to><value>SimSun</value></font-family><font-size><from>0</from><to>57</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>9219-1585706188473</coId><text>getValueAt(int,int);//获取某行某列的数据</text><inline-styles><font-family><from>0</from><to>31</to><value>SimSun</value></font-family><font-size><from>0</from><to>31</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>5795-1585714824225</coId><text>setValueAt(object,int,int);//修改的数据</text><inline-styles><font-family><from>0</from><to>34</to><value>SimSun</value></font-family><font-size><from>0</from><to>34</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>1514-1585705632922</coId><text/><inline-styles/><styles/></para><para><coId>8967-1585704850129</coId><text/><inline-styles/><styles/></para><code><coId>2479-1585548537009</coId><text>
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import javax.swing.*;
+class Demo extends JFrame{
+	public static void main(String[] args) {
+		Demo d=new Demo();
+		d.setVisible(true);
+	}
+	public Demo() {
+		setTitle("操作表格");
+		setBounds(100,100,500,375);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		String[] columnNames= {"A","B","C","D","E"};
+		String[][] tableValues=new String[20][columnNames.length];
+		
+		for(int row=0;row&lt;tableValues.length;row++) {
+			for(int column=0;column&lt;columnNames.length;column++) {
+				tableValues[row][column]=columnNames[column]+row;
+			}
+   
+   
+   
+   
+		}
+		JTable table=new JTable(tableValues,columnNames);
+		Container c=getContentPane();
+		JScrollPane p=new JScrollPane(table);
+		c.add(BorderLayout.CENTER,p);
+		
+		table.setSelectionForeground(Color.red);
+		table.setSelectionBackground(Color.yellow);
+		table.setRowHeight(9);//设置行高
+		/*
+		 * 设置选择模式
+		 */
+		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		System.out.println(""+table.getRowCount()+table.getColumnCount());//获取行和列的数量
+		System.out.println(table.getColumnName(1));//获取第二列的索引
+		System.out.println(table.getValueAt(1,1));//获取第二行第二列的数值 
+	}
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>7429-1585548537009</coId><text>第二种定义表格的方式，无滚动条</text><inline-styles><font-family><from>0</from><to>15</to><value>SimSun</value></font-family><font-size><from>0</from><to>15</to><value>22</value></font-size></inline-styles><styles/></para><code><coId>4270-1585701928929</coId><text>class Demo extends JFrame{
+	public static void main(String[] args) {
+		Demo d=new Demo();
+		d.setVisible(true);
+	}
+	public Demo() {
+		setTitle("操作表格");
+		setBounds(100,100,500,375);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          
+          Vector&lt;String&gt; columnNameV=new Vector&lt;&gt;();
+          columnNameV.add("A");columnNameV.add("B");
+          Vector&lt;Vector&lt;String&gt;&gt; tableValueV=new Vector&lt;&gt;();
+          for(int row=0;row&lt;6;row++){
+              Vector&lt;String&gt; rowV=new Vector&lt;&gt;();
+              rowV.add("A"+row);
+              rowV.add("B"+row);
+              tableValueV.add(rowV);
+          }
+          JTable table=new JTable(tableValueV,columnName);
+          getContentPane().add(table,BorderLayout.CENTER);
+          
+          JTableHeader tableHeader=table.getTableHeader();
+          getContentPane().add(tableHeader,BorderLayout.NORTH);
+          //将表头放入
+      }
+}
+</text><inline-styles/><styles/><language>java</language><theme>default</theme></code><para><coId>9640-1585701928929</coId><text>JTableHeader类的setRecorderingAllowed(boolean);方法可以实现表格是否支持重新排列功能</text><inline-styles><font-family><from>0</from><to>63</to><value>SimSun</value></font-family><font-size><from>0</from><to>63</to><value>22</value></font-size></inline-styles><styles/></para><para><coId>1864-1585703057584</coId><text/><inline-styles/><styles/></para></body></note>

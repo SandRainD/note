@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><para><coId>3798-1622104497381</coId><text>1、使用Servlet API</text><inline-styles><bold><from>0</from><to>15</to><value>true</value></bold><font-size><from>0</from><to>15</to><value>24</value></font-size></inline-styles><styles><line-height>1.3333333333333333</line-height></styles></para><para><coId>5182-1622105423372</coId><text>@ServletComponentScan(basePackages = "com.atguigu.admin") :指定原生Servlet组件都放在那里</text><inline-styles><bold><from>37</from><to>56</to><value>true</value></bold><font-size><from>0</from><to>77</to><value>15</value></font-size><color><from>0</from><to>21</to><value>#808000</value></color><color><from>21</from><to>77</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><para><coId>0070-1622105423372</coId><text>@WebServlet(urlPatterns = "/my")：效果：直接响应，没有经过Spring的拦截器？</text><inline-styles><bold><from>26</from><to>31</to><value>true</value></bold><bold><from>41</from><to>56</to><value>true</value></bold><font-size><from>0</from><to>56</to><value>15</value></font-size><color><from>0</from><to>11</to><value>#808000</value></color><color><from>11</from><to>56</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><para><coId>4137-1622105423372</coId><text>@WebFilter(urlPatterns={"/css/*","/images/*"})</text><inline-styles><bold><from>24</from><to>32</to><value>true</value></bold><bold><from>33</from><to>44</to><value>true</value></bold><font-size><from>0</from><to>46</to><value>15</value></font-size><color><from>0</from><to>10</to><value>#808000</value></color><color><from>10</from><to>46</to><value>#404040</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><para><coId>5326-1622105423372</coId><text>@WebListener</text><inline-styles><font-size><from>0</from><to>12</to><value>15</value></font-size><color><from>0</from><to>12</to><value>#808000</value></color></inline-styles><styles><line-height>1.74</line-height></styles></para><heading compat="true" level="a"><coId>6810-1622107237457</coId><text/><inline-styles/><styles><line-height>1.74</line-height></styles></heading><para><coId>3472-1622107255360</coId><text>若要使用原生WebServlet，需要在springboot的主类上加上@ServletComponentScan(basePackage="com.idea.my")注解，这样WebServlet注解即可生效</text><inline-styles/><styles/></para><para><coId>2341-1622107453019</coId><text/><inline-styles/><styles/></para><para><coId>9225-1622107453194</coId><text>2、使用RegistrationBean</text><inline-styles><bold><from>0</from><to>20</to><value>true</value></bold><font-size><from>0</from><to>20</to><value>24</value></font-size></inline-styles><styles><line-height>1.3333333333333333</line-height></styles></para><para><coId>6478-1622107633081</coId><text>ServletRegistrationBean, FilterRegistrationBean, and ServletListenerRegistrationBean</text><inline-styles/><styles/></para><code><coId>7359-1622107667265</coId><text>@Configuration(proxyBeanMethods=true)//保证servlet单实例
+public class MyRegistConfig {
+    @Bean
+    public ServletRegistrationBean myServlet(){
+        MyServlet myServlet = new MyServlet();
+
+        return new ServletRegistrationBean(myServlet,"/my","/my02");
+    }
+    @Bean
+    public FilterRegistrationBean myFilter(){
+
+        MyFilter myFilter = new MyFilter();
+//        return new FilterRegistrationBean(myFilter,myServlet());
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(myFilter);
+        filterRegistrationBean.setUrlPatterns(Arrays.asList("/my","/css/*"));
+        return filterRegistrationBean;
+    }
+    @Bean
+    public ServletListenerRegistrationBean myListener(){
+        MySwervletContextListener mySwervletContextListener = new MySwervletContextListener();
+        return new ServletListenerRegistrationBean(mySwervletContextListener);
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>2835-1622107667265</coId><text/><inline-styles/><styles/></para></body></note>

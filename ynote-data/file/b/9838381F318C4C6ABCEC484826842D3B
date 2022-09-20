@@ -1,0 +1,71 @@
+flutter中类似Web中的Flex布局
+Expanded可以用在Row和Column布局中
+
+属性 | 说明
+---|---
+flex | 元素占整个父Row/Column的比例
+child | 子元素
+
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutterapp01/Row.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: '实验三',
+        home: Scaffold(
+          appBar: AppBar(title: Text('介绍')),
+          body:www(),
+          bottomNavigationBar: sss(),
+      ),
+    );
+  }
+}
+class www extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
+
+        height: 200.0,
+        child: Image.asset(
+            './images/木兰.png',
+            alignment: Alignment.topCenter, //设置图片对齐方式
+            color: Colors.blue,
+            colorBlendMode: BlendMode.color,//图片与背景混合方式
+            fit: BoxFit.cover
+        ),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(//渐变
+              colors: [
+                Colors.lightBlue,
+                Colors.greenAccent,
+                Colors.purple
+              ]),
+          border: Border.all(width: 2.0, color: Colors.red),
+        ),
+
+      );
+  }
+}
+
+class sss extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(child: IconContainer(Icons.list,color: Colors.green,),flex: 1,),
+        Expanded(child: IconContainer(Icons.home,color: Colors.lightBlue,),flex: 1,),
+        Expanded(child: IconContainer(Icons.select_all,color: Colors.yellow,),flex: 1,),
+        IconContainer(Icons.search_rounded,color: Colors.orange,),
+      ],
+    );
+  }
+
+}
+```

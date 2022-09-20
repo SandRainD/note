@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><note xmlns="http://note.youdao.com" file-version="0" schema-version="1.0.3"><head/><body><heading compat="true" level="a"><coId>4919-1617682291882</coId><text>组件添加</text><inline-styles><bold><from>0</from><to>4</to><value>true</value></bold><font-size><from>0</from><to>4</to><value>32</value></font-size></inline-styles><styles/></heading><heading compat="true" level="2"><coId>2231-1617756849269</coId><text>1、Configuration</text><inline-styles><bold><from>0</from><to>15</to><value>true</value></bold><font-size><from>0</from><to>15</to><value>20</value></font-size><color><from>0</from><to>15</to><value>#393939</value></color></inline-styles><styles/></heading><para><coId>8870-1617756865044</coId><text>基本使用：</text><inline-styles/><styles/></para><code><coId>3834-1617757544591</coId><text>//使用@Bean标注在方法上给容器注册组件，默认单实例
+//配置类本身也是组件
+//Configuration中boolean proxyBeanMethods() default true;代理对象调用方法总是容器中的单实例
+@Configuration    //告诉springboot这是一个配置类，等同于xml配置文件
+public class MyConfig {
+    //外部通过获取配置类调用组件注册方法，获取到的都是容器中的单实例对象
+    //@Bean("tom")  自定义组件名
+    @Bean//给容器添加组件，方法名作为组件id，返回类型就是组件类型。返回值就是组件在容器中的实例
+    public User user01(){
+        return new User("zhangsan",18);
+    }
+}
+验证：
+@SpringBootApplication
+public class MainApplication {
+    public static void main(String[] args) {
+        //返回iOC容器
+        ConfigurableApplicationContext run = SpringApplication.run(MainApplication.class, args);
+        //查看容器组件
+        String[] names = run.getBeanDefinitionNames();
+        for (String name : names) {
+            System.out.println(name);
+        }
+        User user=run.getBaen("tom",User.class);
+        sout user
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>7448-1617757544591</coId><text>Full模式与Lite模式</text><inline-styles><bold><from>0</from><to>13</to><value>true</value></bold><font-size><from>0</from><to>13</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>6420-1617763106679</coId><text>配置 类组件之间无依赖关系用Lite模式加速容器启动过程，减少判断</text><inline-styles><font-size><from>0</from><to>33</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>7536-1617763104806</coId><text>配置类组件之间有依赖关系，方法会被调用得到之前单实例组件，用Full模式</text><inline-styles><font-size><from>0</from><to>36</to><value>16</value></font-size></inline-styles><styles/></para><heading compat="true" level="4"><coId>0044-1617763109609</coId><text>proxyBeanMethods：代理bean的方法</text><inline-styles><bold><from>0</from><to>26</to><value>true</value></bold><font-size><from>0</from><to>26</to><value>16</value></font-size></inline-styles><styles/></heading><para><coId>5590-1617763126379</coId><text> Full(proxyBeanMethods = true)【保证每个@Bean方法被调用多少次返回的组件都是单实例的】</text><inline-styles><font-size><from>0</from><to>60</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>9222-1617763126379</coId><text>Lite(proxyBeanMethods = false)【每个@Bean方法被调用多少次返回的组件都是新创建的】</text><inline-styles><font-size><from>0</from><to>58</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>2012-1617763126379</coId><text>组件依赖必须使用Full模式默认。其他默认是否Lite模式</text><inline-styles><font-size><from>0</from><to>29</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>4615-1617764609051</coId><text/><inline-styles/><styles/></para><heading compat="true" level="2"><coId>4787-1617764609529</coId><text>2、@Bean、@Component、@Controller、@Service、@Repository</text><inline-styles><bold><from>0</from><to>51</to><value>true</value></bold><font-size><from>0</from><to>51</to><value>20</value></font-size></inline-styles><styles/></heading><heading compat="true" level="2"><coId>6474-1617764709603</coId><text>3、@ComponentScan、@Import</text><inline-styles><bold><from>0</from><to>24</to><value>true</value></bold><font-size><from>0</from><to>24</to><value>20</value></font-size><color><from>0</from><to>24</to><value>#404040</value></color></inline-styles><styles><line-height>1.4</line-height></styles></heading><code><coId>9343-1617764995140</coId><text>@Import({User.class, DBHelper.class})
+//给容器中自动创建出这两个类型的组件、默认组件的名字就是全类名
+@Configuration
+public class MyConfig {
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><heading compat="true" level="2"><coId>4858-1617764995140</coId><text>4、@Conditional</text><inline-styles><bold><from>0</from><to>14</to><value>true</value></bold><font-size><from>0</from><to>14</to><value>20</value></font-size><color><from>0</from><to>14</to><value>#404040</value></color></inline-styles><styles><line-height>1.4</line-height></styles></heading><para><coId>7752-1617766383935</coId><text>条件装配：满足Conditional指定的条件，则进行组件注入</text><inline-styles><font-size><from>0</from><to>31</to><value>15</value></font-size><color><from>0</from><to>31</to><value>#404040</value></color></inline-styles><styles/></para><code><coId>1663-1617766943972</coId><text>@Configuration(proxyBeanMethods = false)
+//@ConditionalOnBean(name = "tom") 容器中有tom组件才进行装载
+@ConditionalOnMissingBean(name = "tom")//容器中没有tom组件时进行装载
+public class MyConfig {
+    }
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>5889-1617767261853</coId><text/><inline-styles/><styles/></para><image><coId>8351-1618110919987</coId><source>https://note.youdao.com/yws/res/13126/E7425E7D9CFB4780B5D1DAAC0C8303A7</source><text/><styles><width>599</width><height>544</height></styles></image><para><coId>5966-1618111199562</coId><text/><inline-styles/><styles/></para><horizontal-line><coId>8782-1618111199562</coId><styles/></horizontal-line><para><coId>1968-1618111199562</coId><text/><inline-styles/><styles/></para><horizontal-line><coId>9755-1618111195466</coId><styles/></horizontal-line><heading compat="true" level="2"><coId>7365-1618111186936</coId><text>1、原生配置文件引入</text><inline-styles><bold><from>0</from><to>10</to><value>true</value></bold><font-size><from>0</from><to>10</to><value>20</value></font-size></inline-styles><styles/></heading><heading compat="true" level="2"><coId>7933-1618110961265</coId><text>@ImportResource</text><inline-styles><bold><from>0</from><to>15</to><value>true</value></bold><font-size><from>0</from><to>15</to><value>20</value></font-size></inline-styles><styles/></heading><code><coId>2015-1618111225014</coId><text>@ImportResource("classpath:beans.xml")
+public class MyConfig{}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>8937-1618110911167</coId><text/><inline-styles/><styles/></para><horizontal-line><coId>5016-1618111304278</coId><styles/></horizontal-line><heading compat="true" level="2"><coId>1863-1618111266521</coId><text>配置绑定</text><inline-styles><bold><from>0</from><to>4</to><value>true</value></bold><font-size><from>0</from><to>4</to><value>20</value></font-size></inline-styles><styles/></heading><para><coId>3858-1618111266586</coId><text>使用Java读取到properties文件中的内容，并且把它封装到JavaBean中</text><inline-styles/><styles/></para><code><coId>9845-1618111544790</coId><text>/**
+ * 只有在容器中的组件，才会拥有SpringBoot提供的强大功能
+ */
+@Component
+@ConfigurationProperties(prefix = "mycar")
+public class Car {
+    private String brand;
+    private Integer price;
+    public String getBrand() {
+        return brand;
+    }
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+    public Integer getPrice() {
+        return price;
+    }
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+    @Override
+    public String toString() {
+        return "Car{" +
+                "brand='" + brand + '\'' +
+                ", price=" + price +
+                '}';
+    }
+}
+</text><inline-styles/><styles/><language>java</language><theme>tomorrow</theme></code><para><coId>9572-1618111266615</coId><text>properties配置文件：</text><inline-styles><font-size><from>0</from><to>15</to><value>16</value></font-size></inline-styles><styles/></para><image><coId>1762-1618111674413</coId><source>https://note.youdao.com/yws/res/13147/FF7CE78962C44CE4BCF08FDDE7947223</source><text/><styles><width>620</width><height>194</height></styles></image><para><coId>9987-1618111266686</coId><text>使用时直接@Autowired自动导入</text><inline-styles><font-size><from>0</from><to>19</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>6369-1618112115959</coId><text>--------------------------------------------------------------------------------------------------------------------</text><inline-styles><font-size><from>0</from><to>116</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>4586-1618111266699</coId><text>第二种方式：</text><inline-styles><font-size><from>0</from><to>6</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>6410-1618112113651</coId><text>不配置@Component自动导入</text><inline-styles><font-size><from>0</from><to>3</to><value>16</value></font-size><font-size><from>3</from><to>17</to><value>13</value></font-size><color><from>3</from><to>17</to><value>#1f7f9a</value></color><back-color><from>3</from><to>17</to><value>#f9f9f9</value></back-color></inline-styles><styles><text-indent>1</text-indent></styles></para><para><coId>1822-1618112147143</coId><text>在MyConfig中添加@EnableConfigurationProperties(BeanName.class)</text><inline-styles><font-size><from>0</from><to>58</to><value>16</value></font-size></inline-styles><styles/></para><para><coId>9053-1618111266714</coId><text/><inline-styles/><styles/></para><para><coId>7578-1618111266747</coId><text/><inline-styles/><styles/></para></body></note>
